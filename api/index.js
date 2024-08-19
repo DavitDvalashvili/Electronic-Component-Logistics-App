@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 import db from "./db/database.js";
+import componentRouter from "./routes/component.route.js";
 
 // config dotenv
 dotenv.config();
@@ -9,12 +10,9 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT;
 
-import componentRouter from "./routes/component.route.js";
-
 app.use(
   cors({
-    origin: "http://localhost:5173",
-    credentials: true,
+    origin: "*", // Allows requests from any origin
   })
 );
 
@@ -26,4 +24,4 @@ app.listen(PORT, () => {
   console.log(`Server is listening on port ${PORT}`);
 });
 
-app.use("/api/component", componentRouter);
+app.use("/api/components/", componentRouter);
