@@ -13,7 +13,7 @@ const SearchBox = () => {
     setSearchTerm(value); // Update local search term state
 
     // Dispatch the action with the updated filterTerm
-    dispatch(getComponents({ ...filters, searchTerm: value }));
+    dispatch(getComponents({ ...filters, search_term: value }));
   };
   console.log(filters);
 

@@ -2,7 +2,7 @@ import db from "../db/database.js";
 
 export const getComponents = (req, res) => {
   const {
-    searchTerm,
+    search_term,
     name,
     family,
     package_type,
@@ -11,15 +11,17 @@ export const getComponents = (req, res) => {
     suppliers_name,
   } = req.query;
 
+  // Base SQL query
   let q = "SELECT * FROM components";
   let queryParams = [];
   let conditions = [];
 
-  if (searchTerm) {
+  // Add search_term condition if provided
+  if (search_term) {
     conditions.push(
-      "(family LIKE ? OR name LIKE ? OR package_type LIKE ? OR nominal_value LIKE ? OR electrical_supply LIKE ? OR suppliers_name LIKE ?)"
+      "(name LIKE ? OR family LIKE ? OR package_type LIKE ? OR nominal_value LIKE ? OR electrical_supply LIKE ? OR suppliers_name LIKE ?)"
     );
-    const likeTerm = `%${searchTerm}%`;
+    const likeTerm = `%${search_term}%`;
     queryParams.push(
       likeTerm,
       likeTerm,
@@ -30,6 +32,7 @@ export const getComponents = (req, res) => {
     );
   }
 
+  // If specific filters are provided, add them to the query
   if (name) {
     conditions.push("name LIKE ?");
     queryParams.push(`%${name}%`);
@@ -60,10 +63,12 @@ export const getComponents = (req, res) => {
     queryParams.push(`%${suppliers_name}%`);
   }
 
+  // Combine conditions
   if (conditions.length > 0) {
     q += " WHERE " + conditions.join(" AND ");
   }
 
+  // Execute the query
   db.query(q, queryParams, (err, data) => {
     if (err) {
       // Send a generic 500 error response if the database query fails

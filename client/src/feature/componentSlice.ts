@@ -16,7 +16,7 @@ const initialState: InitialStateComponent = {
   nominal_value: "",
   electrical_supply: "",
   suppliers_name: "",
-  searchTerm: "",
+  search_term: "",
 };
 
 // Async thunk to fetch components
@@ -29,7 +29,7 @@ export const getComponents = createAsyncThunk(
     nominal_value,
     electrical_supply,
     suppliers_name,
-    filterTerm,
+    search_term,
   }: {
     name: string;
     family: string;
@@ -37,7 +37,7 @@ export const getComponents = createAsyncThunk(
     nominal_value: string;
     electrical_supply: string;
     suppliers_name: string;
-    filterTerm: string;
+    search_term: string;
   }) => {
     const params = new URLSearchParams({
       name,
@@ -46,11 +46,11 @@ export const getComponents = createAsyncThunk(
       nominal_value,
       electrical_supply,
       suppliers_name,
+      search_term,
     }).toString();
 
-    const response = await axios.get(
-      `${Api_Url}/components/get/${filterTerm}?${params}`
-    );
+    const response = await axios.get(`${Api_Url}/components/get/?${params}`);
+    console.log(params);
     return response.data;
   }
 );
@@ -89,7 +89,7 @@ const componentSlice = createSlice({
       state.suppliers_name = action.payload;
     },
     searchTermChange: (state, action: PayloadAction<string>) => {
-      state.searchTerm = action.payload;
+      state.search_term = action.payload;
     },
   },
   extraReducers: (builder) => {

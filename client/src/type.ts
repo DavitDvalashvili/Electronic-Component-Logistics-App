@@ -29,7 +29,7 @@ export interface InitialStateComponent {
   nominal_value: string;
   electrical_supply: string;
   suppliers_name: string;
-  searchTerm: string;
+  search_term: string;
 }
 
 export interface CustomSelectProps {

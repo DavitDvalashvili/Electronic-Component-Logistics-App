@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
+// Define the keys of the FiltersState type
 type FilterKey =
   | "name"
   | "family"
@@ -15,7 +16,7 @@ interface FiltersState {
   nominal_value: string;
   electrical_supply: string;
   suppliers_name: string;
-  filterTerm: string;
+  search_term: string;
 }
 
 const initialState: FiltersState = {
@@ -25,7 +26,7 @@ const initialState: FiltersState = {
   nominal_value: "",
   electrical_supply: "",
   suppliers_name: "",
-  filterTerm: "",
+  search_term: "",
 };
 
 const filtersSlice = createSlice({
@@ -36,7 +37,8 @@ const filtersSlice = createSlice({
       state,
       action: PayloadAction<{ filterBy: FilterKey; value: string }>
     ) => {
-      state[action.payload.filterBy] = action.payload.value;
+      const { filterBy, value } = action.payload;
+      state[filterBy] = value;
     },
   },
 });
