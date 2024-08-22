@@ -14,7 +14,7 @@ const FilterContainer = () => {
   }, [dispatch, filters]);
 
   return (
-    <section className="grid  grid-cols-2 lg:grid-cols-3 gap-4 p-5 max-w-[1180px] xl:mx-auto">
+    <section className="grid  grid-cols-2 lg:grid-cols-3 gap-4 p-5 max-w-[1440px] xl:mx-auto">
       <CustomSelect filterBy="name" />
       <CustomSelect filterBy="family" />
       <CustomSelect filterBy="package_type" />

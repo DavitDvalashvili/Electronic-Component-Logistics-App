@@ -1,62 +1,3 @@
-// import { useState, useEffect } from "react";
-// import Select from "react-select";
-// import axios from "axios";
-
-// // Example API URL
-// const Api_Url = "http://localhost:3000/api";
-
-// interface OptionItem {
-//   [key: string]: string;
-// }
-
-// interface CustomSelectProps {
-//   filterBy: string;
-// }
-
-// const CustomSelect = ({ filterBy }: CustomSelectProps) => {
-//   const [options, setOptions] = useState<{ value: string; label: string }[]>(
-//     []
-//   );
-//   const [isLoading, setIsLoading] = useState(false);
-
-//   useEffect(() => {
-//     const fetchOptions = async () => {
-//       setIsLoading(true);
-//       try {
-//         const response = await axios.get<OptionItem[]>(
-//           `${Api_Url}/filter-options/get/?filterBy=${filterBy}`
-//         );
-//         setOptions(
-//           response.data.map((item) => ({
-//             value: item[filterBy],
-//             label: item[filterBy],
-//           }))
-//         );
-//       } catch (error) {
-//         console.error("Error fetching options:", error);
-//       } finally {
-//         setIsLoading(false);
-//       }
-//     };
-
-//     fetchOptions();
-//   }, [filterBy]);
-
-//   return (
-//     <Select
-//       className="basic-single"
-//       classNamePrefix="select"
-//       isLoading={isLoading}
-//       isClearable
-//       isSearchable
-//       name={filterBy}
-//       options={options}
-//     />
-//   );
-// };
-
-// export default CustomSelect;
-
 import { useState, useEffect } from "react";
 import Select from "react-select";
 import axios from "axios";
@@ -99,12 +40,16 @@ const CustomSelect = ({ filterBy }: CustomSelectProps) => {
         const response = await axios.get<OptionItem[]>(
           `${Api_Url}/filter-options/get/?filterBy=${filterBy}`
         );
-        setOptions(
-          response.data.map((item) => ({
+
+        // Filter out options with empty or null values
+        const filteredOptions = response.data
+          .map((item) => ({
             value: item[filterBy],
             label: item[filterBy],
           }))
-        );
+          .filter((option) => option.value && option.value.trim() !== "");
+
+        setOptions(filteredOptions);
       } catch (error) {
         console.error("Error fetching options:", error);
       } finally {

@@ -12,7 +12,13 @@ const Component = () => {
 
   console.log(components);
 
-  return <div>compnent ID</div>;
+  return (
+    <div>
+      {components.map((component) => (
+        <>{component.name}</>
+      ))}
+    </div>
+  );
 };
 
 export default Component;
