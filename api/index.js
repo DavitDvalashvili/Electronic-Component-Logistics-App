@@ -1,8 +1,8 @@
 import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
-import db from "./db/database.js";
 import componentRouter from "./routes/component.route.js";
+import filterOptionRouter from "./routes/filter.option.route.js";
 
 // config dotenv
 dotenv.config();
@@ -25,3 +25,4 @@ app.listen(PORT, () => {
 });
 
 app.use("/api/components/", componentRouter);
+app.use("/api/filter-options/", filterOptionRouter);
