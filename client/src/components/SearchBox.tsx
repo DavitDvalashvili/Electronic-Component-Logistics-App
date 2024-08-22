@@ -18,7 +18,7 @@ const SearchBox = () => {
   console.log(filters);
 
   return (
-    <div className="p-4 bg-red-500 flex justify-start gap-4 items-center">
+    <div className="py-[3px] px-3 border-solid border-[1px] border-shadowColor rounded-md flex justify-start gap-4 items-center w-auto w-[350px] md:w-[300px]">
       <IoSearch className="text-xl" />
       <input
         type="search"

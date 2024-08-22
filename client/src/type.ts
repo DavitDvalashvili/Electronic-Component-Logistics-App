@@ -30,8 +30,15 @@ export interface InitialStateComponent {
   electrical_supply: string;
   suppliers_name: string;
   search_term: string;
+  page: string;
 }
 
 export interface CustomSelectProps {
   filterBy: string;
+}
+
+export interface IPagination {
+  currentPage: number;
+  totalPages: number;
+  setCurrentPage: (page: number) => void;
 }

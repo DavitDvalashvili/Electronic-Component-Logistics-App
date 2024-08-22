@@ -17,6 +17,7 @@ const initialState: InitialStateComponent = {
   electrical_supply: "",
   suppliers_name: "",
   search_term: "",
+  page: "1",
 };
 
 // Async thunk to fetch components
@@ -30,6 +31,7 @@ export const getComponents = createAsyncThunk(
     electrical_supply,
     suppliers_name,
     search_term,
+    page,
   }: {
     name: string;
     family: string;
@@ -38,6 +40,7 @@ export const getComponents = createAsyncThunk(
     electrical_supply: string;
     suppliers_name: string;
     search_term: string;
+    page: string;
   }) => {
     const params = new URLSearchParams({
       name,
@@ -47,6 +50,7 @@ export const getComponents = createAsyncThunk(
       electrical_supply,
       suppliers_name,
       search_term,
+      page,
     }).toString();
 
     const response = await axios.get(`${Api_Url}/components/get/?${params}`);

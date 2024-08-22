@@ -17,6 +17,7 @@ interface FiltersState {
   electrical_supply: string;
   suppliers_name: string;
   search_term: string;
+  page: string;
 }
 
 const initialState: FiltersState = {
@@ -27,6 +28,7 @@ const initialState: FiltersState = {
   electrical_supply: "",
   suppliers_name: "",
   search_term: "",
+  page: "1",
 };
 
 const filtersSlice = createSlice({

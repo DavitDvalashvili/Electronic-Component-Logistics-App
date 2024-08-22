@@ -9,17 +9,19 @@ export const getComponents = (req, res) => {
     nominal_value,
     electrical_supply,
     suppliers_name,
+    page = 1, // Default to page 1 if not provided
   } = req.query;
 
-  // Base SQL query
+  const pageSize = 10; // Number of items per page
+  const offset = (page - 1) * pageSize;
+
   let q = "SELECT * FROM components";
   let queryParams = [];
   let conditions = [];
 
-  // Add search_term condition if provided
   if (search_term) {
     conditions.push(
-      "(name LIKE ? OR family LIKE ? OR package_type LIKE ? OR nominal_value LIKE ? OR electrical_supply LIKE ? OR suppliers_name LIKE ?)"
+      "(family LIKE ? OR name LIKE ? OR package_type LIKE ? OR nominal_value LIKE ? OR electrical_supply LIKE ? OR suppliers_name LIKE ?)"
     );
     const likeTerm = `%${search_term}%`;
     queryParams.push(
@@ -32,7 +34,6 @@ export const getComponents = (req, res) => {
     );
   }
 
-  // If specific filters are provided, add them to the query
   if (name) {
     conditions.push("name LIKE ?");
     queryParams.push(`%${name}%`);
@@ -63,23 +64,21 @@ export const getComponents = (req, res) => {
     queryParams.push(`%${suppliers_name}%`);
   }
 
-  // Combine conditions
   if (conditions.length > 0) {
     q += " WHERE " + conditions.join(" AND ");
   }
 
-  // Execute the query
+  // Add pagination
+  q += " LIMIT ? OFFSET ?";
+  queryParams.push(pageSize, offset);
+
   db.query(q, queryParams, (err, data) => {
     if (err) {
-      // Send a generic 500 error response if the database query fails
       return res.status(500).json({ message: "Server error" });
     }
     if (!data || data.length === 0) {
-      // Send a 404 response if no components are found
       return res.status(404).json({ message: "Components not found!" });
     }
-
-    // Send the data with a 200 status if everything is successful
     return res.status(200).json(data);
   });
 };

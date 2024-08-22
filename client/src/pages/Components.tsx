@@ -1,15 +1,13 @@
 import { useAppSelector } from "../App/hook";
 import { RootState } from "../App/store";
-import FilterContainer from "../components/FilterContainer";
-import SearchBox from "../components/SearchBox";
+import InteractiveBox from "../components/InteractiveBox";
 
 const Components = () => {
   const { components } = useAppSelector((state: RootState) => state.component);
 
   return (
     <main>
-      <FilterContainer />
-      <SearchBox />
+      <InteractiveBox />
       <div className="space-y-4">
         {components.map((component) => (
           <div
