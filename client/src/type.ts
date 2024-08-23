@@ -40,5 +40,5 @@ export interface CustomSelectProps {
 export interface IPagination {
   currentPage: number;
   totalPages: number;
-  setCurrentPage: (page: number) => void;
+  onPageChange: (page: number) => void;
 }

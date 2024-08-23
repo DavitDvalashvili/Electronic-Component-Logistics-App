@@ -16,18 +16,17 @@ const InteractiveBox = () => {
   const filters = useAppSelector((state) => state.filters);
 
   const handleClick = () => {
-    if (showFilter) {
-      setShowFilter(false);
-    } else {
-      setShowFilter(true);
-    }
+    setShowFilter(!showFilter);
   };
 
   useEffect(() => {
-    setTotalPages(Math.round(components.length / 20 + 1));
-  }, [components]);
+    setTotalPages(Math.round(components.length / 10 + 10));
+  }, [components.length]);
 
-  dispatch(getComponents({ ...filters, page: currentPage.toString() }));
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+    dispatch(getComponents({ ...filters, page: page.toString() }));
+  };
 
   return (
     <div className="max-w-[1440px] pb-5 pt-10 xl:mx-auto ">
@@ -46,11 +45,11 @@ const InteractiveBox = () => {
           </div>
           <SearchBox />
         </div>
-        <div className="w-[300px] sm:w-[450px] md:w-[300px] md:ml-auto lg:w-[500px] ">
+        <div className="w-[300px] sm:w-[450px] md:w-[300px] md:ml-auto lg:w-[500px]">
           <Pagination
             currentPage={currentPage}
-            setCurrentPage={setCurrentPage}
             totalPages={totalPages}
+            onPageChange={handlePageChange} // Pass the handler function to Pagination
           />
         </div>
       </div>

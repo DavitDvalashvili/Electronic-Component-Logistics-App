@@ -1,18 +1,18 @@
 import ResponsivePagination from "react-responsive-pagination";
 import "react-responsive-pagination/themes/classic.css";
 import { IPagination } from "../type";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-const Pagination = ({
-  setCurrentPage,
-  totalPages,
-  currentPage,
-}: IPagination) => {
+const Pagination = ({ totalPages, currentPage, onPageChange }: IPagination) => {
   const [current, setCurrent] = useState<number>(currentPage);
+
+  useEffect(() => {
+    setCurrent(currentPage);
+  }, [currentPage]);
 
   const handlePageChange = (page: number) => {
     setCurrent(page);
-    setCurrentPage(page);
+    onPageChange(page); // Notify parent component of the page change
   };
 
   return (
