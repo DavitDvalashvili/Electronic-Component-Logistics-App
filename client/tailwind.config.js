@@ -12,6 +12,7 @@ export default {
         SheetMetal: "#5f6163",
         shadowColor: "rgba(0,0,0, 0.1)",
         NorthAtlanticBreeze: "#337ab7",
+        blackLight: "rgba(0, 0, 0, 0.4984)",
       },
     },
   },

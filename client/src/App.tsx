@@ -8,7 +8,7 @@ import "./asset/fonts.css";
 
 function App() {
   return (
-    <div className="app font-bpg">
+    <div className="app font-bpg relative">
       <BrowserRouter>
         <Header />
         <Routes>

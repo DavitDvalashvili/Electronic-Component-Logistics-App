@@ -1,13 +1,59 @@
+import { useEffect, useState } from "react";
 import { useAppSelector } from "../App/hook";
-import { RootState } from "../App/store";
+import { useAppDispatch } from "../App/hook";
 import InteractiveBox from "../components/InteractiveBox";
+import UpdateQuantityBox from "../components/updateQuantityBox";
+import { updateComponent } from "../feature/componentSlice";
+import { IComponent } from "../type";
+import { getComponents } from "../feature/componentSlice";
 
 const Components = () => {
-  const { components } = useAppSelector((state: RootState) => state.component);
+  const { components } = useAppSelector((state) => state.component);
+  const [showPopup, setShowPopup] = useState<boolean>(false);
+  const [currentComponent, setCurrentComponent] = useState<IComponent>(
+    components[0]
+  );
+  const [update, setUpdate] = useState(false);
+
+  const [quantity, setQuantity] = useState<number>(0);
+  const filters = useAppSelector((state) => state.filters);
+
+  const dispatch = useAppDispatch();
+
+  const handleClick = () => {
+    if (currentComponent) {
+      dispatch(
+        updateComponent({
+          ...currentComponent,
+          available_quantity: quantity,
+          receipt_date: currentComponent.receipt_date.split("T")[0],
+        })
+      );
+      setUpdate(!update);
+    }
+  };
+
+  useEffect(() => {
+    dispatch(getComponents(filters));
+  }, [update]);
 
   return (
     <main>
       <InteractiveBox />
+      {showPopup && currentComponent && (
+        <div
+          id="updateQuantity"
+          className="w-full h-full fixed top-0 left-0 bg-blackLight flex justify-center items-center"
+        >
+          <UpdateQuantityBox
+            setShowPopup={setShowPopup}
+            quantity={currentComponent.available_quantity}
+            setQuantity={setQuantity}
+            handleClick={handleClick}
+            componentName={currentComponent.name}
+          />
+        </div>
+      )}
       <div className="space-y-4">
         {components.map((component) => (
           <div
@@ -92,10 +138,16 @@ const Components = () => {
               </div>
             </div>
             <div className="mt-2 flex justify-center items-center  mx-auto gap-2">
-              <button className="px-[10px] py-[10px] bg-SheetMetal text-white rounded-md cursor-pointer text-sm">
+              <button
+                onClick={() => {
+                  setCurrentComponent(component);
+                  setShowPopup(true);
+                }}
+                className="px-2 py-2 bg-SheetMetal text-white rounded-md cursor-pointer text-sm"
+              >
                 რაოდენობის განახლება
               </button>
-              <button className="px-[10px] py-[10px] bg-NorthAtlanticBreeze text-white rounded-md cursor-pointer text-sm">
+              <button className="px-2 py-2 bg-NorthAtlanticBreeze text-white rounded-md cursor-pointer text-sm">
                 დეტალურად ნახვა
               </button>
             </div>

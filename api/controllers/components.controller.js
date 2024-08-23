@@ -130,7 +130,9 @@ export const addComponent = (req, res) => {
     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
 
   // Convert images_urls array to a JSON string if using JSON column
-  const imagesUrlsString = JSON.stringify(images_urls);
+  const imagesUrlsString = Array.isArray(images_urls)
+    ? images_urls.join(",")
+    : images_urls;
 
   // Array of values to insert
   const values = [
@@ -206,7 +208,7 @@ export const updateComponent = (req, res) => {
     suppliers_contact_person,
     suppliers_contact_details,
     receipt_date,
-    images_urls = [],
+    images_urls, // Assuming this is already a JSON string or can be stringified
     data_sheet,
   } = req.body;
 
@@ -233,8 +235,9 @@ export const updateComponent = (req, res) => {
       data_sheet = ?
     WHERE id = ?`;
 
-  // Convert images_urls array to a JSON string if using JSON column
-  const imagesUrlsString = JSON.stringify(images_urls);
+  // Ensure images_urls is a properly formatted JSON string
+  const imagesUrlsString =
+    typeof images_urls === "string" ? images_urls : JSON.stringify(images_urls);
 
   // Array of values to update
   const values = [

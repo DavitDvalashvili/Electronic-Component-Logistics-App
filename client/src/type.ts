@@ -1,5 +1,5 @@
 export interface IComponent {
-  id: number;
+  id: string;
   family: string;
   name: string;
   purpose: string;
@@ -15,7 +15,7 @@ export interface IComponent {
   suppliers_contact_person: string;
   suppliers_contact_details: string;
   receipt_date: string;
-  images_urls: string[];
+  images_urls: string;
   data_sheet: string;
 }
 

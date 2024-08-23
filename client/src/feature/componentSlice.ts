@@ -69,6 +69,19 @@ export const getComponent = createAsyncThunk(
   }
 );
 
+export const updateComponent = createAsyncThunk(
+  "components/updateComponent",
+  async (payload: IComponent) => {
+    const { id, ...updatedData } = payload;
+    const response = await axios.put(
+      `${Api_Url}/components/update/${id}`,
+      updatedData
+    );
+    console.log(updatedData);
+    return response.data;
+  }
+);
+
 // Create slice with reducers and extra reducers
 const componentSlice = createSlice({
   name: "components",
@@ -129,6 +142,17 @@ const componentSlice = createSlice({
       state.components = [];
       state.error = action.error.message || "Something went wrong";
     });
+    builder.addCase(
+      updateComponent.fulfilled,
+      (state, action: PayloadAction<IComponent>) => {
+        const index = state.components.findIndex(
+          (component) => component.id === action.payload.id
+        );
+        if (index !== -1) {
+          state.components[index] = action.payload;
+        }
+      }
+    );
   },
 });
 
