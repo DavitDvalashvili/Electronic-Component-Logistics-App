@@ -9,6 +9,7 @@ const Api_Url = "http://localhost:3000/api";
 const initialState: InitialStateComponent = {
   loading: false,
   components: [],
+  component: null,
   error: "",
   name: "",
   family: "",
@@ -64,7 +65,6 @@ export const getComponent = createAsyncThunk(
   async (id: string) => {
     const response = await axios.get(`${Api_Url}/components/get/${id}`);
     const data = response.data;
-
     return data;
   }
 );
@@ -86,29 +86,7 @@ export const updateComponent = createAsyncThunk(
 const componentSlice = createSlice({
   name: "components",
   initialState,
-  reducers: {
-    filterByName: (state, action: PayloadAction<string>) => {
-      state.name = action.payload;
-    },
-    filterByFamily: (state, action: PayloadAction<string>) => {
-      state.family = action.payload;
-    },
-    filterByPackageType: (state, action: PayloadAction<string>) => {
-      state.package_type = action.payload;
-    },
-    filterByNominalValue: (state, action: PayloadAction<string>) => {
-      state.nominal_value = action.payload;
-    },
-    filterByElectricalSupply: (state, action: PayloadAction<string>) => {
-      state.electrical_supply = action.payload;
-    },
-    filterBySupplierName: (state, action: PayloadAction<string>) => {
-      state.suppliers_name = action.payload;
-    },
-    searchTermChange: (state, action: PayloadAction<string>) => {
-      state.search_term = action.payload;
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder.addCase(getComponents.pending, (state) => {
       state.loading = true;
@@ -126,22 +104,24 @@ const componentSlice = createSlice({
       state.components = [];
       state.error = action.error.message || "Something went wrong";
     });
+
     builder.addCase(getComponent.pending, (state) => {
       state.loading = true;
     });
     builder.addCase(
       getComponent.fulfilled,
-      (state, action: PayloadAction<IComponent[]>) => {
+      (state, action: PayloadAction<IComponent>) => {
         state.loading = false;
-        state.components = action.payload;
+        state.component = action.payload; // Store as an object
         state.error = "";
       }
     );
     builder.addCase(getComponent.rejected, (state, action) => {
       state.loading = false;
-      state.components = [];
+      state.component = null; // Reset to null on failure
       state.error = action.error.message || "Something went wrong";
     });
+
     builder.addCase(
       updateComponent.fulfilled,
       (state, action: PayloadAction<IComponent>) => {
@@ -157,12 +137,3 @@ const componentSlice = createSlice({
 });
 
 export default componentSlice.reducer;
-export const {
-  filterByName,
-  filterByFamily,
-  filterByPackageType,
-  filterByNominalValue,
-  filterByElectricalSupply,
-  filterBySupplierName,
-  searchTermChange,
-} = componentSlice.actions;

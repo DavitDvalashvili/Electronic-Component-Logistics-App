@@ -97,8 +97,8 @@ export const getComponent = (req, res) => {
       return res.status(404).json({ message: "Component not found!" });
     }
 
-    // Send the data with a 200 status if everything is successful
-    return res.status(200).json(data);
+    // Send the first item from the data array as a single object
+    return res.status(200).json(data[0]);
   });
 };
 

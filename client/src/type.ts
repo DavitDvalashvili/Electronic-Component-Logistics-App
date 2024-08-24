@@ -22,6 +22,7 @@ export interface IComponent {
 export interface InitialStateComponent {
   loading: boolean;
   components: IComponent[];
+  component: IComponent | null;
   error: string;
   name: string;
   family: string;

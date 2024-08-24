@@ -6,6 +6,7 @@ import UpdateQuantityBox from "../components/updateQuantityBox";
 import { updateComponent } from "../feature/componentSlice";
 import { IComponent } from "../type";
 import { getComponents } from "../feature/componentSlice";
+import { Link } from "react-router-dom";
 
 const Components = () => {
   const { components } = useAppSelector((state) => state.component);
@@ -147,9 +148,11 @@ const Components = () => {
               >
                 რაოდენობის განახლება
               </button>
-              <button className="px-2 py-2 bg-NorthAtlanticBreeze text-white rounded-md cursor-pointer text-sm">
-                დეტალურად ნახვა
-              </button>
+              <Link to={`/component/${component.id}`}>
+                <button className="px-2 py-2 bg-NorthAtlanticBreeze text-white rounded-md cursor-pointer text-sm">
+                  დეტალურად ნახვა
+                </button>
+              </Link>
             </div>
           </div>
         ))}
