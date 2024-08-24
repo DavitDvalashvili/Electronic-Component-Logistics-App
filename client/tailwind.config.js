@@ -13,6 +13,7 @@ export default {
         shadowColor: "rgba(0,0,0, 0.1)",
         NorthAtlanticBreeze: "#337ab7",
         blackLight: "rgba(0, 0, 0, 0.4984)",
+        ChinChinCherry: "#e3344f",
       },
     },
   },

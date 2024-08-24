@@ -112,13 +112,13 @@ const componentSlice = createSlice({
       getComponent.fulfilled,
       (state, action: PayloadAction<IComponent>) => {
         state.loading = false;
-        state.component = action.payload; // Store as an object
+        state.component = action.payload;
         state.error = "";
       }
     );
     builder.addCase(getComponent.rejected, (state, action) => {
       state.loading = false;
-      state.component = null; // Reset to null on failure
+      state.component = null;
       state.error = action.error.message || "Something went wrong";
     });
 
