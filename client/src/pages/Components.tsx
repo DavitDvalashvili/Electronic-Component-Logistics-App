@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useAppSelector } from "../App/hook";
 import { useAppDispatch } from "../App/hook";
 import InteractiveBox from "../components/InteractiveBox";
-import UpdateQuantityBox from "../components/updateQuantityBox";
+import UpdateQuantityBox from "../components/UupdateQuantityBox";
 import { updateComponent } from "../feature/componentSlice";
 import { IComponent } from "../type";
 import { getComponents } from "../feature/componentSlice";
@@ -15,7 +15,6 @@ const Components = () => {
     components[0]
   );
   const [update, setUpdate] = useState(false);
-
   const [quantity, setQuantity] = useState<number>(0);
   const filters = useAppSelector((state) => state.filters);
 
@@ -30,6 +29,7 @@ const Components = () => {
           receipt_date: currentComponent.receipt_date.split("T")[0],
         })
       );
+
       setUpdate(!update);
     }
   };

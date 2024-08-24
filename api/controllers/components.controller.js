@@ -167,7 +167,7 @@ export const addComponent = (req, res) => {
   });
 };
 
-export const deleteComponent = (req, res, next) => {
+export const deleteComponent = (req, res) => {
   const componentId = req.params.id;
 
   // SQL query to delete a component by ID
@@ -177,12 +177,12 @@ export const deleteComponent = (req, res, next) => {
   db.query(q, [componentId], (err, result) => {
     if (err) {
       console.error(err); // Log the error to see what went wrong
-      return next(errorHandler(500, "Failed to delete component"));
+      return res.status(500).json({ error: "Failed to delete component" });
     }
 
     if (result.affectedRows === 0) {
       // No rows were affected, which means no component with the given ID was found
-      return next(errorHandler(404, "Component not found"));
+      return res.status(404).json({ error: "Component not found" });
     }
 
     return res.status(200).json({ message: "Component deleted successfully" });

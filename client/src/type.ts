@@ -43,3 +43,9 @@ export interface IPagination {
   totalPages: number;
   onPageChange: (page: number) => void;
 }
+
+export interface DeleteBoxProps {
+  setShowDelete: React.Dispatch<React.SetStateAction<boolean>>;
+  handleDelete: () => void;
+  name: string;
+}

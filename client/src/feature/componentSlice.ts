@@ -1,6 +1,7 @@
 import axios from "axios";
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import { InitialStateComponent, IComponent } from "../type";
+import { IconBaseProps } from "react-icons";
 
 // API base URL
 const Api_Url = "http://localhost:3000/api";
@@ -82,6 +83,16 @@ export const updateComponent = createAsyncThunk(
   }
 );
 
+export const deleteComponent = createAsyncThunk(
+  "components/deleteComponent",
+  async (component: IconBaseProps) => {
+    const response = await axios.delete(
+      `${Api_Url}/components/delete/${component.id}`
+    );
+    return response.data;
+  }
+);
+
 // Create slice with reducers and extra reducers
 const componentSlice = createSlice({
   name: "components",
@@ -133,6 +144,12 @@ const componentSlice = createSlice({
         }
       }
     );
+    builder.addCase(deleteComponent.fulfilled, (state, action) => {
+      const index = state.components.findIndex(
+        (component) => component.id === action.payload.id
+      );
+      state.components.splice(index, 1);
+    });
   },
 });
 

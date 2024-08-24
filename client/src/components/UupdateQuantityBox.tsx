@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 
 interface UpdateQuantityBoxProps {
@@ -23,11 +23,15 @@ const UpdateQuantityBox: React.FC<UpdateQuantityBoxProps> = ({
     handleClick();
   };
 
+  useEffect(() => {
+    setQuantity(value);
+  });
+
   return (
     <div className="bg-white text-AntarcticDeep p-10 rounded-md flex flex-col items-center gap-4 text-lg ">
       <p className="font-semibold">{componentName}</p>
       <div className="flex justify-start items-center gap-4">
-        <p>ხელმისაწვდომი რაოდენობა:</p>
+        <p className="NorthAtlanticBreeze">ხელმისაწვდომი რაოდენობა:</p>
         <input
           type="number"
           value={value}
