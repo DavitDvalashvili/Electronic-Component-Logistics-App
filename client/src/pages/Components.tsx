@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useAppSelector } from "../App/hook";
 import { useAppDispatch } from "../App/hook";
 import InteractiveBox from "../components/InteractiveBox";
-import UpdateQuantityBox from "../components/UupdateQuantityBox";
+import UpdateQuantityBox from "../components/UpdateQuantityBox";
 import { updateComponent } from "../feature/componentSlice";
 import { IComponent } from "../type";
 import { getComponents } from "../feature/componentSlice";
@@ -17,6 +17,7 @@ const Components = () => {
   const [update, setUpdate] = useState(false);
   const [quantity, setQuantity] = useState<number>(0);
   const filters = useAppSelector((state) => state.filters);
+  const { isUpdate } = useAppSelector((state) => state.component);
 
   const dispatch = useAppDispatch();
 
@@ -36,7 +37,7 @@ const Components = () => {
 
   useEffect(() => {
     dispatch(getComponents(filters));
-  }, [update]);
+  }, [update, isUpdate]);
 
   return (
     <main>

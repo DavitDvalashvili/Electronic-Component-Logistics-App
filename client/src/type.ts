@@ -8,9 +8,9 @@ export interface IComponent {
   electrical_supply: string;
   unit_cost: number;
   available_quantity: number;
-  storage_cabinet: number;
-  storage_drawer: number;
-  storage_shelf: number;
+  storage_cabinet: string;
+  storage_drawer: string;
+  storage_shelf: string;
   suppliers_name: string;
   suppliers_contact_person: string;
   suppliers_contact_details: string;
@@ -33,6 +33,7 @@ export interface InitialStateComponent {
   suppliers_name: string;
   search_term: string;
   page: string;
+  isUpdate: boolean;
 }
 
 export interface CustomSelectProps {
@@ -49,4 +50,9 @@ export interface DeleteBoxProps {
   setShowDelete: React.Dispatch<React.SetStateAction<boolean>>;
   handleDelete: () => void;
   name: string;
+}
+
+export interface IFormProps {
+  setShowForm: React.Dispatch<React.SetStateAction<boolean>>;
+  showForm: boolean;
 }

@@ -20,6 +20,7 @@ const initialState: InitialStateComponent = {
   suppliers_name: "",
   search_term: "",
   page: "1",
+  isUpdate: false,
 };
 
 // Async thunk to fetch components
@@ -83,6 +84,17 @@ export const updateComponent = createAsyncThunk(
   }
 );
 
+export const addComponent = createAsyncThunk(
+  "components/addComponent",
+  async (newComponent: IComponent) => {
+    const response = await axios.post(
+      `${Api_Url}/components/add`,
+      newComponent
+    );
+    return response.data;
+  }
+);
+
 export const deleteComponent = createAsyncThunk(
   "components/deleteComponent",
   async (component: IconBaseProps) => {
@@ -97,7 +109,12 @@ export const deleteComponent = createAsyncThunk(
 const componentSlice = createSlice({
   name: "components",
   initialState,
-  reducers: {},
+  reducers: {
+    // Reducer to toggle update mode
+    update: (state) => {
+      state.isUpdate = !state.isUpdate;
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(getComponents.pending, (state) => {
       state.loading = true;
@@ -150,7 +167,17 @@ const componentSlice = createSlice({
       );
       state.components.splice(index, 1);
     });
+    builder.addCase(addComponent.fulfilled, (state, action) => {
+      const index = state.components.findIndex(
+        (component) => component.id === action.payload.id
+      );
+      if (index !== -1) {
+        state.components[index] = action.payload;
+      }
+    });
   },
 });
 
 export default componentSlice.reducer;
+
+export const { update } = componentSlice.actions;

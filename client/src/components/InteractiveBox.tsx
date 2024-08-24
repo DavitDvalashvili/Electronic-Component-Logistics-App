@@ -15,6 +15,7 @@ const InteractiveBox = () => {
   const [totalPages, setTotalPages] = useState<number>(1);
   const dispatch = useAppDispatch();
   const filters = useAppSelector((state) => state.filters);
+  const [showForm, setShowForm] = useState<boolean>(false);
 
   const handleClick = () => {
     setShowFilter(!showFilter);
@@ -32,12 +33,14 @@ const InteractiveBox = () => {
   return (
     <div className="max-w-[1440px] pb-5 pt-10 xl:mx-auto">
       <div className="flex flex-col md:flex-row md:items-center md:justify-start justify-center items-start gap-5 px-4 pb-5">
-        <div
-          id="updateQuantity"
-          className="w-full h-full absolute top-0 left-0 bg-blackLight flex justify-center items-top  z-10"
-        >
-          <Form />
-        </div>
+        {showForm && (
+          <div
+            id="updateQuantity"
+            className="w-full h-full absolute top-0 left-0 bg-blackLight min-h-screen flex justify-center items-top  z-10"
+          >
+            <Form showForm={showForm} setShowForm={setShowForm} />
+          </div>
+        )}
         <div className="flex justify-start items-center gap-5">
           <div
             className="flex justify-center items-top gap-2 cursor-pointer "
@@ -51,6 +54,13 @@ const InteractiveBox = () => {
             <span className="text-lg font-bolt">ფილტრი</span>
           </div>
           <SearchBox />
+          <button
+            onClick={() => {
+              setShowForm(true);
+            }}
+          >
+            დამატება
+          </button>
         </div>
         <div className="w-[300px] sm:w-[450px] md:w-[300px] md:ml-auto lg:w-[500px]">
           <Pagination

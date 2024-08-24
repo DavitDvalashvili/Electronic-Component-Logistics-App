@@ -8,6 +8,7 @@ import { useParams } from "react-router-dom";
 
 const Component = () => {
   const { id } = useParams();
+  const { isUpdate } = useAppSelector((state) => state.component);
 
   const dispatch = useAppDispatch();
   const { component, loading, error } = useAppSelector(
@@ -16,7 +17,7 @@ const Component = () => {
 
   useEffect(() => {
     dispatch(getComponent(`${id}`));
-  }, [dispatch, id]);
+  }, [dispatch, id, isUpdate]);
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;

@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { useAppDispatch } from "../App/hook";
-import UpdateQuantityBox from "./UupdateQuantityBox";
-import { useNavigate, useParams } from "react-router-dom";
+import UpdateQuantityBox from "./UpdateQuantityBox";
+import { useNavigate } from "react-router-dom";
 import {
   updateComponent,
   deleteComponent,
-  getComponent,
+  update,
 } from "../feature/componentSlice";
 import { IComponent } from "../type";
 
@@ -22,12 +22,10 @@ const ButtonBox = ({ currentComponent }: ButtonBoxProps) => {
   const [quantity, setQuantity] = useState<number>(
     currentComponent?.available_quantity
   );
-  const { id } = useParams();
 
   const navigate = useNavigate();
 
   const handleClick = () => {
-    dispatch(getComponent(`${id}`));
     if (currentComponent) {
       dispatch(
         updateComponent({
@@ -36,7 +34,7 @@ const ButtonBox = ({ currentComponent }: ButtonBoxProps) => {
           receipt_date: currentComponent.receipt_date.split("T")[0],
         })
       );
-      dispatch(getComponent(`${id}`));
+      dispatch(update());
     }
   };
 
