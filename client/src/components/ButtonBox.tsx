@@ -58,10 +58,7 @@ const ButtonBox = ({ currentComponent }: ButtonBoxProps) => {
         წაშლა
       </button>
       {showDelete && (
-        <div
-          id="updateQuantity"
-          className="w-full h-full fixed top-0 left-0 bg-blackLight flex justify-center items-center"
-        >
+        <div className="w-full h-full fixed top-0 left-0 bg-blackLight flex justify-center items-center">
           <DeleteBox
             setShowDelete={setShowDelete}
             handleDelete={handleDelete}

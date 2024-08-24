@@ -6,6 +6,7 @@ import { MdFilterAltOff } from "react-icons/md";
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../App/hook";
 import { getComponents } from "../feature/componentSlice";
+import Form from "./Form";
 
 const InteractiveBox = () => {
   const [showFilter, setShowFilter] = useState<boolean>(true);
@@ -29,8 +30,14 @@ const InteractiveBox = () => {
   };
 
   return (
-    <div className="max-w-[1440px] pb-5 pt-10 xl:mx-auto ">
-      <div className="flex flex-col md:flex-row md:items-center md:justify-start justify-center items-start gap-5 px-4 pb-5 ">
+    <div className="max-w-[1440px] pb-5 pt-10 xl:mx-auto">
+      <div className="flex flex-col md:flex-row md:items-center md:justify-start justify-center items-start gap-5 px-4 pb-5">
+        <div
+          id="updateQuantity"
+          className="w-full h-full absolute top-0 left-0 bg-blackLight flex justify-center items-top  z-10"
+        >
+          <Form />
+        </div>
         <div className="flex justify-start items-center gap-5">
           <div
             className="flex justify-center items-top gap-2 cursor-pointer "

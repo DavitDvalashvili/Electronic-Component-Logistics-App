@@ -41,7 +41,7 @@ const Component = () => {
         </div>
 
         {/* Information Column 1 */}
-        <div className="md:col-span-1 flex flex-col gap-2">
+        <div className="md:col-span-1 flex flex-col gap-2 mt-12">
           <h2 className="text-xl font-bold mb-3">ზოგადი ინფორმაცია</h2>
           <div className="flex flex-col gap-2 border border-gray-300 rounded-lg p-4 bg-white shadow-md mb-4">
             <div className="flex gap-2 items-center">
@@ -98,7 +98,7 @@ const Component = () => {
         </div>
 
         {/* Information Column 2 */}
-        <div className="md:col-span-1 flex flex-col gap-2 ">
+        <div className="md:col-span-1 flex flex-col gap-2 md:mt-12">
           <h2 className="text-xl font-bold mb-3">მწარმოებელი</h2>
           <div className="flex flex-col gap-2 border border-gray-300 rounded-lg p-4 bg-white shadow-md mb-4">
             <div className="flex gap-2 items-center">

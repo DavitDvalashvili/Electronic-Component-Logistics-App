@@ -15,6 +15,7 @@ export interface IComponent {
   suppliers_contact_person: string;
   suppliers_contact_details: string;
   receipt_date: string;
+  invoice: string;
   images_urls: string;
   data_sheet: string;
 }
