@@ -7,6 +7,7 @@ export interface IComponent {
   nominal_value: string;
   electrical_supply: string;
   unit_cost: number;
+  other_cost: number;
   available_quantity: number;
   storage_cabinet: string;
   storage_drawer: string;
@@ -15,7 +16,7 @@ export interface IComponent {
   suppliers_contact_person: string;
   suppliers_contact_details: string;
   receipt_date: string;
-  invoice: string;
+  invoice_number: string;
   images_urls: string;
   data_sheet: string;
 }
@@ -23,6 +24,7 @@ export interface IComponent {
 export interface InitialStateComponent {
   loading: boolean;
   components: IComponent[];
+  allComponents: IComponent[];
   component: IComponent | null;
   error: string;
   name: string;
@@ -54,5 +56,5 @@ export interface DeleteBoxProps {
 
 export interface IFormProps {
   setShowForm: React.Dispatch<React.SetStateAction<boolean>>;
-  showForm: boolean;
+  status: string;
 }

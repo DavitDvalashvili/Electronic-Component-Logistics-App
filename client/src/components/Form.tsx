@@ -1,30 +1,44 @@
 import { SubmitHandler, useForm } from "react-hook-form";
 import { IComponent } from "../type";
-import { useAppDispatch } from "../App/hook";
-import { addComponent } from "../feature/componentSlice";
+import { useAppDispatch, useAppSelector } from "../App/hook";
+import { addComponent, updateComponent } from "../feature/componentSlice";
 import { IFormProps } from "../type";
 import { update } from "../feature/componentSlice";
+import { useEffect } from "react";
 
-const Form = ({ setShowForm }: IFormProps) => {
+const Form = ({ setShowForm, status }: IFormProps) => {
   const dispatch = useAppDispatch();
+  const { component } = useAppSelector((state) => state.component);
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-    //setValue,
+    setValue,
     //reset,
   } = useForm<IComponent>();
 
   const onSubmit: SubmitHandler<IComponent> = async (data) => {
     try {
-      dispatch(addComponent(data));
+      if (status === "adding") {
+        dispatch(addComponent(data));
+      } else if (status === "updating") {
+        dispatch(updateComponent(data));
+      }
       dispatch(update());
       setShowForm(false);
     } catch (error) {
       console.error(error);
     }
   };
+
+  useEffect(() => {
+    if (status === "updating" && component !== null) {
+      (Object.keys(component) as (keyof IComponent)[]).forEach((field) => {
+        setValue(field, component[field]);
+      });
+    }
+  }, [status, component, setValue]);
 
   return (
     <form
@@ -124,6 +138,44 @@ const Form = ({ setShowForm }: IFormProps) => {
                 />
               </div>
             </div>
+            {/* 5 */}
+            <div className="flex gap-2 items-end">
+              <label
+                htmlFor="purpose"
+                className="font-semibold text-gray-700 w-[150px]"
+              >
+                სხვა ხარჯები
+              </label>
+              <div className="flex flex-col items-end">
+                <span className="text-[10px] text-ChinChinCherry h-4">
+                  {errors.other_cost?.message}
+                </span>
+                <input
+                  className="focus:outline-none border-[1px] rounded-sm border-Waiting focus:border-AntarcticDeep pl-1"
+                  type="text"
+                  {...register("other_cost", {})}
+                />
+              </div>
+            </div>
+            {/* 6 */}
+            <div className="flex gap-2 items-end">
+              <label
+                htmlFor="purpose"
+                className="font-semibold text-gray-700 w-[150px]"
+              >
+                დანიშნულება
+              </label>
+              <div className="flex flex-col items-end">
+                <span className="text-[10px] text-ChinChinCherry h-4">
+                  {errors.purpose?.message}
+                </span>
+                <input
+                  className="focus:outline-none border-[1px] rounded-sm border-Waiting focus:border-AntarcticDeep pl-1"
+                  type="text"
+                  {...register("purpose", {})}
+                />
+              </div>
+            </div>
           </fieldset>
 
           <legend className="text-xl font-bold mb-3">
@@ -184,25 +236,6 @@ const Form = ({ setShowForm }: IFormProps) => {
                   className="focus:outline-none border-[1px] rounded-sm border-Waiting focus:border-AntarcticDeep pl-1"
                   type="text"
                   {...register("electrical_supply", {})}
-                />
-              </div>
-            </div>
-            {/* 8 */}
-            <div className="flex gap-2 items-end">
-              <label
-                htmlFor="purpose"
-                className="font-semibold text-gray-700 w-[150px]"
-              >
-                დანიშნულება
-              </label>
-              <div className="flex flex-col items-end">
-                <span className="text-[10px] text-ChinChinCherry h-4">
-                  {errors.purpose?.message}
-                </span>
-                <input
-                  className="focus:outline-none border-[1px] rounded-sm border-Waiting focus:border-AntarcticDeep pl-1"
-                  type="text"
-                  {...register("purpose", {})}
                 />
               </div>
             </div>
@@ -286,26 +319,25 @@ const Form = ({ setShowForm }: IFormProps) => {
                   className="focus:outline-none border-[1px] rounded-sm border-Waiting focus:border-AntarcticDeep w-[180px] pl-1 cursor-text"
                   type="date"
                   {...register("receipt_date", {})}
-                  defaultValue={new Date().toISOString().split("T")[0]}
                 />
               </div>
             </div>
             {/* 13 */}
             <div className="flex gap-2 items-end">
               <label
-                htmlFor="invoice"
+                htmlFor="invoice_number"
                 className="font-semibold text-gray-700 w-[150px]"
               >
                 ინვოისი:
               </label>
               <div className="flex flex-col items-end">
                 <span className="text-[10px] text-ChinChinCherry h-4">
-                  {errors.invoice?.message}
+                  {errors.invoice_number?.message}
                 </span>
                 <input
                   className="focus:outline-none border-[1px] rounded-sm border-Waiting focus:border-AntarcticDeep pl-1"
                   type="text"
-                  {...register("invoice", {})}
+                  {...register("invoice_number", {})}
                 />
               </div>
             </div>
@@ -329,12 +361,7 @@ const Form = ({ setShowForm }: IFormProps) => {
                 <input
                   className="focus:outline-none border-[1px] rounded-sm border-Waiting focus:border-AntarcticDeep pl-1 "
                   type="text"
-                  {...register("storage_cabinet", {
-                    pattern: {
-                      value: /^\d{1,3}(?:,\d{3})*(?:\.\d+)?$/,
-                      message: "Enter Number",
-                    },
-                  })}
+                  {...register("storage_cabinet", {})}
                 />
               </div>
             </div>
@@ -353,12 +380,7 @@ const Form = ({ setShowForm }: IFormProps) => {
                 <input
                   className="focus:outline-none border-[1px] rounded-sm border-Waiting focus:border-AntarcticDeep pl-1"
                   type="text"
-                  {...register("storage_shelf", {
-                    pattern: {
-                      value: /^\d{1,3}(?:,\d{3})*(?:\.\d+)?$/,
-                      message: "Enter Number",
-                    },
-                  })}
+                  {...register("storage_shelf", {})}
                 />
               </div>
             </div>
@@ -377,24 +399,19 @@ const Form = ({ setShowForm }: IFormProps) => {
                 <input
                   className="focus:outline-none border-[1px] rounded-sm border-Waiting focus:border-AntarcticDeep pl-1"
                   type="text"
-                  {...register("storage_drawer", {
-                    pattern: {
-                      value: /^\d{1,3}(?:,\d{3})*(?:\.\d+)?$/,
-                      message: "Enter Number",
-                    },
-                  })}
+                  {...register("storage_drawer", {})}
                 />
               </div>
             </div>
           </fieldset>
         </div>
       </div>
-      <div className="flex justify-start items-center gap-5">
+      <div className="flex justify-end items-center gap-5">
         <button
           type="submit"
           className="px-4 py-2 bg-green text-white rounded-md cursor-pointer text-[10px] "
         >
-          დამატება
+          {status == "adding" ? "დამატება" : "განახლება"}
         </button>
         <button
           type="button"

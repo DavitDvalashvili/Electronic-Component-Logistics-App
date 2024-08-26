@@ -25,7 +25,8 @@ const Component = () => {
 
   // Check if `component.name` exists
   return (
-    <div className="">
+    <div>
+      <ButtonBox currentComponent={component} />
       <div
         key={component.id}
         className=" py-10 px-4 max-w-[1440px] xl:mx-auto grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 "
@@ -37,7 +38,6 @@ const Component = () => {
               alt="Component"
               className="w-full h-full object-cover rounded "
             />
-            <ButtonBox currentComponent={component} />
           </div>
         </div>
 
@@ -69,6 +69,18 @@ const Component = () => {
               </div>
               <div className="">{component.available_quantity}</div>
             </div>
+            <div className="flex gap-2 items-center">
+              <div className="font-semibold text-gray-700  w-[150px] ">
+                სხვა ხარჯები:
+              </div>
+              <div className="">{component.other_cost}</div>
+            </div>
+            <div className="flex gap-2 items-center">
+              <div className="font-semibold text-gray-700  w-[150px] ">
+                დანიშნულება:
+              </div>
+              <div className="">{component.purpose}</div>
+            </div>
           </div>
 
           <h2 className="text-xl font-bold mb-3">ტექნკური მახასიათებელი</h2>
@@ -92,15 +104,15 @@ const Component = () => {
               <div className="">{component.electrical_supply}</div>
             </div>
           </div>
-          <h2 className="text-xl font-bold mb-3">დანიშნულება:</h2>
+          {/* <h2 className="text-xl font-bold mb-3">დანიშნულება:</h2>
           <div className="flex flex-col gap-2 border border-gray-300 rounded-lg p-4 bg-white shadow-md mb-4">
             {component.purpose}
-          </div>
+          </div> */}
         </div>
 
         {/* Information Column 2 */}
         <div className="md:col-span-1 flex flex-col gap-2 md:mt-12">
-          <h2 className="text-xl font-bold mb-3">მწარმოებელი</h2>
+          <h2 className="text-xl font-bold mb-3">ლოჯისტიკა</h2>
           <div className="flex flex-col gap-2 border border-gray-300 rounded-lg p-4 bg-white shadow-md mb-4">
             <div className="flex gap-2 items-center">
               <div className="font-semibold text-gray-700 w-[150px]">
@@ -134,7 +146,7 @@ const Component = () => {
               <div className="font-semibold text-gray-700 w-[150px]">
                 ინვოისი:
               </div>
-              <div className="">N/A</div>
+              <div className="">{component.invoice_number}</div>
             </div>
           </div>
           <h2 className="text-xl font-bold mb-3">შენახვის ადგილმდებარეობა</h2>

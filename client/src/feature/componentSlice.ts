@@ -10,6 +10,7 @@ const Api_Url = "http://localhost:3000/api";
 const initialState: InitialStateComponent = {
   loading: false,
   components: [],
+  allComponents: [],
   component: null,
   error: "",
   name: "",
@@ -59,6 +60,15 @@ export const getComponents = createAsyncThunk(
     const response = await axios.get(`${Api_Url}/components/get/?${params}`);
     console.log(params);
     return response.data;
+  }
+);
+
+export const getAllComponents = createAsyncThunk(
+  "components/getAllComponents",
+  async () => {
+    const response = await axios.get(`${Api_Url}/components/get/`);
+    const data = response.data;
+    return data;
   }
 );
 
@@ -116,6 +126,7 @@ const componentSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
+    //for filtered components
     builder.addCase(getComponents.pending, (state) => {
       state.loading = true;
     });
@@ -133,6 +144,25 @@ const componentSlice = createSlice({
       state.error = action.error.message || "Something went wrong";
     });
 
+    // For all components
+    builder.addCase(getAllComponents.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(
+      getAllComponents.fulfilled,
+      (state, action: PayloadAction<IComponent[]>) => {
+        state.loading = false;
+        state.allComponents = action.payload;
+        state.error = "";
+      }
+    );
+    builder.addCase(getAllComponents.rejected, (state, action) => {
+      state.loading = false;
+      state.components = [];
+      state.error = action.error.message || "Something went wrong";
+    });
+
+    //for single component
     builder.addCase(getComponent.pending, (state) => {
       state.loading = true;
     });
@@ -150,6 +180,7 @@ const componentSlice = createSlice({
       state.error = action.error.message || "Something went wrong";
     });
 
+    // Other cases for update, delete, add, etc.
     builder.addCase(
       updateComponent.fulfilled,
       (state, action: PayloadAction<IComponent>) => {

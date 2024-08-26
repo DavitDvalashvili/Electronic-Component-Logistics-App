@@ -9,11 +9,21 @@ export const getComponents = (req, res) => {
     nominal_value,
     electrical_supply,
     suppliers_name,
-    page = 1, // Default to page 1 if not provided
+    page,
   } = req.query;
 
   const pageSize = 10; // Number of items per page
-  const offset = (page - 1) * pageSize;
+  let offset = 0;
+  let paginationClause = ""; // Initialize pagination clause
+
+  if (page) {
+    const pageNumber = parseInt(page, 10);
+    if (isNaN(pageNumber) || pageNumber < 1) {
+      return res.status(400).json({ message: "Invalid page number" });
+    }
+    offset = (pageNumber - 1) * pageSize;
+    paginationClause = " LIMIT ? OFFSET ?";
+  }
 
   let q = "SELECT * FROM components";
   let queryParams = [];
@@ -68,16 +78,15 @@ export const getComponents = (req, res) => {
     q += " WHERE " + conditions.join(" AND ");
   }
 
-  // Add pagination
-  q += " LIMIT ? OFFSET ?";
-  queryParams.push(pageSize, offset);
+  // Add pagination if applicable
+  q += paginationClause;
+  if (page) {
+    queryParams.push(pageSize, offset);
+  }
 
   db.query(q, queryParams, (err, data) => {
     if (err) {
       return res.status(500).json({ message: "Server error" });
-    }
-    if (!data || data.length === 0) {
-      return res.status(404).json({ message: "Components not found!" });
     }
     return res.status(200).json(data);
   });
@@ -102,6 +111,73 @@ export const getComponent = (req, res) => {
   });
 };
 
+// export const addComponent = (req, res) => {
+//   const {
+//     family,
+//     name,
+//     purpose,
+//     package_type,
+//     nominal_value,
+//     electrical_supply,
+//     unit_cost,
+//     other_cost,
+//     invoice_number,
+//     available_quantity,
+//     storage_cabinet,
+//     storage_drawer,
+//     storage_shelf,
+//     suppliers_name,
+//     suppliers_contact_person,
+//     suppliers_contact_details,
+//     receipt_date,
+//     images_urls = [],
+//     data_sheet,
+//   } = req.body;
+
+//   // SQL query to insert a new component
+//   const q = `
+//     INSERT INTO components
+//     (family, name, purpose, package_type, nominal_value, electrical_supply, unit_cost, other_cost, invoice_number, available_quantity, storage_cabinet, storage_drawer, storage_shelf, other_cost, invoice_number, suppliers_name, suppliers_contact_person, suppliers_contact_details, receipt_date, images_urls, data_sheet)
+//     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+
+//   // Convert images_urls array to a JSON string if using JSON column
+//   const imagesUrlsString = Array.isArray(images_urls)
+//     ? images_urls.join(",")
+//     : images_urls;
+
+//   // Array of values to insert
+//   const values = [
+//     family,
+//     name,
+//     purpose,
+//     package_type,
+//     nominal_value,
+//     electrical_supply,
+//     unit_cost,
+//     available_quantity,
+//     storage_cabinet,
+//     storage_drawer,
+//     storage_shelf,
+//     suppliers_name,
+//     suppliers_contact_person,
+//     suppliers_contact_details,
+//     receipt_date,
+//     imagesUrlsString,
+//     data_sheet,
+//   ];
+
+//   // Execute the SQL query
+//   db.query(q, values, (err, result) => {
+//     if (err) {
+//       console.error(err); // Log the error to see what went wrong
+//       return res.status(500).json({ message: "Failed to add component" });
+//     }
+//     return res
+//       .status(201)
+//       .json({ id: result.insertId, message: "Component added successfully" });
+//   });
+// };
+
 export const addComponent = (req, res) => {
   const {
     family,
@@ -111,6 +187,8 @@ export const addComponent = (req, res) => {
     nominal_value,
     electrical_supply,
     unit_cost,
+    other_cost,
+    invoice_number,
     available_quantity,
     storage_cabinet,
     storage_drawer,
@@ -126,8 +204,8 @@ export const addComponent = (req, res) => {
   // SQL query to insert a new component
   const q = `
     INSERT INTO components 
-    (family, name, purpose, package_type, nominal_value, electrical_supply, unit_cost, available_quantity, storage_cabinet, storage_drawer, storage_shelf, suppliers_name, suppliers_contact_person, suppliers_contact_details, receipt_date, images_urls, data_sheet)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+    (family, name, purpose, package_type, nominal_value, electrical_supply, unit_cost, other_cost, invoice_number, available_quantity, storage_cabinet, storage_drawer, storage_shelf, suppliers_name, suppliers_contact_person, suppliers_contact_details, receipt_date, images_urls, data_sheet)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
 
   // Convert images_urls array to a JSON string if using JSON column
   const imagesUrlsString = Array.isArray(images_urls)
@@ -143,6 +221,8 @@ export const addComponent = (req, res) => {
     nominal_value,
     electrical_supply,
     unit_cost,
+    other_cost,
+    invoice_number,
     available_quantity,
     storage_cabinet,
     storage_drawer,
@@ -158,7 +238,7 @@ export const addComponent = (req, res) => {
   // Execute the SQL query
   db.query(q, values, (err, result) => {
     if (err) {
-      console.error(err); // Log the error to see what went wrong
+      console.error("Error inserting component:", err); // Log the error to see what went wrong
       return res.status(500).json({ message: "Failed to add component" });
     }
     return res
@@ -200,6 +280,8 @@ export const updateComponent = (req, res) => {
     nominal_value,
     electrical_supply,
     unit_cost,
+    other_cost,
+    invoice_number,
     available_quantity,
     storage_cabinet,
     storage_drawer,
@@ -223,6 +305,8 @@ export const updateComponent = (req, res) => {
       nominal_value = ?, 
       electrical_supply = ?, 
       unit_cost = ?, 
+      other_cost =?,
+      invoice_number =?,
       available_quantity = ?, 
       storage_cabinet = ?, 
       storage_drawer = ?, 
@@ -248,6 +332,8 @@ export const updateComponent = (req, res) => {
     nominal_value,
     electrical_supply,
     unit_cost,
+    other_cost,
+    invoice_number,
     available_quantity,
     storage_cabinet,
     storage_drawer,

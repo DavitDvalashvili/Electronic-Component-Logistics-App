@@ -7,6 +7,7 @@ import {
   deleteComponent,
   update,
 } from "../feature/componentSlice";
+import Form from "./Form";
 import { IComponent } from "../type";
 
 import DeleteBox from "./DeleteBox";
@@ -22,6 +23,7 @@ const ButtonBox = ({ currentComponent }: ButtonBoxProps) => {
   const [quantity, setQuantity] = useState<number>(
     currentComponent?.available_quantity
   );
+  const [showForm, setShowForm] = useState<boolean>(false);
 
   const navigate = useNavigate();
 
@@ -46,7 +48,7 @@ const ButtonBox = ({ currentComponent }: ButtonBoxProps) => {
   };
 
   return (
-    <div className="flex justify-evenly items-center">
+    <div className="flex justify-center items-center gap-5 pt-5">
       <button
         className="px-2 py-2 bg-ChinChinCherry text-white rounded-md cursor-pointer text-sm"
         onClick={() => {
@@ -89,6 +91,22 @@ const ButtonBox = ({ currentComponent }: ButtonBoxProps) => {
       <button className="px-2 py-2 bg-NorthAtlanticBreeze text-white rounded-md cursor-pointer text-sm">
         ფოტოს დამატება
       </button>
+      <button
+        className="px-2 py-2 bg-green text-white rounded-md cursor-pointer text-sm"
+        onClick={() => {
+          setShowForm(true);
+        }}
+      >
+        კომპონენტის განახლება
+      </button>
+      {showForm && (
+        <div
+          id="updateQuantity"
+          className="w-full h-full absolute top-0 left-0 bg-blackLight min-h-screen flex justify-center items-top  z-10"
+        >
+          <Form status="updating" setShowForm={setShowForm} />
+        </div>
+      )}
     </div>
   );
 };

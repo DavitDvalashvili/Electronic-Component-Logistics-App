@@ -5,13 +5,15 @@ import { TbFilterCheck } from "react-icons/tb";
 import { MdFilterAltOff } from "react-icons/md";
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../App/hook";
-import { getComponents } from "../feature/componentSlice";
+import { getComponents, getAllComponents } from "../feature/componentSlice";
 import Form from "./Form";
 
 const InteractiveBox = () => {
   const [showFilter, setShowFilter] = useState<boolean>(true);
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const { components } = useAppSelector((state) => state.component);
+  const { components, allComponents } = useAppSelector(
+    (state) => state.component
+  );
   const [totalPages, setTotalPages] = useState<number>(1);
   const dispatch = useAppDispatch();
   const filters = useAppSelector((state) => state.filters);
@@ -22,8 +24,12 @@ const InteractiveBox = () => {
   };
 
   useEffect(() => {
-    setTotalPages(Math.round(components.length / 10 + 10));
-  }, [components.length]);
+    dispatch(getAllComponents());
+  }, [dispatch]);
+
+  useEffect(() => {
+    setTotalPages(Math.ceil(allComponents.length / 10));
+  }, [components.length, allComponents]);
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
@@ -38,7 +44,7 @@ const InteractiveBox = () => {
             id="updateQuantity"
             className="w-full h-full absolute top-0 left-0 bg-blackLight min-h-screen flex justify-center items-top  z-10"
           >
-            <Form showForm={showForm} setShowForm={setShowForm} />
+            <Form status="adding" setShowForm={setShowForm} />
           </div>
         )}
         <div className="flex justify-start items-center gap-5">
@@ -55,6 +61,7 @@ const InteractiveBox = () => {
           </div>
           <SearchBox />
           <button
+            className="px-4 py-2 bg-green text-white rounded-md cursor-pointer text-sm"
             onClick={() => {
               setShowForm(true);
             }}
@@ -66,7 +73,7 @@ const InteractiveBox = () => {
           <Pagination
             currentPage={currentPage}
             totalPages={totalPages}
-            onPageChange={handlePageChange} // Pass the handler function to Pagination
+            onPageChange={handlePageChange}
           />
         </div>
       </div>

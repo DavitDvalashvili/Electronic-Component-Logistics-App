@@ -20,7 +20,7 @@ interface FiltersState {
   page: string;
 }
 
-const initialState: FiltersState = {
+export const initialState: FiltersState = {
   name: "",
   family: "",
   package_type: "",
