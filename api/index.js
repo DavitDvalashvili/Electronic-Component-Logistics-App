@@ -1,8 +1,9 @@
 import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
-import componentRouter from "./routes/component.route.js";
-import filterOptionRouter from "./routes/filter.option.route.js";
+import component_router from "./routes/component.route.js";
+import filter_option_router from "./routes/filter.option.route.js";
+import component_device_router from "./routes/component.device.route.js";
 
 // config dotenv
 dotenv.config();
@@ -24,5 +25,6 @@ app.listen(PORT, () => {
   console.log(`Server is listening on port ${PORT}`);
 });
 
-app.use("/api/components/", componentRouter);
-app.use("/api/filter-options/", filterOptionRouter);
+app.use("/api/components/", component_router);
+app.use("/api/filter-options/", filter_option_router);
+app.use("/api/component-device/", component_device_router);

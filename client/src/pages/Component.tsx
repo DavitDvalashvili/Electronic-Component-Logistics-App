@@ -5,6 +5,7 @@ import moment from "moment";
 import "moment/locale/ka";
 import ButtonBox from "../components/ButtonBox";
 import { useParams } from "react-router-dom";
+import DevicesTable from "../components/DevicesTable";
 
 const Component = () => {
   const { id } = useParams();
@@ -104,10 +105,6 @@ const Component = () => {
               <div className="">{component.electrical_supply}</div>
             </div>
           </div>
-          {/* <h2 className="text-xl font-bold mb-3">დანიშნულება:</h2>
-          <div className="flex flex-col gap-2 border border-gray-300 rounded-lg p-4 bg-white shadow-md mb-4">
-            {component.purpose}
-          </div> */}
         </div>
 
         {/* Information Column 2 */}
@@ -166,6 +163,9 @@ const Component = () => {
               <div className="">{component.storage_drawer}</div>
             </div>
           </div>
+        </div>
+        <div className="col-span-1 md:col-span-2 xl:col-span-3">
+          <DevicesTable />
         </div>
       </div>
     </div>

@@ -1,11 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
 import componentReducer from "../feature/componentSlice";
 import filtersReducer from "../feature/filtersSlice";
+import componentDeviceReducer from "../feature/componentDeviceSlice";
 
 const store = configureStore({
   reducer: {
     component: componentReducer,
     filters: filtersReducer,
+    componentDevice: componentDeviceReducer,
   },
 });
 

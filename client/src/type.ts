@@ -58,3 +58,16 @@ export interface IFormProps {
   setShowForm: React.Dispatch<React.SetStateAction<boolean>>;
   status: string;
 }
+
+export interface IComponentDevice {
+  id: number;
+  device_id: number;
+  component_id: number;
+  quantity_per_device: number;
+}
+
+export interface initialComponentDevice {
+  loading: boolean;
+  devices: IComponentDevice[];
+  error: string;
+}
