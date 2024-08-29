@@ -6,21 +6,21 @@ import { Link } from "react-router-dom";
 import { useComponentStore } from "../store/componentStore";
 
 const Components = () => {
-  const { components, updateComponent } = useComponentStore();
+  const { components, updateComponent, toggleUpdate } = useComponentStore();
   const [showPopup, setShowPopup] = useState<boolean>(false);
   const [currentComponent, setCurrentComponent] = useState<component>(
     components[0]
   );
-
   const [quantity, setQuantity] = useState<number>(0);
 
   const handleClick = () => {
-    if (currentComponent) {
+    if (currentComponent && currentComponent.id) {
       updateComponent({
         ...currentComponent,
         available_quantity: quantity,
         receipt_date: currentComponent.receipt_date.split("T")[0],
       });
+      toggleUpdate();
     }
   };
 

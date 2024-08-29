@@ -1,48 +1,37 @@
 import { useState } from "react";
-import { useAppDispatch } from "../App/hook";
 import UpdateQuantityBox from "./UpdateQuantityBox";
 import { useNavigate } from "react-router-dom";
-import {
-  updateComponent,
-  deleteComponent,
-  update,
-} from "../feature/componentSlice";
 import Form from "./Form";
-import { component } from "../type";
-
 import DeleteBox from "./DeleteBox";
+import { buttonBoxProps } from "../type";
+import { useComponentStore } from "../store/componentStore";
 
-interface ButtonBoxProps {
-  currentComponent: component;
-}
-
-const ButtonBox = ({ currentComponent }: ButtonBoxProps) => {
+const ButtonBox = ({ currentComponent }: buttonBoxProps) => {
   const [showPopup, setShowPopup] = useState<boolean>(false);
   const [showDelete, setShowDelete] = useState<boolean>(false);
-  const dispatch = useAppDispatch();
   const [quantity, setQuantity] = useState<number>(
     currentComponent?.available_quantity
   );
+  const { updateComponent, deleteComponent, toggleUpdate } =
+    useComponentStore();
   const [showForm, setShowForm] = useState<boolean>(false);
 
   const navigate = useNavigate();
 
   const handleClick = () => {
     if (currentComponent) {
-      dispatch(
-        updateComponent({
-          ...currentComponent,
-          available_quantity: quantity,
-          receipt_date: currentComponent.receipt_date.split("T")[0],
-        })
-      );
-      dispatch(update());
+      updateComponent({
+        ...currentComponent,
+        available_quantity: quantity,
+        receipt_date: currentComponent.receipt_date.split("T")[0],
+      });
+      toggleUpdate();
     }
   };
 
   const handleDelete = () => {
     if (currentComponent) {
-      dispatch(deleteComponent({ ...currentComponent }));
+      deleteComponent(currentComponent.id);
       navigate("/components");
     }
   };

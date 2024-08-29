@@ -14,7 +14,6 @@ const InteractiveBox = () => {
   const [totalPages, setTotalPages] = useState<number>(1);
   const { allComponents, getAllComponents } = useComponentStore();
   const { setFilter } = useFilterStore();
-  const filterState = useFilterStore((state) => state);
 
   const [showForm, setShowForm] = useState<boolean>(false);
 
@@ -25,11 +24,6 @@ const InteractiveBox = () => {
   useEffect(() => {
     getAllComponents();
   }, []);
-
-  useEffect(() => {
-    // Log the filter state to the console
-    console.log("Current filter state:", filterState);
-  }, [filterState]);
 
   useEffect(() => {
     setTotalPages(Math.ceil(allComponents.length / 10));

@@ -24,11 +24,10 @@ export const useComponentStore = create<componentState>((set) => ({
   getComponents: async (params) => {
     set({ loading: true });
     try {
-      console.log("Fetching components with params:", params);
       const response = await axios.get(`${Api_Url}/components/get/`, {
         params,
       });
-      console.table(params);
+
       set({ components: response.data, error: "" });
     } catch (error) {
       console.error("Error fetching components:", error);
@@ -67,24 +66,19 @@ export const useComponentStore = create<componentState>((set) => ({
     }
   },
 
-  // Update a component
+  // Update a single component
   updateComponent: async (component) => {
     try {
       const { id, ...updatedData } = component;
-      //console.log("Updating component with ID:", id, "Data:", updatedData);
       const response = await axios.put(
         `${Api_Url}/components/update/${id}`,
         updatedData
       );
-      //console.log("Update response:", response.data);
-
-      set((state) => {
-        const updatedComponents = state.components.map((comp) =>
-          comp.id === id ? response.data : comp
-        );
-        // console.log("Updated components:", updatedComponents);
-        return { components: updatedComponents };
-      });
+      console.log(updatedData);
+      set((state) => ({
+        component: { ...state.component, ...response.data },
+      }));
+      console.log("Updated component:", response.data);
     } catch (error) {
       console.error("Error updating component:", error);
     }

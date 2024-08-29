@@ -19,8 +19,8 @@ const UpdateQuantityBox = ({
   };
 
   useEffect(() => {
-    setValue(quantity);
-  }, [quantity]);
+    setQuantity(value);
+  }, [value]);
 
   return (
     <div className="bg-white text-AntarcticDeep p-10 rounded-md flex flex-col items-center gap-4 text-lg">

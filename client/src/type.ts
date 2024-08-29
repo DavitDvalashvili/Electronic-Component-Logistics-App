@@ -142,3 +142,7 @@ export type updateQuantityBoxProps = {
   handleClick: () => void;
   componentName: string;
 };
+
+export type buttonBoxProps = {
+  currentComponent: component;
+};

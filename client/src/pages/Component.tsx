@@ -3,16 +3,17 @@ import moment from "moment";
 import "moment/locale/ka";
 import ButtonBox from "../components/ButtonBox";
 import { useParams } from "react-router-dom";
-import DevicesTable from "../components/device/DevicesTable";
+import DevicesTable from "../components/component/DevicesTable";
 import { useComponentStore } from "../store/componentStore";
 
 const Component = () => {
   const { id } = useParams();
-  const { getComponent, component, loading, error } = useComponentStore();
+  const { getComponent, component, loading, error, isUpdate } =
+    useComponentStore();
 
   useEffect(() => {
     getComponent(`${id}`);
-  }, [id, getComponent]);
+  }, [id, getComponent, isUpdate]);
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;

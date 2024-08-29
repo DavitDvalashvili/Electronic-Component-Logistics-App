@@ -4,7 +4,6 @@ import Component from "./pages/Component";
 import Device from "./pages/Device";
 import Devices from "./pages/Devices";
 import Header from "./components/Header";
-import "./asset/fonts.css";
 
 function App() {
   return (

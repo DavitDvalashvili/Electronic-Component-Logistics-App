@@ -4,13 +4,13 @@ import { useComponentStore } from "../store/componentStore";
 import { useFilterStore } from "../store/componentFilterStore";
 
 const FilterContainer = () => {
-  const { getComponents } = useComponentStore();
+  const { getComponents, isUpdate } = useComponentStore();
 
   const state = useFilterStore((state) => state);
 
   useEffect(() => {
     getComponents(state);
-  }, [state]);
+  }, [state, getComponents, isUpdate]);
 
   return (
     <section className="grid grid-cols-2 lg:grid-cols-3 gap-4">
