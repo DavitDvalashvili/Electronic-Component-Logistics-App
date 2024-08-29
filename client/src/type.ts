@@ -1,4 +1,4 @@
-export interface IComponent {
+export type component = {
   id: string;
   family: string;
   name: string;
@@ -19,13 +19,13 @@ export interface IComponent {
   invoice_number: string;
   images_urls: string;
   data_sheet: string;
-}
+};
 
-export interface InitialStateComponent {
+export type initialStateComponent = {
   loading: boolean;
-  components: IComponent[];
-  allComponents: IComponent[];
-  component: IComponent | null;
+  components: component[];
+  allComponents: component[];
+  component: component | null;
   error: string;
   name: string;
   family: string;
@@ -36,11 +36,7 @@ export interface InitialStateComponent {
   search_term: string;
   page: string;
   isUpdate: boolean;
-}
-
-export interface CustomSelectProps {
-  filterBy: string;
-}
+};
 
 export interface IPagination {
   currentPage: number;
@@ -54,20 +50,95 @@ export interface DeleteBoxProps {
   name: string;
 }
 
-export interface IFormProps {
+/////////////////////////// from here
+
+export type componentDevice = {
+  device_name: string;
+  component_count_per_device: number;
+  component_available_quantity: number;
+};
+
+export type ComponentDeviceState = {
+  loading: boolean;
+  devices: componentDevice[];
+  error: string;
+  getDevices: (id: string) => Promise<void>;
+};
+
+type FilterKey =
+  | "name"
+  | "family"
+  | "package_type"
+  | "nominal_value"
+  | "electrical_supply"
+  | "suppliers_name";
+
+export type filterState = {
+  name: string;
+  family: string;
+  package_type: string;
+  nominal_value: string;
+  electrical_supply: string;
+  suppliers_name: string;
+  search_term: string;
+  page: string;
+  setFilter: (
+    filterBy: keyof Omit<filterState, "setFilter">,
+    value: string
+  ) => void;
+};
+
+export type OptionItem = {
+  [key: string]: string;
+};
+
+export type CustomSelectProps = {
+  filterBy: FilterKey;
+};
+
+// Define the Zustand store
+export type componentState = {
+  loading: boolean;
+  components: component[];
+  allComponents: component[];
+  component: component | null;
+  error: string;
+  name: string;
+  family: string;
+  package_type: string;
+  nominal_value: string;
+  electrical_supply: string;
+  suppliers_name: string;
+  search_term: string;
+  page: string;
+  isUpdate: boolean;
+  getComponents: (params: {
+    name: string;
+    family: string;
+    package_type: string;
+    nominal_value: string;
+    electrical_supply: string;
+    suppliers_name: string;
+    search_term: string;
+    page: string;
+  }) => Promise<void>;
+  getAllComponents: () => Promise<void>;
+  getComponent: (id: string) => Promise<void>;
+  updateComponent: (component: component) => Promise<void>;
+  addComponent: (newComponent: component) => Promise<void>;
+  deleteComponent: (id: string) => Promise<void>;
+  toggleUpdate: () => void;
+};
+
+export type formProps = {
   setShowForm: React.Dispatch<React.SetStateAction<boolean>>;
   status: string;
-}
+};
 
-export interface IComponentDevice {
-  id: number;
-  device_id: number;
-  component_id: number;
-  quantity_per_device: number;
-}
-
-export interface initialComponentDevice {
-  loading: boolean;
-  devices: IComponentDevice[];
-  error: string;
-}
+export type updateQuantityBoxProps = {
+  setShowPopup: React.Dispatch<React.SetStateAction<boolean>>;
+  quantity: number;
+  setQuantity: React.Dispatch<React.SetStateAction<number>>;
+  handleClick: () => void;
+  componentName: string;
+};

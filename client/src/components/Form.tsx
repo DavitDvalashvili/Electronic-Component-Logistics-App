@@ -1,31 +1,29 @@
 import { SubmitHandler, useForm } from "react-hook-form";
-import { IComponent } from "../type";
-import { useAppDispatch, useAppSelector } from "../App/hook";
-import { addComponent, updateComponent } from "../feature/componentSlice";
-import { IFormProps } from "../type";
-import { update } from "../feature/componentSlice";
+import { component } from "../type";
+import { useComponentStore } from "../store/componentStore";
+
+import { formProps } from "../type";
+//import { update } from "../feature/componentSlice";
 import { useEffect } from "react";
 
-const Form = ({ setShowForm, status }: IFormProps) => {
-  const dispatch = useAppDispatch();
-  const { component } = useAppSelector((state) => state.component);
+const Form = ({ setShowForm, status }: formProps) => {
+  const { addComponent, component, updateComponent } = useComponentStore();
 
   const {
     register,
     handleSubmit,
     formState: { errors },
     setValue,
-    //reset,
-  } = useForm<IComponent>();
+  } = useForm<component>();
 
-  const onSubmit: SubmitHandler<IComponent> = async (data) => {
+  const onSubmit: SubmitHandler<component> = async (data) => {
     try {
       if (status === "adding") {
-        dispatch(addComponent(data));
+        addComponent(data);
       } else if (status === "updating") {
-        dispatch(updateComponent(data));
+        updateComponent(data);
       }
-      dispatch(update());
+
       setShowForm(false);
     } catch (error) {
       console.error(error);
@@ -34,7 +32,7 @@ const Form = ({ setShowForm, status }: IFormProps) => {
 
   useEffect(() => {
     if (status === "updating" && component !== null) {
-      (Object.keys(component) as (keyof IComponent)[]).forEach((field) => {
+      (Object.keys(component) as (keyof component)[]).forEach((field) => {
         setValue(field, component[field]);
       });
     }

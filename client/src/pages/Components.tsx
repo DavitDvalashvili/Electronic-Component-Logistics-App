@@ -1,43 +1,28 @@
-import { useEffect, useState } from "react";
-import { useAppSelector } from "../App/hook";
-import { useAppDispatch } from "../App/hook";
+import { useState } from "react";
 import InteractiveBox from "../components/InteractiveBox";
 import UpdateQuantityBox from "../components/UpdateQuantityBox";
-import { updateComponent } from "../feature/componentSlice";
-import { IComponent } from "../type";
-import { getComponents } from "../feature/componentSlice";
+import { component } from "../type";
 import { Link } from "react-router-dom";
+import { useComponentStore } from "../store/componentStore";
 
 const Components = () => {
-  const { components } = useAppSelector((state) => state.component);
+  const { components, updateComponent } = useComponentStore();
   const [showPopup, setShowPopup] = useState<boolean>(false);
-  const [currentComponent, setCurrentComponent] = useState<IComponent>(
+  const [currentComponent, setCurrentComponent] = useState<component>(
     components[0]
   );
-  const [update, setUpdate] = useState(false);
-  const [quantity, setQuantity] = useState<number>(0);
-  const filters = useAppSelector((state) => state.filters);
-  const { isUpdate } = useAppSelector((state) => state.component);
 
-  const dispatch = useAppDispatch();
+  const [quantity, setQuantity] = useState<number>(0);
 
   const handleClick = () => {
     if (currentComponent) {
-      dispatch(
-        updateComponent({
-          ...currentComponent,
-          available_quantity: quantity,
-          receipt_date: currentComponent.receipt_date.split("T")[0],
-        })
-      );
-
-      setUpdate(!update);
+      updateComponent({
+        ...currentComponent,
+        available_quantity: quantity,
+        receipt_date: currentComponent.receipt_date.split("T")[0],
+      });
     }
   };
-
-  useEffect(() => {
-    dispatch(getComponents(filters));
-  }, [update, isUpdate]);
 
   return (
     <main>

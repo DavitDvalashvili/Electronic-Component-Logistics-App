@@ -1,20 +1,19 @@
 import { useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "../App/hook";
-import { RootState } from "../App/store";
-import { getComponents } from "../feature/componentSlice";
 import CustomSelect from "../components/CustomSelect";
+import { useComponentStore } from "../store/componentStore";
+import { useFilterStore } from "../store/componentFilterStore";
 
 const FilterContainer = () => {
-  const dispatch = useAppDispatch();
+  const { getComponents } = useComponentStore();
 
-  const filters = useAppSelector((state: RootState) => state.filters);
+  const state = useFilterStore((state) => state);
 
   useEffect(() => {
-    dispatch(getComponents(filters));
-  }, [dispatch, filters]);
+    getComponents(state);
+  }, [state]);
 
   return (
-    <section className="grid  grid-cols-2 lg:grid-cols-3 gap-4">
+    <section className="grid grid-cols-2 lg:grid-cols-3 gap-4">
       <CustomSelect filterBy="name" />
       <CustomSelect filterBy="family" />
       <CustomSelect filterBy="package_type" />

@@ -1,24 +1,18 @@
 import { useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "../App/hook";
-import { getComponent } from "../feature/componentSlice";
 import moment from "moment";
 import "moment/locale/ka";
 import ButtonBox from "../components/ButtonBox";
 import { useParams } from "react-router-dom";
-import DevicesTable from "../components/DevicesTable";
+import DevicesTable from "../components/device/DevicesTable";
+import { useComponentStore } from "../store/componentStore";
 
 const Component = () => {
   const { id } = useParams();
-  const { isUpdate } = useAppSelector((state) => state.component);
-
-  const dispatch = useAppDispatch();
-  const { component, loading, error } = useAppSelector(
-    (state) => state.component
-  );
+  const { getComponent, component, loading, error } = useComponentStore();
 
   useEffect(() => {
-    dispatch(getComponent(`${id}`));
-  }, [dispatch, id, isUpdate]);
+    getComponent(`${id}`);
+  }, [id, getComponent]);
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;

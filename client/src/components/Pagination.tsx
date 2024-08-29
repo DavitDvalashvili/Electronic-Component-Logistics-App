@@ -12,7 +12,7 @@ const Pagination = ({ totalPages, currentPage, onPageChange }: IPagination) => {
 
   const handlePageChange = (page: number) => {
     setCurrent(page);
-    onPageChange(page); // Notify parent component of the page change
+    onPageChange(page);
   };
 
   return (

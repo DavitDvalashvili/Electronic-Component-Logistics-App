@@ -1,13 +1,11 @@
 import { IoSearch } from "react-icons/io5";
-import { useAppDispatch, useAppSelector } from "../App/hook";
-import { getComponents } from "../feature/componentSlice";
+import { useFilterStore } from "../store/componentFilterStore";
 
 const SearchBox = () => {
-  const dispatch = useAppDispatch();
-  const filters = useAppSelector((state) => state.filters);
+  const { setFilter } = useFilterStore();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch(getComponents({ ...filters, search_term: e.target.value }));
+    setFilter("search_term", e.target.value);
   };
 
   return (

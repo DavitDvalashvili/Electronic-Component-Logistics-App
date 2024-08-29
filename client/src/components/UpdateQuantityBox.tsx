@@ -1,34 +1,29 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useState } from "react";
+import { updateQuantityBoxProps } from "../type";
 
-interface UpdateQuantityBoxProps {
-  setShowPopup: React.Dispatch<React.SetStateAction<boolean>>;
-  quantity: number;
-  setQuantity: React.Dispatch<React.SetStateAction<number>>;
-  handleClick: () => void;
-  componentName: string;
-}
-
-const UpdateQuantityBox: React.FC<UpdateQuantityBoxProps> = ({
+const UpdateQuantityBox = ({
   setShowPopup,
   quantity,
   setQuantity,
   handleClick,
   componentName,
-}) => {
+}: updateQuantityBoxProps) => {
   const [value, setValue] = useState<number>(quantity);
 
+  // Handle the submit action
   const handleSubmit = () => {
+    setQuantity(value);
     setShowPopup(false);
     handleClick();
   };
 
   useEffect(() => {
-    setQuantity(value);
-  });
+    setValue(quantity);
+  }, [quantity]);
 
   return (
-    <div className="bg-white text-AntarcticDeep p-10 rounded-md flex flex-col items-center gap-4 text-lg ">
+    <div className="bg-white text-AntarcticDeep p-10 rounded-md flex flex-col items-center gap-4 text-lg">
       <p className="font-semibold">{componentName}</p>
       <div className="flex justify-start items-center gap-4">
         <p className="NorthAtlanticBreeze">ხელმისაწვდომი რაოდენობა:</p>
@@ -36,7 +31,6 @@ const UpdateQuantityBox: React.FC<UpdateQuantityBoxProps> = ({
           type="number"
           value={value}
           onChange={(e) => {
-            setQuantity(Number(e.target.value));
             setValue(Number(e.target.value));
           }}
           className="w-16 h-8 text-base rounded-md border-[2px] border-solid border-NorthAtlanticBreeze focus:outline-none p-1"
@@ -44,9 +38,7 @@ const UpdateQuantityBox: React.FC<UpdateQuantityBoxProps> = ({
       </div>
       <div className="flex justify-center items-center gap-4 pt-5">
         <button
-          onClick={() => {
-            setShowPopup(false);
-          }}
+          onClick={() => setShowPopup(false)}
           className="px-2 py-2 bg-SheetMetal text-white rounded-md cursor-pointer text-sm"
         >
           გათიშვა

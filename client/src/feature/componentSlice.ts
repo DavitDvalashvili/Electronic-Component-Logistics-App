@@ -1,6 +1,6 @@
 import axios from "axios";
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
-import { InitialStateComponent, IComponent } from "../type";
+import { InitialStateComponent, component } from "../type";
 import { IconBaseProps } from "react-icons";
 
 // API base URL
@@ -58,7 +58,7 @@ export const getComponents = createAsyncThunk(
     }).toString();
 
     const response = await axios.get(`${Api_Url}/components/get/?${params}`);
-    console.log(params);
+    //console.log(params);
     return response.data;
   }
 );

@@ -8,12 +8,12 @@ import {
   update,
 } from "../feature/componentSlice";
 import Form from "./Form";
-import { IComponent } from "../type";
+import { component } from "../type";
 
 import DeleteBox from "./DeleteBox";
 
 interface ButtonBoxProps {
-  currentComponent: IComponent;
+  currentComponent: component;
 }
 
 const ButtonBox = ({ currentComponent }: ButtonBoxProps) => {

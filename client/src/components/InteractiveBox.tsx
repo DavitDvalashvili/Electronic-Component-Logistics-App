@@ -4,19 +4,18 @@ import SearchBox from "../components/SearchBox";
 import { TbFilterCheck } from "react-icons/tb";
 import { MdFilterAltOff } from "react-icons/md";
 import { useEffect, useState } from "react";
-import { useAppDispatch, useAppSelector } from "../App/hook";
-import { getComponents, getAllComponents } from "../feature/componentSlice";
+import { useComponentStore } from "../store/componentStore";
+import { useFilterStore } from "../store/componentFilterStore";
 import Form from "./Form";
 
 const InteractiveBox = () => {
   const [showFilter, setShowFilter] = useState<boolean>(true);
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const { components, allComponents } = useAppSelector(
-    (state) => state.component
-  );
   const [totalPages, setTotalPages] = useState<number>(1);
-  const dispatch = useAppDispatch();
-  const filters = useAppSelector((state) => state.filters);
+  const { allComponents, getAllComponents } = useComponentStore();
+  const { setFilter } = useFilterStore();
+  const filterState = useFilterStore((state) => state);
+
   const [showForm, setShowForm] = useState<boolean>(false);
 
   const handleClick = () => {
@@ -24,16 +23,22 @@ const InteractiveBox = () => {
   };
 
   useEffect(() => {
-    dispatch(getAllComponents());
-  }, [dispatch]);
+    getAllComponents();
+  }, []);
+
+  useEffect(() => {
+    // Log the filter state to the console
+    console.log("Current filter state:", filterState);
+  }, [filterState]);
 
   useEffect(() => {
     setTotalPages(Math.ceil(allComponents.length / 10));
-  }, [components.length, allComponents]);
+  }, [allComponents]);
 
+  // Handle page change and call getComponents with updated filters
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
-    dispatch(getComponents({ ...filters, page: page.toString() }));
+    setFilter("page", page.toString());
   };
 
   return (
@@ -49,7 +54,7 @@ const InteractiveBox = () => {
         )}
         <div className="flex justify-start items-center gap-5">
           <div
-            className="flex justify-center items-top gap-2 cursor-pointer "
+            className="flex justify-center items-top gap-2 cursor-pointer"
             onClick={handleClick}
           >
             {showFilter ? (
@@ -57,7 +62,7 @@ const InteractiveBox = () => {
             ) : (
               <TbFilterCheck className="text-[24px]" />
             )}
-            <span className="text-lg font-bolt">ფილტრი</span>
+            <span className="text-lg font-bold">ფილტრი</span>
           </div>
           <SearchBox />
           <button
