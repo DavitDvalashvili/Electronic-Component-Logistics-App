@@ -1,19 +1,19 @@
-import FilterContainer from "../components/FilterContainer";
-import Pagination from "../components/Pagination";
-import SearchBox from "../components/SearchBox";
+import FilterContainer from "./FilterContainer";
+import Pagination from "../Pagination";
+import SearchBox from "../SearchBox";
 import { TbFilterCheck } from "react-icons/tb";
 import { MdFilterAltOff } from "react-icons/md";
 import { useEffect, useState } from "react";
-import { useComponentStore } from "../store/componentStore";
-import { useFilterStore } from "../store/componentFilterStore";
-import Form from "./Form";
+import { useDeviceStore } from "../../store/deviceStore";
+import { useDeviceFilterStore } from "../../store/filterStore";
+import Form from "../Form";
 
 const InteractiveBox = () => {
   const [showFilter, setShowFilter] = useState<boolean>(true);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [totalPages, setTotalPages] = useState<number>(1);
-  const { allComponents, getAllComponents } = useComponentStore();
-  const { setFilter } = useFilterStore();
+  const { allDevices, getAllDevices } = useDeviceStore();
+  const { setDeviceFilter } = useDeviceFilterStore();
 
   const [showForm, setShowForm] = useState<boolean>(false);
 
@@ -22,17 +22,17 @@ const InteractiveBox = () => {
   };
 
   useEffect(() => {
-    getAllComponents();
+    getAllDevices();
   }, []);
 
   useEffect(() => {
-    setTotalPages(Math.ceil(allComponents.length / 10));
-  }, [allComponents]);
+    setTotalPages(Math.ceil(allDevices.length / 10));
+  }, [allDevices]);
 
   // Handle page change and call getComponents with updated filters
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
-    setFilter("page", page.toString());
+    setDeviceFilter("page", page.toString());
   };
 
   return (

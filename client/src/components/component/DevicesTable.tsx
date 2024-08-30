@@ -1,4 +1,4 @@
-import useComponentDeviceStore from "../../store/componentDeviceSore";
+import useComponentDeviceStore from "../../store/componentDeviceStore";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 

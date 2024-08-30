@@ -1,5 +1,5 @@
 import { useState } from "react";
-import InteractiveBox from "../components/InteractiveBox";
+import InteractiveBox from "../components/component/InteractiveBox";
 import UpdateQuantityBox from "../components/UpdateQuantityBox";
 import { component } from "../type";
 import { Link } from "react-router-dom";

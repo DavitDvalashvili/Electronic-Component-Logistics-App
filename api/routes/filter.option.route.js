@@ -1,8 +1,12 @@
 import express from "express";
-import { getFilterOptions } from "../controllers/filter.option.controller.js";
+import {
+  getDeviceFilterOptions,
+  getComponentFilterOptions,
+} from "../controllers/filter.option.controller.js";
 
 const router = express.Router();
 
-router.get("/get", getFilterOptions);
+router.get("/component", getComponentFilterOptions);
+router.get("/device", getDeviceFilterOptions);
 
 export default router;

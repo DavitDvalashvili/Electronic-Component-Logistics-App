@@ -1,11 +1,25 @@
 import { IoSearch } from "react-icons/io5";
-import { useFilterStore } from "../store/componentFilterStore";
+import {
+  useComponentFilterStore,
+  useDeviceFilterStore,
+} from "../store/filterStore";
+import { useLocation } from "react-router-dom";
 
 const SearchBox = () => {
-  const { setFilter } = useFilterStore();
+  const location = useLocation();
+  const pathname = location.pathname.slice(1);
+
+  console.log(pathname);
+
+  const { setComponentFilter } = useComponentFilterStore();
+  const { setDeviceFilter } = useDeviceFilterStore();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFilter("search_term", e.target.value);
+    if (pathname === "devices") {
+      setDeviceFilter("search_term", e.target.value);
+    } else {
+      setComponentFilter("search_term", e.target.value);
+    }
   };
 
   return (

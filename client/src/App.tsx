@@ -3,7 +3,7 @@ import Components from "./pages/Components";
 import Component from "./pages/Component";
 import Device from "./pages/Device";
 import Devices from "./pages/Devices";
-import Header from "./components/Header";
+import Header from "./components/Layout/Header";
 
 function App() {
   return (
@@ -17,6 +17,7 @@ function App() {
           <Route path="/device/:id" element={<Device />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
+        <Header />
       </BrowserRouter>
     </div>
   );

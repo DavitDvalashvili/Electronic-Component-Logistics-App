@@ -38,11 +38,11 @@ export type initialStateComponent = {
   isUpdate: boolean;
 };
 
-export interface IPagination {
+export type pagination = {
   currentPage: number;
   totalPages: number;
   onPageChange: (page: number) => void;
-}
+};
 
 export interface DeleteBoxProps {
   setShowDelete: React.Dispatch<React.SetStateAction<boolean>>;
@@ -63,15 +63,7 @@ export type ComponentDeviceState = {
   getDevices: (id: string) => Promise<void>;
 };
 
-type FilterKey =
-  | "name"
-  | "family"
-  | "package_type"
-  | "nominal_value"
-  | "electrical_supply"
-  | "suppliers_name";
-
-export type filterState = {
+export type componentFilterState = {
   name: string;
   family: string;
   package_type: string;
@@ -80,8 +72,8 @@ export type filterState = {
   suppliers_name: string;
   search_term: string;
   page: string;
-  setFilter: (
-    filterBy: keyof Omit<filterState, "setFilter">,
+  setComponentFilter: (
+    filterBy: keyof Omit<componentFilterState, "setFilter">,
     value: string
   ) => void;
 };
@@ -90,8 +82,18 @@ export type OptionItem = {
   [key: string]: string;
 };
 
-export type CustomSelectProps = {
-  filterBy: FilterKey;
+export type CustomSelectComponentProps = {
+  filterComponentBy:
+    | "name"
+    | "family"
+    | "package_type"
+    | "nominal_value"
+    | "electrical_supply"
+    | "suppliers_name";
+};
+
+export type CustomSelectDeviceProps = {
+  filterDeviceBy: "name" | "electrical_supply" | "size";
 };
 
 // Define the Zustand store
@@ -181,4 +183,16 @@ export type deviceState = {
   addDevice: (newDevice: device) => Promise<void>;
   deleteDevice: (id: string) => Promise<void>;
   toggleUpdate: () => void;
+};
+
+export type deviceFilterState = {
+  name: string;
+  electrical_supply: string;
+  size: string;
+  search_term: string;
+  page: string;
+  setDeviceFilter: (
+    filterBy: keyof Omit<deviceFilterState, "setFilter">,
+    value: string
+  ) => void;
 };

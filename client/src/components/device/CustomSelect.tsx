@@ -1,13 +1,14 @@
 import { useState, useEffect } from "react";
 import Select from "react-select";
 import axios from "axios";
-import { useFilterStore } from "../store/componentFilterStore";
-import { CustomSelectProps, OptionItem } from "../type";
+import { useDeviceFilterStore } from "../../store/filterStore";
+import { CustomSelectDeviceProps, OptionItem } from "../../type";
 
 const Api_Url = "http://localhost:3000/api";
 
-const CustomSelect = ({ filterBy }: CustomSelectProps) => {
-  const { [filterBy]: selectedValue, setFilter } = useFilterStore();
+const CustomSelect = ({ filterDeviceBy }: CustomSelectDeviceProps) => {
+  const { [filterDeviceBy]: selectedValue, setDeviceFilter } =
+    useDeviceFilterStore();
 
   const [options, setOptions] = useState<{ value: string; label: string }[]>(
     []
@@ -20,13 +21,13 @@ const CustomSelect = ({ filterBy }: CustomSelectProps) => {
       setIsLoading(true);
       try {
         const response = await axios.get<OptionItem[]>(
-          `${Api_Url}/filter-options/get/?filterBy=${filterBy}`
+          `${Api_Url}/filter-options/device/?filterBy=${filterDeviceBy}`
         );
 
         const filteredOptions = response.data
           .map((item) => ({
-            value: item[filterBy],
-            label: item[filterBy],
+            value: item[filterDeviceBy],
+            label: item[filterDeviceBy],
           }))
           .filter((option) => option.value && option.value.trim() !== "");
 
@@ -39,7 +40,7 @@ const CustomSelect = ({ filterBy }: CustomSelectProps) => {
     };
 
     fetchOptions();
-  }, [filterBy]);
+  }, [filterDeviceBy]);
 
   return (
     <Select
@@ -48,11 +49,11 @@ const CustomSelect = ({ filterBy }: CustomSelectProps) => {
       isLoading={isLoading}
       isClearable
       isSearchable
-      name={filterBy}
+      name={filterDeviceBy}
       options={options}
       value={options.find((option) => option.value === selectedValue)}
       onChange={(selectedOption) => {
-        setFilter(filterBy, selectedOption?.value ?? "");
+        setDeviceFilter(filterDeviceBy, selectedOption?.value ?? "");
       }}
     />
   );

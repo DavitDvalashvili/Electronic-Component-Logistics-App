@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import moment from "moment";
+//import moment from "moment";
 import "moment/locale/ka";
 import ButtonBox from "../components/ButtonBox";
 import { useParams } from "react-router-dom";
@@ -20,7 +20,7 @@ const Device = () => {
   // Check if `component.name` exists
   return (
     <div>
-      <ButtonBox currentDevice={device} />
+      {/* <ButtonBox currentDevice={device} /> */}
       <div
         key={device.id}
         className=" py-10 px-4 max-w-[1440px] xl:mx-auto grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 "

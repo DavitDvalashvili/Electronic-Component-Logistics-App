@@ -1,5 +1,5 @@
 import { useState } from "react";
-import InteractiveBox from "../components/InteractiveBox";
+import InteractiveBox from "../components/device/InteractiveBox";
 import UpdateQuantityBox from "../components/UpdateQuantityBox";
 import { device } from "../type";
 import { Link } from "react-router-dom";
@@ -62,26 +62,17 @@ const Devices = () => {
                   <div className="font-semibold text-gray-700">დასახელება:</div>
                   <div>{device.name}</div>
                 </div>
-                {/* <div className="flex gap-2">
-                  <div className="font-semibold text-gray-700">ოჯახი:</div>
-                  <div>{component.family}</div>
-                </div> */}
-                {/* <div className="flex gap-2">
-                  <div className="font-semibold text-gray-700">
-                    კორპუსის ტიპი:
-                  </div>
-                  <div>{component.package_type}</div>
-                </div> */}
-                {/* <div className="flex gap-2">
-                  <div className="font-semibold text-gray-700">ნომინალი:</div>
-                  <div>{component.nominal_value}</div>
-                </div> */}
                 <div className="flex gap-2">
                   <div className="font-semibold text-gray-700">ელ. კვება:</div>
                   <div>{device.electrical_supply}</div>
                 </div>
+                <div className="">
+                  <div className="font-semibold text-gray-700">
+                    დანიშნულება:
+                  </div>
+                  <div className="truncate">{device.purpose}</div>
+                </div>
               </div>
-
               {/* Information Column 2 */}
               <div className="md:col-span-1 flex flex-col gap-1">
                 <div className="flex gap-2"></div>
@@ -92,32 +83,12 @@ const Devices = () => {
                   <div>{device.unit_cost}</div>
                 </div>
                 <div className="flex gap-2">
-                  <div className="font-semibold text-gray-700">რაოდენობა</div>
+                  <div className="font-semibold text-gray-700">რაოდენობა:</div>
                   <div>{device.available_quantity}</div>
                 </div>
-                {/* <div className="">
-                  <div className="font-semibold text-gray-700">
-                    შენახვის ადგილმდებარეობა:
-                  </div>
-                  <div className="flex gap-3">
-                    <div>
-                      <span>კარადა:</span> {component.storage_cabinet}
-                    </div>
-                    <div>
-                      {" "}
-                      <span>თარო:</span> {component.storage_shelf}
-                    </div>
-                    <div>
-                      {" "}
-                      <span>უჯრა:</span> {component.storage_drawer}
-                    </div>
-                  </div>
-                </div> */}
-                <div className="">
-                  <div className="font-semibold text-gray-700">
-                    დანიშნულება:
-                  </div>
-                  <div className="truncate">{device.purpose}</div>
+                <div className="flex gap-2">
+                  <div className="font-semibold text-gray-700">ზომა:</div>
+                  <div>{device.size}</div>
                 </div>
               </div>
             </div>
