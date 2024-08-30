@@ -50,8 +50,6 @@ export interface DeleteBoxProps {
   name: string;
 }
 
-/////////////////////////// from here
-
 export type componentDevice = {
   device_name: string;
   component_count_per_device: number;
@@ -145,4 +143,42 @@ export type updateQuantityBoxProps = {
 
 export type buttonBoxProps = {
   currentComponent: component;
+};
+
+export type device = {
+  id: string;
+  name: string;
+  purpose: string;
+  electrical_supply: string;
+  size: string;
+  available_quantity: number;
+  unit_cost: number;
+  images_urls: string;
+};
+
+export type deviceState = {
+  loading: boolean;
+  devices: device[];
+  allDevices: device[];
+  device: device | null;
+  error: string;
+  name: string;
+  electrical_supply: string;
+  size: string;
+  search_term: string;
+  page: string;
+  isUpdate: boolean;
+  getDevices: (params: {
+    name: string;
+    electrical_supply: string;
+    size: string;
+    search_term: string;
+    page: string;
+  }) => Promise<void>;
+  getAllDevices: () => Promise<void>;
+  getDevice: (id: string) => Promise<void>;
+  updateDevice: (device: device) => Promise<void>;
+  addDevice: (newDevice: device) => Promise<void>;
+  deleteDevice: (id: string) => Promise<void>;
+  toggleUpdate: () => void;
 };
