@@ -6,7 +6,7 @@ import { MdFilterAltOff } from "react-icons/md";
 import { useEffect, useState } from "react";
 import { useComponentStore } from "../../store/componentStore";
 import { useComponentFilterStore } from "../../store/filterStore";
-import Form from "../Form";
+import Form from "./Form";
 
 const InteractiveBox = () => {
   const [showFilter, setShowFilter] = useState<boolean>(true);

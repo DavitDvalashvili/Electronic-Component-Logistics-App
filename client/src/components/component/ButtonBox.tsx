@@ -1,10 +1,10 @@
 import { useState } from "react";
-import UpdateQuantityBox from "./UpdateQuantityBox";
+import UpdateQuantityBox from "./../UpdateQuantityBox";
 import { useNavigate } from "react-router-dom";
-import Form from "./Form";
-import DeleteBox from "./DeleteBox";
-import { buttonBoxProps } from "../type";
-import { useComponentStore } from "../store/componentStore";
+import Form from "./../component/Form";
+import DeleteBox from "./../DeleteBox";
+import { buttonBoxProps } from "../../type";
+import { useComponentStore } from "../../store/componentStore";
 
 const ButtonBox = ({ currentComponent }: buttonBoxProps) => {
   const [showPopup, setShowPopup] = useState<boolean>(false);
@@ -73,7 +73,7 @@ const ButtonBox = ({ currentComponent }: buttonBoxProps) => {
             quantity={currentComponent.available_quantity}
             setQuantity={setQuantity}
             handleClick={handleClick}
-            componentName={currentComponent.name}
+            name={currentComponent.name}
           />
         </div>
       )}

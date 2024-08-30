@@ -1,8 +1,8 @@
 import { SubmitHandler, useForm } from "react-hook-form";
-import { component } from "../type";
-import { useComponentStore } from "../store/componentStore";
+import { component } from "../../type";
+import { useComponentStore } from "../../store/componentStore";
 
-import { formProps } from "../type";
+import { formProps } from "../../type";
 //import { update } from "../feature/componentSlice";
 import { useEffect } from "react";
 

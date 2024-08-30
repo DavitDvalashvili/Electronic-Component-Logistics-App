@@ -21,8 +21,6 @@ const Devices = () => {
     }
   };
 
-  console.log(currentDevice);
-
   return (
     <main>
       <InteractiveBox />
@@ -36,7 +34,7 @@ const Devices = () => {
             quantity={currentDevice.available_quantity}
             setQuantity={setQuantity}
             handleClick={handleClick}
-            componentName={currentDevice.name}
+            name={currentDevice.name}
           />
         </div>
       )}
@@ -49,7 +47,7 @@ const Devices = () => {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-5 ">
               {/* Images Column */}
               <div className="flex justify-center items-center">
-                <div className="flex justify-center items-center md:col-span-1 h-[160px] w-[200px]">
+                <div className="flex justify-center items-center md:col-span-1 h-[120px] w-[160px]">
                   <img
                     src={"https://picsum.photos/id/237/200/300"}
                     alt="Component"
@@ -104,7 +102,7 @@ const Devices = () => {
               >
                 რაოდენობის განახლება
               </button>
-              <Link to={`/component/${device.id}`}>
+              <Link to={`/device/${device.id}`}>
                 <button className="px-2 py-2 bg-NorthAtlanticBreeze text-white rounded-md cursor-pointer text-sm">
                   დეტალურად ნახვა
                 </button>

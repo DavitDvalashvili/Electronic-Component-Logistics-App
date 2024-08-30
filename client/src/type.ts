@@ -140,11 +140,15 @@ export type updateQuantityBoxProps = {
   quantity: number;
   setQuantity: React.Dispatch<React.SetStateAction<number>>;
   handleClick: () => void;
-  componentName: string;
+  name: string;
 };
 
 export type buttonBoxProps = {
   currentComponent: component;
+};
+
+export type buttonBox = {
+  currentDevice: device;
 };
 
 export type device = {

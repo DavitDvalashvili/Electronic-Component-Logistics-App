@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import moment from "moment";
 import "moment/locale/ka";
-import ButtonBox from "../components/ButtonBox";
+import ButtonBox from "../components/component/ButtonBox";
 import { useParams } from "react-router-dom";
 import DevicesTable from "../components/component/DevicesTable";
 import { useComponentStore } from "../store/componentStore";

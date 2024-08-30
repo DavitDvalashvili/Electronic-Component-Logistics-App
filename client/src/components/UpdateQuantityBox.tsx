@@ -6,7 +6,7 @@ const UpdateQuantityBox = ({
   quantity,
   setQuantity,
   handleClick,
-  componentName,
+  name,
 }: updateQuantityBoxProps) => {
   const [value, setValue] = useState<number>(quantity);
   const [increaseValue, setIncreaseValue] = useState<number>(0);
@@ -29,7 +29,7 @@ const UpdateQuantityBox = ({
 
   return (
     <div className="bg-white text-AntarcticDeep p-10 rounded-md flex flex-col items-center gap-4 text-lg">
-      <p className="font-semibold">{componentName}</p>
+      <p className="font-semibold">{name}</p>
       <div className="flex justify-start items-center gap-4">
         <p className="NorthAtlanticBreeze">ხელმისაწვდომი რაოდენობა:</p>
         <input
