@@ -100,10 +100,17 @@ export const addDevice = (req, res) => {
   });
 };
 
-// Update an existing device
 export const updateDevice = (req, res) => {
   const id = req.params.id;
-  const { name, purpose, electrical_supply, size, images_urls } = req.body;
+  const {
+    name,
+    purpose,
+    electrical_supply,
+    size,
+    available_quantity,
+    unit_cost,
+    images_urls,
+  } = req.body;
 
   const q = `
     UPDATE devices
@@ -111,11 +118,22 @@ export const updateDevice = (req, res) => {
       name = ?, 
       purpose = ?, 
       electrical_supply = ?, 
-      size = ?, 
+      size = ?,
+      available_quantity = ?,
+      unit_cost = ?,
       images_urls = ?
     WHERE id = ?`;
 
-  const values = [name, purpose, electrical_supply, size, images_urls, id];
+  const values = [
+    name,
+    purpose,
+    electrical_supply,
+    size,
+    available_quantity,
+    unit_cost,
+    images_urls,
+    id,
+  ];
 
   db.query(q, values, (err, result) => {
     if (err) {

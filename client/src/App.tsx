@@ -17,7 +17,6 @@ function App() {
           <Route path="/device/:id" element={<Device />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
-        <Header />
       </BrowserRouter>
     </div>
   );

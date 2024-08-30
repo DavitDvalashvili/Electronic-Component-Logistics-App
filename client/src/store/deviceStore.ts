@@ -86,6 +86,7 @@ export const useDeviceStore = create<deviceState>((set) => ({
       set((state) => ({
         device: { ...state.device, ...response.data },
       }));
+      console.log("success");
     } catch (error) {
       console.error("Error updating device:", error);
     }

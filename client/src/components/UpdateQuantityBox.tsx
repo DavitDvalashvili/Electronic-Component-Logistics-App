@@ -1,5 +1,4 @@
-import { useEffect } from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { updateQuantityBoxProps } from "../type";
 
 const UpdateQuantityBox = ({
@@ -10,6 +9,8 @@ const UpdateQuantityBox = ({
   componentName,
 }: updateQuantityBoxProps) => {
   const [value, setValue] = useState<number>(quantity);
+  const [increaseValue, setIncreaseValue] = useState<number>(0);
+  const [decreaseValue, setDecreaseValue] = useState<number>(0);
 
   // Handle the submit action
   const handleSubmit = () => {
@@ -19,8 +20,12 @@ const UpdateQuantityBox = ({
   };
 
   useEffect(() => {
+    setValue(quantity + increaseValue - decreaseValue);
+  }, [increaseValue, decreaseValue]);
+
+  useEffect(() => {
     setQuantity(value);
-  }, [value]);
+  }, [value, setQuantity]);
 
   return (
     <div className="bg-white text-AntarcticDeep p-10 rounded-md flex flex-col items-center gap-4 text-lg">
@@ -28,10 +33,38 @@ const UpdateQuantityBox = ({
       <div className="flex justify-start items-center gap-4">
         <p className="NorthAtlanticBreeze">ხელმისაწვდომი რაოდენობა:</p>
         <input
-          type="number"
+          type="text"
           value={value}
           onChange={(e) => {
-            setValue(Number(e.target.value));
+            if (!isNaN(Number(e.target.value))) {
+              setValue(Number(e.target.value));
+            }
+          }}
+          className="w-16 h-8 text-base rounded-md border-[2px] border-solid border-NorthAtlanticBreeze focus:outline-none p-1"
+        />
+      </div>
+      <div className="flex justify-start items-center gap-4">
+        <p className="NorthAtlanticBreeze">ზრდის რაოდენობა</p>
+        <input
+          type="text"
+          value={increaseValue}
+          onChange={(e) => {
+            if (!isNaN(Number(e.target.value))) {
+              setIncreaseValue(Number(e.target.value));
+            }
+          }}
+          className="w-16 h-8 text-base rounded-md border-[2px] border-solid border-NorthAtlanticBreeze focus:outline-none p-1"
+        />
+      </div>
+      <div className="flex justify-start items-center gap-4">
+        <p className="NorthAtlanticBreeze">შემცირების რაოდენობა:</p>
+        <input
+          type="text"
+          value={decreaseValue}
+          onChange={(e) => {
+            if (!isNaN(Number(e.target.value))) {
+              setDecreaseValue(Number(e.target.value));
+            }
           }}
           className="w-16 h-8 text-base rounded-md border-[2px] border-solid border-NorthAtlanticBreeze focus:outline-none p-1"
         />

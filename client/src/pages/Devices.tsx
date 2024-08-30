@@ -21,6 +21,8 @@ const Devices = () => {
     }
   };
 
+  console.log(currentDevice);
+
   return (
     <main>
       <InteractiveBox />
