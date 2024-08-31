@@ -37,7 +37,7 @@ const Components = () => {
             quantity={currentComponent.available_quantity}
             setQuantity={setQuantity}
             handleClick={handleClick}
-            componentName={currentComponent.name}
+            name={currentComponent.name}
           />
         </div>
       )}
@@ -52,7 +52,7 @@ const Components = () => {
               <div className="flex justify-center items-center">
                 <div className="flex justify-center items-center md:col-span-1 h-[160px] w-[200px]">
                   <img
-                    src={"https://picsum.photos/id/237/200/300"}
+                    src={component.images_urls.split(",")[0]}
                     alt="Component"
                     className="w-full h-full object-cover rounded"
                   />

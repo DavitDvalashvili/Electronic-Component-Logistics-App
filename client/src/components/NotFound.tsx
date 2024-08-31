@@ -1,13 +1,13 @@
-import { useNavigate } from "react-router-dom";
-import notFound from "../../public/notFound.svg";
+//import { useNavigate } from "react-router-dom";
+import notFound from "/notFound.svg";
 import { notFoundProps } from "../type";
 
 const NotFound = ({ name }: notFoundProps) => {
-  const navigate = useNavigate();
+  //const navigate = useNavigate();
 
-  setTimeout(() => {
-    navigate("/");
-  }, 5000);
+  // setTimeout(() => {
+  //   navigate("/");
+  // }, 5000);
 
   return (
     <div className="flex justify-center flex-col gap-5 items-center mt-[300px]">

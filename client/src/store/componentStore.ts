@@ -74,7 +74,6 @@ export const useComponentStore = create<componentState>((set) => ({
         `${Api_Url}/components/update/${id}`,
         updatedData
       );
-      console.log(updatedData);
       set((state) => ({
         component: { ...state.component, ...response.data },
       }));
