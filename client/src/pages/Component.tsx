@@ -5,6 +5,7 @@ import ButtonBox from "../components/component/ButtonBox";
 import { useParams } from "react-router-dom";
 import DevicesTable from "../components/component/DevicesTable";
 import { useComponentStore } from "../store/componentStore";
+import NotFound from "../components/NotFound";
 
 const Component = () => {
   const { id } = useParams();
@@ -17,10 +18,8 @@ const Component = () => {
   }, [id, getComponent, isUpdate]);
 
   if (loading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error}</div>;
-  if (!component) return <div>No component found</div>;
+  if (!component || error) return <NotFound name="კომპონენტი" />;
 
-  // Check if `component.name` exists
   return (
     <div>
       <ButtonBox currentComponent={component} />

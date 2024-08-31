@@ -38,7 +38,7 @@ const Form = ({ setShowForm, status }: formProps) => {
 
   return (
     <form
-      className="max-w-[1440px] mt-[100px] rounded-md bg-white h-fit p-5 border-gray-300 shadow-md "
+      className="max-w-[1440px] rounded-md bg-white h-fit p-5 border-gray-300 shadow-md "
       onSubmit={handleSubmit(onSubmit)}
     >
       <div className=" xl:mx-auto md:grid grid-cols-1 md:grid-cols-2 gap-5">

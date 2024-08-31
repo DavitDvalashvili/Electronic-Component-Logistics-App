@@ -15,96 +15,93 @@ const DevicesTable = () => {
   if (error) return <p>Error: {error}</p>;
 
   return (
-    <div className="w-full max-w-6xl overflow-x-auto p-4 mx-auto">
-      <div className="hidden md:block">
-        <table className="min-w-full divide-y divide-gray-200">
-          <thead className="bg-blackLight">
-            <tr>
-              <th className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
-                მოწყობილობა
-              </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
-                კომპონენტის რაოდენობა 1 მოწყობილობისთვის
-              </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
-                ხელმისაწვდომი კომპონენტების რაოდენონა
-              </th>
-              <th className="px-6 py-3 text-left text-xs font-medium text-white uppercase tracking-wider">
-                მოწყობილობის რაოდენობა
-              </th>
-            </tr>
-          </thead>
-          <tbody className="bg-white divide-y divide-gray-200">
-            {devices.map((device, index) => (
-              <tr key={index}>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  {device.device_name}
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  {device.component_count_per_device}
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap">
+    devices.length > 0 && (
+      <div className="w-full max-w-6xl overflow-x-auto mx-auto">
+        <div className="hidden md:block border border-gray-300 rounded-lg shadow-md  p-4  mb-5">
+          <table className="min-w-full divide-y divide-gray-200">
+            <thead>
+              <tr>
+                <th className="px-6 py-3 text-sm font-bold text-SheetMetal text-center">
+                  მოწყობილობა
+                </th>
+                <th className="px-6 py-3 text-sm font-bold text-SheetMetal text-center">
+                  კომპონენტის რაოდენობა 1 მოწყობილობისთვის
+                </th>
+                <th className="px-6 py-3 text-sm font-bold text-SheetMetal text-center">
+                  ხელმისაწვდომი კომპონენტების რაოდენონა
+                </th>
+                <th className="px-6 py-3 text-sm font-bold text-SheetMetal text-center">
+                  მოწყობილობის რაოდენობა
+                </th>
+              </tr>
+            </thead>
+            <tbody className="bg-white divide-y divide-gray-200">
+              {devices.map((device, index) => (
+                <tr key={index}>
+                  <td className="px-6 py-4 whitespace-nowrap text-center">
+                    {device.device_name}
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-center">
+                    {device.component_count_per_device}
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-center">
+                    {device.component_available_quantity}
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-center">
+                    {Math.floor(
+                      device.component_available_quantity /
+                        device.component_count_per_device
+                    )}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        <div className="md:hidden">
+          <h2 className="text-xl font-bold mb-4">
+            დაკავშირებული მოწყობილობები
+          </h2>
+          {devices.map((device, index) => (
+            <div
+              key={index}
+              className="mb-4 p-4 border bg-white text-sm lg:text-lg text-AntarcticDeep border-gray-300 rounded-lg shadow-md"
+            >
+              <div className="mb-4 flex justify-left item-center gap-4">
+                <h4 className="font-semibold  w-[200px]">მოწყობილობა</h4>
+                <p className=" my-auto">{device.device_name}</p>
+              </div>
+              <div className="mb-4 flex justify-left item-center gap-4">
+                <h4 className="font-semibold   w-[200px]">
+                  კომპონენტის რაოდენობა 1 მოწყობილობისთვის
+                </h4>
+                <p className=" my-auto">{device.component_count_per_device}</p>
+              </div>
+              <div className="mb-4 flex justify-left item-center gap-4">
+                <h4 className="font-semibold   w-[200px]">
+                  ხელმისაწვდომი კომპონენტების რაოდენონა
+                </h4>
+                <p className=" my-auto">
                   {device.component_available_quantity}
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  {/* Adjust this calculation if necessary */}
+                </p>
+              </div>
+              <div className="flex justify-left item-center gap-4">
+                <h4 className="font-semibold  w-[200px]">
+                  მოწყობილობის რაოდენობა
+                </h4>
+                <p className=" my-auto">
                   {Math.floor(
                     device.component_available_quantity /
                       device.component_count_per_device
                   )}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
-
-      <div className="md:hidden">
-        {/* Card-like layout for small screens */}
-        {devices.map((device, index) => (
-          <div
-            key={index}
-            className="mb-4 p-4 border rounded-lg shadow-sm bg-white"
-          >
-            <div className="mb-2">
-              <h4 className="font-semibold text-lg text-gray-700">
-                მოწყობილობა
-              </h4>
-              <p className="text-gray-900">{device.device_name}</p>
-            </div>
-            <div className="mb-2">
-              <h4 className="font-semibold text-lg text-gray-700">
-                კომპონენტის რაოდენობა 1 მოწყობილობისთვის
-              </h4>
-              <p className="text-gray-900">
-                {device.component_count_per_device}
-              </p>
-            </div>
-            <div>
-              <h4 className="font-semibold text-lg text-gray-700">
-                ხელმისაწვდომი კომპონენტების რაოდენონა
-              </h4>
-              <p className="text-gray-900">
-                {device.component_available_quantity}
-              </p>
-            </div>
-            <div>
-              <h4 className="font-semibold text-lg text-gray-700">
-                მოწყობილობის რაოდენობა
-              </h4>
-              <p className="text-gray-900">
-                {/* Adjust this calculation if necessary */}
-                {Math.floor(
-                  device.component_available_quantity /
-                    device.component_count_per_device
-                )}
-              </p>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
+    )
   );
 };
-
 export default DevicesTable;

@@ -208,3 +208,11 @@ export type deviceFilterState = {
     value: string
   ) => void;
 };
+
+export type calculatorProps = {
+  setShowCalculator: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+export type notFoundProps = {
+  name: string;
+};

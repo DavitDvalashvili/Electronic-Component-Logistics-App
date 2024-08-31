@@ -31,7 +31,7 @@ const UpdateQuantityBox = ({
     <div className="bg-white text-AntarcticDeep p-10 rounded-md flex flex-col items-center gap-4 text-lg">
       <p className="font-semibold">{name}</p>
       <div className="flex justify-start items-center gap-4">
-        <p className="NorthAtlanticBreeze">ხელმისაწვდომი რაოდენობა:</p>
+        <p>ხელმისაწვდომი რაოდენობა:</p>
         <input
           type="text"
           value={value}
@@ -47,7 +47,7 @@ const UpdateQuantityBox = ({
         />
       </div>
       <div className="flex justify-start items-center gap-4">
-        <p className="NorthAtlanticBreeze">ზრდის რაოდენობა</p>
+        <p>ზრდის რაოდენობა</p>
         <input
           type="text"
           value={increaseValue}
@@ -63,7 +63,7 @@ const UpdateQuantityBox = ({
         />
       </div>
       <div className="flex justify-start items-center gap-4">
-        <p className="NorthAtlanticBreeze">შემცირების რაოდენობა:</p>
+        <p>შემცირების რაოდენობა:</p>
         <input
           type="text"
           value={decreaseValue}

@@ -4,6 +4,7 @@ import ButtonBox from "../components/device/ButtonBox";
 import { useParams } from "react-router-dom";
 import { useDeviceStore } from "../store/deviceStore";
 import ComponentsTable from "../components/device/ComponentsTable";
+import NotFound from "../components/NotFound";
 
 const Device = () => {
   const { id } = useParams();
@@ -14,8 +15,7 @@ const Device = () => {
   }, [id, getDevice, isUpdate]);
 
   if (loading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error}</div>;
-  if (!device) return <div>No component found</div>;
+  if (!device || error) return <NotFound name="მოწყობილობა" />;
 
   // Check if `component.name` exists
   return (
@@ -35,7 +35,7 @@ const Device = () => {
           </div>
         </div>
         {/* Information Column 1 */}
-        <div className="flex flex-col gap-2 border border-gray-300 rounded-lg p-4 bg-white shadow-md">
+        <div className="flex flex-col gap-2 border border-gray-300 rounded-lg p-5 bg-white shadow-md">
           <div className="flex gap-2 items-center">
             <div className="font-semibold text-gray-700 w-[150px]">
               დასახელება:
@@ -57,7 +57,7 @@ const Device = () => {
           </div>
         </div>
         {/* Information Column 2 */}
-        <div className="flex flex-col gap-2 border border-gray-300 rounded-lg p-4 bg-white shadow-md ">
+        <div className="flex flex-col gap-2 border border-gray-300 rounded-lg p-5 bg-white shadow-md ">
           <div className="flex gap-2 items-center">
             <div className="font-semibold text-gray-700 w-[150px]">
               ერთეულის ღირებულება:

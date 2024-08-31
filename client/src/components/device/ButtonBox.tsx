@@ -2,6 +2,7 @@ import { useState } from "react";
 import UpdateQuantityBox from "./../UpdateQuantityBox";
 import { useNavigate } from "react-router-dom";
 import Form from "./../device/Form";
+import Calculator from "./Calculator";
 import DeleteBox from "./../DeleteBox";
 import { buttonBox } from "../../type";
 import { useDeviceStore } from "../../store/deviceStore";
@@ -9,6 +10,7 @@ import { useDeviceStore } from "../../store/deviceStore";
 const ButtonBox = ({ currentDevice }: buttonBox) => {
   const [showPopup, setShowPopup] = useState<boolean>(false);
   const [showDelete, setShowDelete] = useState<boolean>(false);
+  const [showCalculator, setShowCalculator] = useState<boolean>(false);
   const [quantity, setQuantity] = useState<number>(
     currentDevice?.available_quantity
   );
@@ -84,14 +86,30 @@ const ButtonBox = ({ currentDevice }: buttonBox) => {
           setShowForm(true);
         }}
       >
-        კომპონენტის განახლება
+        მოწყობილობის განახლება
       </button>
       {showForm && (
         <div
           id="updateQuantity"
-          className="w-full h-full absolute top-0 left-0 bg-blackLight min-h-screen flex justify-center items-top  z-10"
+          className="w-full h-full absolute top-0 left-0 bg-blackLight min-h-screen flex justify-center items-center  z-10"
         >
           <Form status="updating" setShowForm={setShowForm} />
+        </div>
+      )}
+      <button
+        className="px-2 py-2 bg-SheetMetal text-white rounded-md cursor-pointer text-sm"
+        onClick={() => {
+          setShowCalculator(true);
+        }}
+      >
+        კალკულატორი
+      </button>
+      {showCalculator && (
+        <div
+          id="updateQuantity"
+          className="w-full h-full absolute top-0 left-0 bg-blackLight min-h-screen flex justify-center items-center  z-10"
+        >
+          <Calculator setShowCalculator={setShowCalculator} />
         </div>
       )}
     </div>
