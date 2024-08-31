@@ -13,6 +13,7 @@ const Component = () => {
 
   useEffect(() => {
     getComponent(`${id}`);
+    console.log(isUpdate);
   }, [id, getComponent, isUpdate]);
 
   if (loading) return <div>Loading...</div>;

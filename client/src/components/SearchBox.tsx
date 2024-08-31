@@ -9,8 +9,6 @@ const SearchBox = () => {
   const location = useLocation();
   const pathname = location.pathname.slice(1);
 
-  console.log(pathname);
-
   const { setComponentFilter } = useComponentFilterStore();
   const { setDeviceFilter } = useDeviceFilterStore();
 

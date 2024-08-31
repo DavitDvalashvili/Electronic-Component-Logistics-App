@@ -1,8 +1,12 @@
 import express from "express";
-import { getDevices } from "../controllers/component.device.controller.js";
+import {
+  getDevices,
+  getComponents,
+} from "../controllers/component.device.controller.js";
 
 const router = express.Router();
 
-router.get("/get/:id", getDevices);
+router.get("/device/:id", getComponents);
+router.get("/component/:id", getDevices);
 
 export default router;

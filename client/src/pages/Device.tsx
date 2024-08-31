@@ -3,6 +3,7 @@ import "moment/locale/ka";
 import ButtonBox from "../components/device/ButtonBox";
 import { useParams } from "react-router-dom";
 import { useDeviceStore } from "../store/deviceStore";
+import ComponentsTable from "../components/device/ComponentsTable";
 
 const Device = () => {
   const { id } = useParams();
@@ -11,7 +12,6 @@ const Device = () => {
   useEffect(() => {
     getDevice(`${id}`);
   }, [id, getDevice, isUpdate]);
-  console.log(isUpdate);
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
@@ -76,9 +76,9 @@ const Device = () => {
             <div className="">{device.size}</div>
           </div>
         </div>
-        {/* <div className="col-span-1 md:col-span-2 xl:col-span-3">
-          <DevicesTable />
-        </div> */}
+        <div className="col-span-1 md:col-span-2 xl:col-span-3">
+          <ComponentsTable />
+        </div>
       </div>
     </div>
   );

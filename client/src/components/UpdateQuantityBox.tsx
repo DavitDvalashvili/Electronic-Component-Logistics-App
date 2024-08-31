@@ -25,7 +25,7 @@ const UpdateQuantityBox = ({
 
   useEffect(() => {
     setQuantity(value);
-  }, [value, setQuantity]);
+  }, [value, increaseValue, decreaseValue]);
 
   return (
     <div className="bg-white text-AntarcticDeep p-10 rounded-md flex flex-col items-center gap-4 text-lg">
@@ -40,6 +40,9 @@ const UpdateQuantityBox = ({
               setValue(Number(e.target.value));
             }
           }}
+          onClick={() => {
+            setValue(Number(value));
+          }}
           className="w-16 h-8 text-base rounded-md border-[2px] border-solid border-NorthAtlanticBreeze focus:outline-none p-1"
         />
       </div>
@@ -53,6 +56,9 @@ const UpdateQuantityBox = ({
               setIncreaseValue(Number(e.target.value));
             }
           }}
+          onClick={() => {
+            setIncreaseValue(increaseValue);
+          }}
           className="w-16 h-8 text-base rounded-md border-[2px] border-solid border-NorthAtlanticBreeze focus:outline-none p-1"
         />
       </div>
@@ -65,6 +71,9 @@ const UpdateQuantityBox = ({
             if (!isNaN(Number(e.target.value))) {
               setDecreaseValue(Number(e.target.value));
             }
+          }}
+          onClick={() => {
+            setDecreaseValue(decreaseValue);
           }}
           className="w-16 h-8 text-base rounded-md border-[2px] border-solid border-NorthAtlanticBreeze focus:outline-none p-1"
         />

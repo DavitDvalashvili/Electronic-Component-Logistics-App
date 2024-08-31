@@ -56,11 +56,19 @@ export type componentDevice = {
   component_available_quantity: number;
 };
 
+export type deviceComponent = {
+  component_name: string;
+  component_count_per_device: number;
+  component_available_quantity: number;
+};
+
 export type ComponentDeviceState = {
   loading: boolean;
   devices: componentDevice[];
+  components: deviceComponent[];
   error: string;
   getDevices: (id: string) => Promise<void>;
+  getComponents: (id: string) => Promise<void>;
 };
 
 export type componentFilterState = {

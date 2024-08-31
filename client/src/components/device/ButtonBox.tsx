@@ -30,7 +30,7 @@ const ButtonBox = ({ currentDevice }: buttonBox) => {
   const handleDelete = () => {
     if (currentDevice) {
       deleteDevice(currentDevice.id);
-      navigate("/device");
+      navigate("/devices");
     }
   };
 

@@ -5,7 +5,7 @@ import { formProps } from "../../type";
 import { useEffect } from "react";
 
 const Form = ({ setShowForm, status }: formProps) => {
-  const { addDevice, device, updateDevice } = useDeviceStore();
+  const { addDevice, device, updateDevice, toggleUpdate } = useDeviceStore();
 
   const {
     register,
@@ -21,7 +21,7 @@ const Form = ({ setShowForm, status }: formProps) => {
       } else if (status === "updating") {
         updateDevice(data);
       }
-
+      toggleUpdate();
       setShowForm(false);
     } catch (error) {
       console.error(error);

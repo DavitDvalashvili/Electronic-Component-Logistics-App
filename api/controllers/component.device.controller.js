@@ -32,3 +32,35 @@ export const getDevices = async (req, res) => {
     return res.status(500).json({ message: "Server error" });
   }
 };
+
+export const getComponents = async (req, res) => {
+  const { id } = req.params; // Extract device ID from request parameters
+
+  if (!id) {
+    return res.status(400).json({ message: "Device ID is required" }); // Validate that the device ID is provided
+  }
+
+  const query = `
+    SELECT c.name AS component_name, 
+           SUM(dc.quantity_per_device) AS component_count_per_device, 
+           c.available_quantity AS component_available_quantity
+    FROM components c
+    JOIN device_components dc ON c.id = dc.component_id
+    WHERE dc.device_id = ?
+    GROUP BY c.name, c.available_quantity
+  `;
+
+  try {
+    db.query(query, [id], (error, results) => {
+      if (error) {
+        console.error("Database query error:", error);
+        return res.status(500).json({ message: "Server error" });
+      }
+
+      return res.status(200).json(results);
+    });
+  } catch (error) {
+    console.error("Unhandled error:", error);
+    return res.status(500).json({ message: "Server error" });
+  }
+};

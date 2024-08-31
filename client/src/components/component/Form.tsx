@@ -7,7 +7,8 @@ import { formProps } from "../../type";
 import { useEffect } from "react";
 
 const Form = ({ setShowForm, status }: formProps) => {
-  const { addComponent, component, updateComponent } = useComponentStore();
+  const { addComponent, component, updateComponent, toggleUpdate } =
+    useComponentStore();
 
   const {
     register,
@@ -23,7 +24,7 @@ const Form = ({ setShowForm, status }: formProps) => {
       } else if (status === "updating") {
         updateComponent(data);
       }
-
+      toggleUpdate();
       setShowForm(false);
     } catch (error) {
       console.error(error);
