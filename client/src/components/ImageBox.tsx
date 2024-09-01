@@ -11,12 +11,12 @@ const ImageBox = ({ image_urls }: imageBoxProps) => {
     : [];
 
   return (
-    <div>
+    <div className="w-full h-full">
       <Swiper
         navigation
         pagination={{ clickable: true }}
         modules={[Navigation]}
-        className="max-w-6xl rounded-md"
+        className="max-w-6xl rounded-md w-full h-full"
       >
         {imageArray.length > 0 ? (
           imageArray.map((url, index) => (

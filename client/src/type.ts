@@ -225,4 +225,5 @@ export type imageBoxProps = {
 export type imageReview = {
   setImageReview: React.Dispatch<React.SetStateAction<boolean>>;
   imageUrls: string;
+  component: component;
 };

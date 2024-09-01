@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import UpdateQuantityBox from "./../UpdateQuantityBox";
 import { useNavigate } from "react-router-dom";
 import Form from "./../component/Form";
@@ -41,73 +41,24 @@ const ButtonBox = ({ currentComponent }: buttonBoxProps) => {
     }
   };
 
-  // Handle file change event
-  const [files, setFiles] = useState<FileList | null>(null);
-
-  // const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   if (event.target.files) {
-  //     setFiles(event.target.files);
-  //   }
-  //   handleUpload();
-  // };
-
-  // // Handle file upload and update component with new image URLs
-  // const handleUpload = async () => {
-  //   if (files && currentComponent) {
-  //     // Upload files and get filenames
-  //     await uploadFiles(files).then((response) => {
-  //       console.log(response);
-  //       if (response) {
-  //         // Assuming response.data contains the filenames
-  //         const image_urls = response;
-
-  //         // Update component with the new image URLs
-  //         updateComponent({
-  //           ...currentComponent,
-  //           images_urls: image_urls, // Join filenames to a single string if required
-  //         });
-
-  //         toggleUpdate();
-  //       }
-  //     });
-  //   }
-  // };
-
-  // const handleUploadClick = async () => {
-  //   if (fileInputRef.current) {
-  //     handleUpload();
-  //   }
-  // };
-
-  // Handle file change event
   const handleFileChange = async (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
     if (event.target.files) {
-      // Upload files and get filenames
       const files = event.target.files;
       const response = await uploadFiles(files);
-      console.log(response);
       if (response) {
-        const image_urls = response; // Assuming response.data contains the filenames
-        setImageUrls(image_urls); // Save image URLs
-        setImageReview(true); // Show image review box
-        updateComponent({
-          ...currentComponent,
-          images_urls: image_urls,
-        });
-        toggleUpdate();
+        setImageUrls(response);
+        setImageReview(true);
       }
     }
   };
 
   const handleUploadClick = () => {
     if (fileInputRef.current) {
-      fileInputRef.current.click(); // Trigger the file input click
+      fileInputRef.current.click();
     }
   };
-
-  /////////fileupload functionality
 
   return (
     <div className="flex justify-center items-center gap-5 pt-5">
@@ -150,20 +101,6 @@ const ButtonBox = ({ currentComponent }: buttonBoxProps) => {
           />
         </div>
       )}
-      {/* <button
-        className="px-2 py-2 bg-NorthAtlanticBreeze text-white rounded-md cursor-pointer text-sm"
-        onClick={handleUpload}
-      >
-        ფოტოს დამატება
-      </button>
-      <input type="file" onChange={handleFileChange} multiple id="fileInput" /> */}
-      {/* <button
-        className="px-2 py-2 bg-NorthAtlanticBreeze text-white rounded-md cursor-pointer text-sm"
-        onClick={handleUpload}
-      >
-        ფოტოს დამატება
-      </button>
-       */}
       <button
         className="px-2 py-2 bg-NorthAtlanticBreeze text-white rounded-md cursor-pointer text-sm"
         onClick={() => {
@@ -177,16 +114,17 @@ const ButtonBox = ({ currentComponent }: buttonBoxProps) => {
         ref={fileInputRef}
         onChange={handleFileChange}
         multiple
-        className="hidden"
+        //className="hidden"
       />
       {imageReview && (
         <div
           id="updateQuantity"
-          className="w-full h-full absolute top-0 left-0 bg-blackLight min-h-screen flex justify-center items-top  z-10"
+          className="w-full h-full absolute top-0 left-0 bg-blackLight min-h-screen flex justify-center items-center z-10"
         >
           <ImageReviewBox
             setImageReview={setImageReview}
             imageUrls={imageUrls}
+            component={currentComponent}
           />
         </div>
       )}

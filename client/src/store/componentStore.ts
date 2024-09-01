@@ -125,10 +125,7 @@ export const useComponentStore = create<componentState>((set) => ({
 
       if (response && response.status === 200) {
         const { filenames } = response.data;
-
-        console.log("Uploaded files:", filenames);
-
-        return filenames;
+        return filenames.toString();
       } else {
         console.error("Upload failed or response is missing data.");
       }

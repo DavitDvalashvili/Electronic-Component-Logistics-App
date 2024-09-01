@@ -29,7 +29,7 @@ const Component = () => {
         className=" py-10 px-4 max-w-[1440px] xl:mx-auto grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 "
       >
         <div className="flex justify-center items-center md:col-span-2 xl:col-span-1  ">
-          <div className="flex flex-col gap-4 h-[500px] w-[500px]">
+          <div className="flex flex-col gap-4 h-[500px] w-full">
             <ImageBox image_urls={component.images_urls} />
           </div>
         </div>
