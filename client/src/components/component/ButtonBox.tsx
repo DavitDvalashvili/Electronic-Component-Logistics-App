@@ -7,7 +7,6 @@ import { buttonBoxProps } from "../../type";
 import { useComponentStore } from "../../store/componentStore";
 import { useUploadStore } from "../../store/upload";
 import ImageReviewBox from "./ImageReviewBox";
-//import axios from "axios";
 
 const ButtonBox = ({ currentComponent }: buttonBoxProps) => {
   const [showPopup, setShowPopup] = useState<boolean>(false);
@@ -116,7 +115,7 @@ const ButtonBox = ({ currentComponent }: buttonBoxProps) => {
         ref={fileInputRef}
         onChange={handleFileChange}
         multiple
-        //className="hidden"
+        className="hidden"
       />
       {imageReview && (
         <div

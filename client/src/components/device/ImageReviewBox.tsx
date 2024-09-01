@@ -1,14 +1,14 @@
-import { imageReview } from "../../type";
+import { imageReviewDevice } from "../../type";
 import { useEffect, useState } from "react";
-import { useComponentStore } from "../../store/componentStore";
+import { useDeviceStore } from "../../store/deviceStore";
 
 const ImageReviewBox = ({
   imageUrls,
   setImageReview,
-  component,
-}: imageReview) => {
+  device,
+}: imageReviewDevice) => {
   const [urls, setUrls] = useState<string[]>([]);
-  const { updateComponent, toggleUpdate } = useComponentStore();
+  const { updateDevice, toggleUpdate } = useDeviceStore();
 
   useEffect(() => {
     console.log("imageUrls updated:", imageUrls);
@@ -23,9 +23,9 @@ const ImageReviewBox = ({
 
   const handleSubmit = async () => {
     try {
-      if (component) {
-        await updateComponent({
-          ...component,
+      if (device) {
+        await updateDevice({
+          ...device,
           images_urls: imageUrls,
         });
       }

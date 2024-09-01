@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import UpdateQuantityBox from "./../UpdateQuantityBox";
 import { useNavigate } from "react-router-dom";
 import Form from "./../device/Form";
@@ -6,16 +6,22 @@ import Calculator from "./Calculator";
 import DeleteBox from "./../DeleteBox";
 import { buttonBox } from "../../type";
 import { useDeviceStore } from "../../store/deviceStore";
+import { useUploadStore } from "../../store/upload";
+import ImageReviewBox from "./ImageReviewBox";
 
 const ButtonBox = ({ currentDevice }: buttonBox) => {
   const [showPopup, setShowPopup] = useState<boolean>(false);
   const [showDelete, setShowDelete] = useState<boolean>(false);
   const [showCalculator, setShowCalculator] = useState<boolean>(false);
+  const [imageReview, setImageReview] = useState<boolean>(false);
+  const [imageUrls, setImageUrls] = useState<string>("");
   const [quantity, setQuantity] = useState<number>(
     currentDevice?.available_quantity
   );
+  const { uploadFiles } = useUploadStore();
   const { updateDevice, deleteDevice, toggleUpdate } = useDeviceStore();
   const [showForm, setShowForm] = useState<boolean>(false);
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const navigate = useNavigate();
 
@@ -33,6 +39,25 @@ const ButtonBox = ({ currentDevice }: buttonBox) => {
     if (currentDevice) {
       deleteDevice(currentDevice.id);
       navigate("/devices");
+    }
+  };
+
+  const handleFileChange = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    if (event.target.files) {
+      const files = event.target.files;
+      const response = await uploadFiles(files);
+      if (response) {
+        setImageUrls(response);
+        setImageReview(true);
+      }
+    }
+  };
+
+  const handleUploadClick = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.click();
     }
   };
 
@@ -77,9 +102,33 @@ const ButtonBox = ({ currentDevice }: buttonBox) => {
           />
         </div>
       )}
-      <button className="px-2 py-2 bg-NorthAtlanticBreeze text-white rounded-md cursor-pointer text-sm">
-        ფოტოს დამატება
+      <button
+        className="px-2 py-2 bg-NorthAtlanticBreeze text-white rounded-md cursor-pointer text-sm"
+        onClick={() => {
+          handleUploadClick();
+        }}
+      >
+        ფოტოების ატვირთვა
       </button>
+      <input
+        type="file"
+        ref={fileInputRef}
+        onChange={handleFileChange}
+        multiple
+        className="hidden"
+      />
+      {imageReview && (
+        <div
+          id="updateQuantity"
+          className="w-full h-full absolute top-0 left-0 bg-blackLight min-h-screen flex justify-center items-center z-10"
+        >
+          <ImageReviewBox
+            setImageReview={setImageReview}
+            imageUrls={imageUrls}
+            device={currentDevice}
+          />
+        </div>
+      )}
       <button
         className="px-2 py-2 bg-green text-white rounded-md cursor-pointer text-sm"
         onClick={() => {
