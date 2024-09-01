@@ -72,7 +72,7 @@ const ButtonBox = ({ currentComponent }: buttonBoxProps) => {
         წაშლა
       </button>
       {showDelete && (
-        <div className="w-full h-full fixed top-0 left-0 bg-blackLight flex justify-center items-center">
+        <div className="w-full h-full fixed top-0 left-0 bg-blackLight flex justify-center items-center z-10">
           <DeleteBox
             setShowDelete={setShowDelete}
             handleDelete={handleDelete}
@@ -91,7 +91,7 @@ const ButtonBox = ({ currentComponent }: buttonBoxProps) => {
       {showPopup && (
         <div
           id="updateQuantity"
-          className="w-full h-full fixed top-0 left-0 bg-blackLight flex justify-center items-center"
+          className="w-full h-full fixed top-0 left-0 bg-blackLight flex justify-center items-center z-10"
         >
           <UpdateQuantityBox
             setShowPopup={setShowPopup}
