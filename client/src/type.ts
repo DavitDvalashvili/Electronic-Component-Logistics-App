@@ -135,6 +135,7 @@ export type componentState = {
   updateComponent: (component: component) => Promise<void>;
   addComponent: (newComponent: component) => Promise<void>;
   deleteComponent: (id: string) => Promise<void>;
+  uploadFiles: (files: FileList) => Promise<void>;
   toggleUpdate: () => void;
 };
 
@@ -215,4 +216,13 @@ export type calculatorProps = {
 
 export type notFoundProps = {
   name: string;
+};
+
+export type imageBoxProps = {
+  image_urls: string;
+};
+
+export type imageReview = {
+  setImageReview: React.Dispatch<React.SetStateAction<boolean>>;
+  imageUrls: string;
 };

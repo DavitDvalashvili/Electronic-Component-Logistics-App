@@ -20,7 +20,7 @@ const Form = ({ setShowForm, status }: formProps) => {
   const onSubmit: SubmitHandler<component> = async (data) => {
     try {
       if (status === "adding") {
-        addComponent(data);
+        addComponent({ ...data });
       } else if (status === "updating") {
         updateComponent(data);
       }

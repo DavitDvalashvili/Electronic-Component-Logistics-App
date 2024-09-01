@@ -51,11 +51,14 @@ const Components = () => {
               {/* Images Column */}
               <div className="flex justify-center items-center">
                 <div className="flex justify-center items-center md:col-span-1 h-[160px] w-[200px]">
-                  <img
-                    src={component.images_urls.split(",")[0]}
-                    alt="Component"
-                    className="w-full h-full object-cover rounded"
-                  />
+                  {component.images_urls &&
+                    component.images_urls.split(",").length > 0 && (
+                      <img
+                        src={component.images_urls.split(",")[0]}
+                        alt="Component"
+                        className="w-full h-full object-cover rounded"
+                      />
+                    )}
                 </div>
               </div>
 

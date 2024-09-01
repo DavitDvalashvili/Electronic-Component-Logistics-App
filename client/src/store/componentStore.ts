@@ -18,6 +18,7 @@ export const useComponentStore = create<componentState>((set) => ({
   electrical_supply: "",
   suppliers_name: "",
   search_term: "",
+  files: "",
   page: "1",
   isUpdate: false,
 
@@ -107,6 +108,32 @@ export const useComponentStore = create<componentState>((set) => ({
       }));
     } catch (error) {
       console.error("Error deleting component:", error);
+    }
+  },
+
+  // Upload files and update component images
+  uploadFiles: async (files: FileList) => {
+    if (!files) return;
+
+    const formData = new FormData();
+    for (let i = 0; i < files.length; i++) {
+      formData.append("files", files[i]);
+    }
+
+    try {
+      const response = await axios.post(`${Api_Url}/upload`, formData);
+
+      if (response && response.status === 200) {
+        const { filenames } = response.data;
+
+        console.log("Uploaded files:", filenames);
+
+        return filenames;
+      } else {
+        console.error("Upload failed or response is missing data.");
+      }
+    } catch (error) {
+      console.error("Error uploading files:", error);
     }
   },
 
