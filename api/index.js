@@ -38,8 +38,8 @@ app.post("/api/upload", upload.array("files", 10), (req, res) => {
   const files = req.files; // Access the array of files
   if (files && files.length > 0) {
     // Map through the files to get their filenames
-    const fileNames = files.map((file) => file.filename);
-    res.status(200).json({ filenames: `./upload/${fileNames}` });
+    const fileNames = files.map((file) => `/upload/${file.filename}`);
+    res.status(200).json({ filenames: `${fileNames}` });
   } else {
     res.status(400).json({ error: "File upload failed" });
   }
