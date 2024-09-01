@@ -48,11 +48,14 @@ const Devices = () => {
               {/* Images Column */}
               <div className="flex justify-center items-center">
                 <div className="flex justify-center items-center md:col-span-1 h-[120px] w-[160px]">
-                  <img
-                    src={"https://picsum.photos/id/237/200/300"}
-                    alt="Component"
-                    className="w-full h-full object-cover rounded"
-                  />
+                  {device.images_urls &&
+                    device.images_urls.split(",").length > 0 && (
+                      <img
+                        src={device.images_urls.split(",")[0]}
+                        alt="Component"
+                        className="w-full h-full object-cover rounded"
+                      />
+                    )}
                 </div>
               </div>
 

@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import { useDeviceStore } from "../store/deviceStore";
 import ComponentsTable from "../components/device/ComponentsTable";
 import NotFound from "../components/NotFound";
+import ImageBox from "../components/ImageBox";
 
 const Device = () => {
   const { id } = useParams();
@@ -26,12 +27,8 @@ const Device = () => {
         className=" py-10 px-4 max-w-[1440px] xl:mx-auto grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 "
       >
         <div className="flex justify-center items-center md:col-span-2 xl:col-span-1  ">
-          <div className="flex flex-col gap-4 h-[500px] w-[500px]">
-            <img
-              src={"https://picsum.photos/id/237/200/300"}
-              alt="Component"
-              className="w-full h-full object-cover rounded "
-            />
+          <div className="flex flex-col gap-4 h-[500px] w-full">
+            <ImageBox image_urls={device.images_urls} />
           </div>
         </div>
         {/* Information Column 1 */}

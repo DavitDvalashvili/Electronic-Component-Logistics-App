@@ -28,11 +28,17 @@ export const useComponentStore = create<componentState>((set) => ({
       const response = await axios.get(`${Api_Url}/components/get/`, {
         params,
       });
-
       set({ components: response.data, error: "" });
     } catch (error) {
       console.error("Error fetching components:", error);
-      set({ components: [], error: error.message || "Something went wrong" });
+
+      if (error instanceof Error) {
+        // error is an instance of Error, so it has a message property
+        set({ components: [], error: error.message });
+      } else {
+        // If the error is not an instance of Error, handle it as a generic error
+        set({ components: [], error: "Something went wrong" });
+      }
     } finally {
       set({ loading: false });
     }
@@ -45,10 +51,13 @@ export const useComponentStore = create<componentState>((set) => ({
       const response = await axios.get(`${Api_Url}/components/get/`);
       set({ allComponents: response.data, error: "" });
     } catch (error) {
-      set({
-        allComponents: [],
-        error: error.message || "Something went wrong",
-      });
+      if (error instanceof Error) {
+        // error is an instance of Error, so it has a message property
+        set({ allComponents: [], error: error.message });
+      } else {
+        // If the error is not an instance of Error, handle it as a generic error
+        set({ allComponents: [], error: "Something went wrong" });
+      }
     } finally {
       set({ loading: false });
     }
@@ -61,7 +70,13 @@ export const useComponentStore = create<componentState>((set) => ({
       const response = await axios.get(`${Api_Url}/components/get/${id}`);
       set({ component: response.data, error: "" });
     } catch (error) {
-      set({ component: null, error: error.message || "Something went wrong" });
+      if (error instanceof Error) {
+        // error is an instance of Error, so it has a message property
+        set({ component: null, error: error.message });
+      } else {
+        // If the error is not an instance of Error, handle it as a generic error
+        set({ component: null, error: "Something went wrong" });
+      }
     } finally {
       set({ loading: false });
     }

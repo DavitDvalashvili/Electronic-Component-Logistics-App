@@ -5,7 +5,8 @@ import Form from "./../component/Form";
 import DeleteBox from "./../DeleteBox";
 import { buttonBoxProps } from "../../type";
 import { useComponentStore } from "../../store/componentStore";
-import ImageReviewBox from "../ImageReviewBox";
+import { useUploadStore } from "../../store/upload";
+import ImageReviewBox from "./ImageReviewBox";
 //import axios from "axios";
 
 const ButtonBox = ({ currentComponent }: buttonBoxProps) => {
@@ -16,8 +17,9 @@ const ButtonBox = ({ currentComponent }: buttonBoxProps) => {
   const [quantity, setQuantity] = useState<number>(
     currentComponent?.available_quantity
   );
-  const { updateComponent, deleteComponent, toggleUpdate, uploadFiles } =
+  const { updateComponent, deleteComponent, toggleUpdate } =
     useComponentStore();
+  const { uploadFiles } = useUploadStore();
   const [showForm, setShowForm] = useState<boolean>(false);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 

@@ -1,6 +1,6 @@
-import { imageReview } from "../type";
+import { imageReview } from "../../type";
 import { useEffect, useState } from "react";
-import { useComponentStore } from "../store/componentStore";
+import { useComponentStore } from "../../store/componentStore";
 
 const ImageReviewBox = ({
   imageUrls,
