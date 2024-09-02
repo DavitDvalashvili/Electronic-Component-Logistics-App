@@ -19,7 +19,6 @@ export const getComponentFilterOptions = (req, res) => {
 
   // Query to get distinct filter options
   const q = `SELECT DISTINCT ${filterBy} FROM components`;
-  console.log("Executing query:", q);
 
   // Execute the query
   db.query(q, (err, data) => {
@@ -35,7 +34,6 @@ export const getComponentFilterOptions = (req, res) => {
     }
 
     // Send the response with filter options
-    console.log("Query result:", data); // Log the result
     return res.status(200).json(data);
   });
 };
@@ -52,7 +50,6 @@ export const getDeviceFilterOptions = (req, res) => {
 
   // Query to get distinct filter options
   const q = `SELECT DISTINCT ${filterBy} FROM devices`;
-  console.log("Executing query:", q);
 
   // Execute the query
   db.query(q, (err, data) => {
@@ -68,7 +65,7 @@ export const getDeviceFilterOptions = (req, res) => {
     }
 
     // Send the response with filter options
-    console.log("Query result:", data);
+
     return res.status(200).json(data);
   });
 };

@@ -18,9 +18,10 @@ const ButtonBox = ({ currentComponent }: buttonBoxProps) => {
   );
   const { updateComponent, deleteComponent, toggleUpdate } =
     useComponentStore();
-  const { uploadFiles } = useUploadStore();
+  const { uploadImage, uploadPDF } = useUploadStore();
   const [showForm, setShowForm] = useState<boolean>(false);
-  const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const imageInputRef = useRef<HTMLInputElement | null>(null);
+  const pdfInputRef = useRef<HTMLInputElement | null>(null);
 
   const navigate = useNavigate();
 
@@ -47,7 +48,7 @@ const ButtonBox = ({ currentComponent }: buttonBoxProps) => {
   ) => {
     if (event.target.files) {
       const files = event.target.files;
-      const response = await uploadFiles(files);
+      const response = await uploadImage(files);
       if (response) {
         setImageUrls(response);
         setImageReview(true);
@@ -55,9 +56,31 @@ const ButtonBox = ({ currentComponent }: buttonBoxProps) => {
     }
   };
 
+  const handlePdfChange = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      const response = await uploadPDF(file);
+      if (response) {
+        await updateComponent({
+          ...currentComponent,
+          data_sheet: response,
+        });
+        toggleUpdate();
+      }
+    }
+  };
+
   const handleUploadClick = () => {
-    if (fileInputRef.current) {
-      fileInputRef.current.click();
+    if (imageInputRef.current) {
+      imageInputRef.current.click();
+    }
+  };
+
+  const handleUploadPdfClick = () => {
+    if (pdfInputRef.current) {
+      pdfInputRef.current.click();
     }
   };
 
@@ -112,7 +135,7 @@ const ButtonBox = ({ currentComponent }: buttonBoxProps) => {
       </button>
       <input
         type="file"
-        ref={fileInputRef}
+        ref={imageInputRef}
         onChange={handleFileChange}
         multiple
         className="hidden"
@@ -120,7 +143,7 @@ const ButtonBox = ({ currentComponent }: buttonBoxProps) => {
       {imageReview && (
         <div
           id="updateQuantity"
-          className="w-full h-full absolute top-0 left-0 bg-blackLight min-h-screen flex justify-center items-center z-10"
+          className="w-full h-full fixed top-0 left-0 bg-blackLight min-h-screen flex justify-center items-center z-10"
         >
           <ImageReviewBox
             setImageReview={setImageReview}
@@ -140,11 +163,25 @@ const ButtonBox = ({ currentComponent }: buttonBoxProps) => {
       {showForm && (
         <div
           id="updateQuantity"
-          className="w-full h-full absolute top-0 left-0 bg-blackLight min-h-screen flex justify-center items-top  z-10"
+          className="w-full h-full fixed top-0 left-0 bg-blackLight min-h-screen flex justify-center items-top  z-10"
         >
           <Form status="updating" setShowForm={setShowForm} />
         </div>
       )}
+      <button
+        className="px-2 py-2 bg-SpaceBattleBlue text-white rounded-md cursor-pointer text-sm"
+        onClick={() => {
+          handleUploadPdfClick();
+        }}
+      >
+        DataSheet ატვირთვა
+      </button>
+      <input
+        type="file"
+        ref={pdfInputRef}
+        onChange={handlePdfChange}
+        //className="hidden"
+      />
     </div>
   );
 };

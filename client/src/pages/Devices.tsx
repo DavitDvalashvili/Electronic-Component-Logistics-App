@@ -54,6 +54,9 @@ const Devices = () => {
                         src={device.images_urls.split(",")[0]}
                         alt="Component"
                         className="w-full h-full object-cover rounded"
+                        onError={(e) => {
+                          e.currentTarget.src = "/image.png";
+                        }}
                       />
                     )}
                 </div>

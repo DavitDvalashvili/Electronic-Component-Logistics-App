@@ -49,7 +49,6 @@ const ImageReviewBox = ({
                 src={`${url}`}
                 alt={`image-${index}`}
                 className="w-[200px] h-[200px] rounded-md"
-                onError={() => console.error(`Failed to load image at ${url}`)}
               />
             </div>
           ))

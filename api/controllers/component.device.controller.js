@@ -34,10 +34,10 @@ export const getDevices = async (req, res) => {
 };
 
 export const getComponents = async (req, res) => {
-  const { id } = req.params; // Extract device ID from request parameters
+  const { id } = req.params;
 
   if (!id) {
-    return res.status(400).json({ message: "Device ID is required" }); // Validate that the device ID is provided
+    return res.status(400).json({ message: "Device ID is required" });
   }
 
   const query = `
@@ -61,6 +61,61 @@ export const getComponents = async (req, res) => {
     });
   } catch (error) {
     console.error("Unhandled error:", error);
+    return res.status(500).json({ message: "Server error" });
+  }
+};
+
+export const getComponentNames = (req, res) => {
+  const q = "SELECT name FROM components";
+
+  db.query(q, (err, data) => {
+    if (err) {
+      console.error("Error fetching component names:", err);
+      return res.status(500).json({ message: "Server error" });
+    }
+
+    // Return an array of component names
+    const names = data.map((component) => component.name);
+    return res.status(200).json(names);
+  });
+};
+
+export const addComponentToDevice = async (req, res) => {
+  const { device_id } = req.params;
+  const { component_id, quantity_per_device } = req.body;
+
+  try {
+    // Check if the device exists
+    const deviceQuery = "SELECT id FROM devices WHERE id = ?";
+    const device = await db.query(deviceQuery, [device_id]);
+
+    if (device.length === 0) {
+      return res.status(400).json({ message: "Device not found" });
+    }
+
+    // Check if the component exists
+    const componentQuery = "SELECT id FROM components WHERE id = ?";
+    const component = await db.query(componentQuery, [component_id]);
+
+    if (!component || component.length === 0) {
+      return res.status(400).json({ message: "Component not found" });
+    }
+
+    // Insert into device_components
+    const insertQuery = `
+      INSERT INTO device_components (device_id, component_id, quantity_per_device)
+      VALUES (?, ?, ?)
+    `;
+
+    await db.query(insertQuery, [device_id, component_id, quantity_per_device]);
+
+    return res.status(201).json({
+      component_id,
+      device_id,
+      quantity_per_device,
+    });
+  } catch (error) {
+    console.error("Database query error:", error);
     return res.status(500).json({ message: "Server error" });
   }
 };

@@ -12,9 +12,9 @@ export const getComponents = (req, res) => {
     page,
   } = req.query;
 
-  const pageSize = 10; // Number of items per page
+  const pageSize = 10;
   let offset = 0;
-  let paginationClause = ""; // Initialize pagination clause
+  let paginationClause = "";
 
   if (page) {
     const pageNumber = parseInt(page, 10);

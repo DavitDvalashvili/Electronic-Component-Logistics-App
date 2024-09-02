@@ -80,7 +80,13 @@ export const getDevice = (req, res) => {
 
 // Add a new device
 export const addDevice = (req, res) => {
-  const { name, purpose, electrical_supply, size, images_urls } = req.body;
+  const {
+    name,
+    purpose,
+    electrical_supply,
+    size,
+    images_urls = ["./image.png"],
+  } = req.body;
 
   const q = `
     INSERT INTO devices 

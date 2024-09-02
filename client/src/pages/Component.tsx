@@ -7,6 +7,7 @@ import DevicesTable from "../components/component/DevicesTable";
 import { useComponentStore } from "../store/componentStore";
 import NotFound from "../components/NotFound";
 import ImageBox from "../components/ImageBox";
+import PdfViewer from "../components/component/PdfViewer";
 
 const Component = () => {
   const { id } = useParams();
@@ -158,6 +159,9 @@ const Component = () => {
         </div>
         <div className="col-span-1 md:col-span-2 xl:col-span-3">
           <DevicesTable />
+        </div>
+        <div className="col-span-1 md:col-span-2 xl:col-span-3">
+          <PdfViewer />
         </div>
       </div>
     </div>

@@ -1,12 +1,25 @@
 import multer from "multer";
 
-const storage = multer.diskStorage({
+// Configuration for image uploads
+const imageStorage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "../client/public/upload");
+    cb(null, "../client/public/images");
   },
   filename: function (req, file, cb) {
     cb(null, Date.now() + "-" + file.originalname);
   },
 });
 
-export const upload = multer({ storage: storage }).array("files", 10);
+export const uploadImage = multer({ storage: imageStorage }).array("files", 10);
+
+// Configuration for PDF uploads
+const pdfStorage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "../client/public/dataSheet");
+  },
+  filename: function (req, file, cb) {
+    cb(null, Date.now() + "-" + file.originalname);
+  },
+});
+
+export const uploadPDF = multer({ storage: pdfStorage }).single("file");

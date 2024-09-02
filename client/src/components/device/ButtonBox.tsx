@@ -18,7 +18,7 @@ const ButtonBox = ({ currentDevice }: buttonBox) => {
   const [quantity, setQuantity] = useState<number>(
     currentDevice?.available_quantity
   );
-  const { uploadFiles } = useUploadStore();
+  const { uploadImage } = useUploadStore();
   const { updateDevice, deleteDevice, toggleUpdate } = useDeviceStore();
   const [showForm, setShowForm] = useState<boolean>(false);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
@@ -47,7 +47,7 @@ const ButtonBox = ({ currentDevice }: buttonBox) => {
   ) => {
     if (event.target.files) {
       const files = event.target.files;
-      const response = await uploadFiles(files);
+      const response = await uploadImage(files);
       if (response) {
         setImageUrls(response);
         setImageReview(true);
@@ -146,7 +146,7 @@ const ButtonBox = ({ currentDevice }: buttonBox) => {
         </div>
       )}
       <button
-        className="px-2 py-2 bg-SheetMetal text-white rounded-md cursor-pointer text-sm"
+        className="px-2 py-2 bg-SpaceBattleBlue text-white rounded-md cursor-pointer text-sm"
         onClick={() => {
           setShowCalculator(true);
         }}
