@@ -10,7 +10,6 @@ const useComponentDeviceStore = create<ComponentDeviceState>((set) => ({
   components: [],
   error: "",
   names: [],
-  isUpdate: false,
   deviceComponents: [],
 
   getDevices: async (id: string) => {
@@ -107,7 +106,6 @@ const useComponentDeviceStore = create<ComponentDeviceState>((set) => ({
       set({ error: errorMessage, loading: false });
     }
   },
-  toggleUpdate: () => set((state) => ({ isUpdate: !state.isUpdate })),
 }));
 
 export default useComponentDeviceStore;

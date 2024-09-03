@@ -6,7 +6,10 @@ import { CustomSelectDeviceProps, OptionItem } from "../../type";
 
 const Api_Url = "http://localhost:3000/api";
 
-const CustomSelect = ({ filterDeviceBy }: CustomSelectDeviceProps) => {
+const CustomSelect = ({
+  filterDeviceBy,
+  placeholder,
+}: CustomSelectDeviceProps) => {
   const { [filterDeviceBy]: selectedValue, setDeviceFilter } =
     useDeviceFilterStore();
 
@@ -55,6 +58,7 @@ const CustomSelect = ({ filterDeviceBy }: CustomSelectDeviceProps) => {
       onChange={(selectedOption) => {
         setDeviceFilter(filterDeviceBy, selectedOption?.value ?? "");
       }}
+      placeholder={placeholder}
     />
   );
 };

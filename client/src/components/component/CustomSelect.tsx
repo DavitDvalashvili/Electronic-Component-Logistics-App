@@ -6,7 +6,10 @@ import { CustomSelectComponentProps, OptionItem } from "../../type";
 
 const Api_Url = "http://localhost:3000/api";
 
-const CustomSelect = ({ filterComponentBy }: CustomSelectComponentProps) => {
+const CustomSelect = ({
+  filterComponentBy,
+  placeholder,
+}: CustomSelectComponentProps) => {
   const { [filterComponentBy]: selectedValue, setComponentFilter } =
     useComponentFilterStore();
 
@@ -55,6 +58,7 @@ const CustomSelect = ({ filterComponentBy }: CustomSelectComponentProps) => {
       onChange={(selectedOption) => {
         setComponentFilter(filterComponentBy, selectedOption?.value ?? "");
       }}
+      placeholder={placeholder}
     />
   );
 };

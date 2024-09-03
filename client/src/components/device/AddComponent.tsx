@@ -4,37 +4,29 @@ import { useComponentStore } from "../../store/componentStore";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { option, AddComponentProps } from "../../type";
+import { useDeviceStore } from "../../store/deviceStore";
 
 const AddComponent = ({ setShowAddDevice }: AddComponentProps) => {
-  const {
-    getComponentsNames,
-    names,
-    addDeviceComponent,
-    getComponents,
-    components,
-    toggleUpdate,
-    loading,
-  } = useComponentDeviceStore();
+  const { getComponentsNames, names, addDeviceComponent, components, loading } =
+    useComponentDeviceStore();
+  const { getDevice } = useDeviceStore();
   const { getAllComponents, allComponents } = useComponentStore();
   const [selectedOption, setSelectedOption] = useState<option | null>(null);
   const [value, setValue] = useState<number>(0);
   const [note, setNote] = useState<string>("");
-  const id = Number(useParams().id);
+  const id = useParams().id;
 
   useEffect(() => {
     getComponentsNames();
-    getAllComponents();
-    getComponents(`${id}`);
-  }, [getComponentsNames, getAllComponents, getComponents, id]);
+  }, [getComponentsNames, getAllComponents, id]);
 
   const filterComponent = allComponents.filter(
     (component) => component.name == selectedOption?.value
   );
+
   const existingComponent = components.filter(
     (component) => component.component_name === selectedOption?.value
   );
-
-  console.log(components);
 
   const options: option[] = names.map((option) => ({
     value: option,
@@ -62,13 +54,12 @@ const AddComponent = ({ setShowAddDevice }: AddComponentProps) => {
           setNote("კომპონენტი არ მოიძებნა");
           return;
         }
-
         addDeviceComponent({
           component_id: Number(filterComponent[0].id),
           device_id: Number(id),
           quantity_per_device: Number(value),
         });
-        toggleUpdate();
+        getDevice(`${id}`);
         setShowAddDevice(false);
         setNote("");
       } catch (err) {
@@ -95,6 +86,7 @@ const AddComponent = ({ setShowAddDevice }: AddComponentProps) => {
           options={options}
           value={selectedOption}
           onChange={handleSelectChange}
+          placeholder="აირჩიეთ კომპონენტი"
         />
         <input
           type="text"

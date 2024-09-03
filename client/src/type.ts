@@ -68,7 +68,6 @@ export type ComponentDeviceState = {
   components: deviceComponent[];
   names: string[];
   deviceComponents: deviceComponentItem[];
-  isUpdate: boolean;
   error: string;
   getDevices: (id: string) => Promise<void>;
   getComponents: (id: string) => Promise<void>;
@@ -76,7 +75,6 @@ export type ComponentDeviceState = {
   addDeviceComponent: (
     newComponentDevice: deviceComponentItem
   ) => Promise<void>;
-  toggleUpdate: () => void;
 };
 
 type deviceComponentItem = {
@@ -105,6 +103,7 @@ export type OptionItem = {
 };
 
 export type CustomSelectComponentProps = {
+  placeholder: string;
   filterComponentBy:
     | "name"
     | "family"
@@ -115,6 +114,7 @@ export type CustomSelectComponentProps = {
 };
 
 export type CustomSelectDeviceProps = {
+  placeholder: string;
   filterDeviceBy: "name" | "electrical_supply" | "size";
 };
 

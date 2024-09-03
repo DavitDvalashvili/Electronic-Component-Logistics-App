@@ -14,9 +14,12 @@ const FilterContainer = () => {
 
   return (
     <section className="grid grid-cols-2 lg:grid-cols-3 gap-4">
-      <CustomSelect filterDeviceBy="name" />
-      <CustomSelect filterDeviceBy="electrical_supply" />
-      <CustomSelect filterDeviceBy="size" />
+      <CustomSelect filterDeviceBy="name" placeholder="დასახელებით ძებნა..." />
+      <CustomSelect
+        filterDeviceBy="electrical_supply"
+        placeholder="ელექტრნული კვებით ძებნა..."
+      />
+      <CustomSelect filterDeviceBy="size" placeholder="ზომით ძებნა..." />
     </section>
   );
 };

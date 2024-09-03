@@ -14,12 +14,27 @@ const FilterContainer = () => {
 
   return (
     <section className="grid grid-cols-2 lg:grid-cols-3 gap-4">
-      <CustomSelect filterComponentBy="name" />
-      <CustomSelect filterComponentBy="family" />
-      <CustomSelect filterComponentBy="package_type" />
-      <CustomSelect filterComponentBy="nominal_value" />
-      <CustomSelect filterComponentBy="electrical_supply" />
-      <CustomSelect filterComponentBy="suppliers_name" />
+      <CustomSelect
+        filterComponentBy="name"
+        placeholder="დასახელებით ძებნა..."
+      />
+      <CustomSelect filterComponentBy="family" placeholder="ოჯახით ძებნა..." />
+      <CustomSelect
+        filterComponentBy="package_type"
+        placeholder="პაკეტის ტიპით ძებნა..."
+      />
+      <CustomSelect
+        filterComponentBy="nominal_value"
+        placeholder="ნომინალური ღირებულებით ძებნა..."
+      />
+      <CustomSelect
+        filterComponentBy="electrical_supply"
+        placeholder="ელექტორნული კვებით ძებნა..."
+      />
+      <CustomSelect
+        filterComponentBy="suppliers_name"
+        placeholder="მომწოდებლის დასახელებლით ძებნა..."
+      />
     </section>
   );
 };
