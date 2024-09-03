@@ -85,7 +85,7 @@ export const addDevice = (req, res) => {
     purpose,
     electrical_supply,
     size,
-    images_urls = ["./image.png"],
+    images_urls = ["../../public/image.png"],
   } = req.body;
 
   const q = `

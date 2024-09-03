@@ -130,7 +130,7 @@ export const addComponent = (req, res) => {
     suppliers_contact_person,
     suppliers_contact_details,
     receipt_date,
-    images_urls = ["./image.png"],
+    images_urls = ["../../public/image.png"],
     data_sheet,
   } = req.body;
 

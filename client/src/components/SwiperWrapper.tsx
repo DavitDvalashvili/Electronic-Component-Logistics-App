@@ -4,7 +4,7 @@ import { imageBoxProps } from "../type";
 import "swiper/css";
 import "swiper/css/navigation";
 
-const ImageBox = ({ image_urls }: imageBoxProps) => {
+const SwiperWrapper = ({ image_urls }: imageBoxProps) => {
   const imageArray = image_urls
     ? image_urls.split(",").map((url) => url.trim())
     : [];
@@ -20,15 +20,15 @@ const ImageBox = ({ image_urls }: imageBoxProps) => {
         {imageArray.length > 0 ? (
           imageArray.map((url, index) => (
             <SwiperSlide key={index}>
-              <img
-                src={url}
-                alt={`Slide ${index + 1}`}
-                loading="lazy"
-                onError={(e) => {
-                  e.currentTarget.src = "/image.png";
+              <div
+                style={{
+                  backgroundImage: `url(${url})`,
+                  backgroundSize: "contain",
+                  backgroundRepeat: "no-repeat",
+                  backgroundPosition: "center",
                 }}
-                className="object-cover w-full h-full"
-              />
+                className="w-full h-full"
+              ></div>
             </SwiperSlide>
           ))
         ) : (
@@ -41,4 +41,4 @@ const ImageBox = ({ image_urls }: imageBoxProps) => {
   );
 };
 
-export default ImageBox;
+export default SwiperWrapper;

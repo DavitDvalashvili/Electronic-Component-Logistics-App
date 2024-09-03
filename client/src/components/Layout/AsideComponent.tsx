@@ -94,12 +94,12 @@ const AsideComponent = ({ currentComponent }: buttonBoxProps) => {
 
   return (
     <div
-      className={`absolute h-full top-0 left-0 z-20 ${
+      className={`absolute top-0 left-0 z-20 min-h-screen h-full ${
         showSideBar ? "bg-AntarcticDeep" : ""
       }`}
     >
       <div
-        className="text-white flex justify-center items-center gap-5 text-[20px] px-10 py-5 cursor-pointer w-[259.344px] "
+        className="text-white  flex justify-center items-center gap-5 text-[20px] px-10 py-5 cursor-pointer w-[259.344px] "
         onClick={() => {
           setShowSideBar(!showSideBar);
         }}
@@ -108,11 +108,11 @@ const AsideComponent = ({ currentComponent }: buttonBoxProps) => {
         {showSideBar ? (
           <MdKeyboardDoubleArrowLeft className="text-red-600 text-[35px]" />
         ) : (
-          <MdKeyboardDoubleArrowRight className="text-red-600 text-[40px]" />
+          <MdKeyboardDoubleArrowRight className="text-red-600 text-[35px]" />
         )}
       </div>
       {showSideBar && (
-        <aside className="flex flex-col gap-5 pt-10 p-5 bg-AntarcticDeep ">
+        <aside className="flex flex-col gap-5 pt-10 p-5 bg-AntarcticDeep">
           <button
             className="px-2 py-2 text-white rounded-md cursor-pointer text-sm flex justify-start items-start gap-4"
             onClick={() => {

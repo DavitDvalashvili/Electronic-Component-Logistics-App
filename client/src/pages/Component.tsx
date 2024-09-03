@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom";
 import DevicesTable from "../components/component/DevicesTable";
 import { useComponentStore } from "../store/componentStore";
 import NotFound from "../components/NotFound";
-import ImageBox from "../components/ImageBox";
+import ImageBox from "../components/SwiperWrapper";
 import PdfViewer from "../components/component/PdfViewer";
 
 const Component = () => {

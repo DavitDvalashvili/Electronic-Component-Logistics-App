@@ -7,7 +7,7 @@ import { option, AddComponentProps } from "../../type";
 import { useDeviceStore } from "../../store/deviceStore";
 import { motion } from "framer-motion";
 
-const AddComponent = ({ setShowAddDevice }: AddComponentProps) => {
+const LinkComponent = ({ setShowAddDevice }: AddComponentProps) => {
   const { getComponentsNames, names, addDeviceComponent, components, loading } =
     useComponentDeviceStore();
   const { getDevice } = useDeviceStore();
@@ -125,4 +125,4 @@ const AddComponent = ({ setShowAddDevice }: AddComponentProps) => {
   );
 };
 
-export default AddComponent;
+export default LinkComponent;

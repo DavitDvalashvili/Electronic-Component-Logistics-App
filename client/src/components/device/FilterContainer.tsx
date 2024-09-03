@@ -17,7 +17,7 @@ const FilterContainer = () => {
       <CustomSelect filterDeviceBy="name" placeholder="დასახელებით ძებნა..." />
       <CustomSelect
         filterDeviceBy="electrical_supply"
-        placeholder="ელექტრნული კვებით ძებნა..."
+        placeholder="ელექტრონული კვებით ძებნა..."
       />
       <CustomSelect filterDeviceBy="size" placeholder="ზომით ძებნა..." />
     </section>
