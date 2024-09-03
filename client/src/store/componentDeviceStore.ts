@@ -9,6 +9,10 @@ const useComponentDeviceStore = create<ComponentDeviceState>((set) => ({
   devices: [],
   components: [],
   error: "",
+  names: [],
+  isUpdate: false,
+  deviceComponents: [],
+
   getDevices: async (id: string) => {
     set({ loading: true });
     try {
@@ -55,6 +59,55 @@ const useComponentDeviceStore = create<ComponentDeviceState>((set) => ({
       });
     }
   },
+  getComponentsNames: async () => {
+    set({ loading: true });
+    try {
+      const response = await axios.get(
+        `${Api_Url}/component-device/component-names`
+      );
+      set({ names: response.data, error: "", loading: false });
+    } catch (error: unknown) {
+      let errorMessage = "Something went wrong";
+
+      if (axios.isAxiosError(error)) {
+        errorMessage = error.response?.data?.message || error.message;
+      } else if (error instanceof Error) {
+        errorMessage = error.message;
+      }
+
+      set({
+        names: [],
+        error: errorMessage,
+        loading: false,
+      });
+    }
+  },
+
+  addDeviceComponent: async (deviceComponent) => {
+    set({ loading: true });
+    try {
+      const response = await axios.post(
+        `${Api_Url}/component-device/add`,
+        deviceComponent
+      );
+      set((state) => ({
+        components: [...state.deviceComponents, response.data],
+        loading: false,
+        error: "",
+      }));
+    } catch (error: unknown) {
+      let errorMessage = "Something went wrong";
+
+      if (axios.isAxiosError(error)) {
+        errorMessage = error.response?.data?.message || error.message;
+      } else if (error instanceof Error) {
+        errorMessage = error.message;
+      }
+
+      set({ error: errorMessage, loading: false });
+    }
+  },
+  toggleUpdate: () => set((state) => ({ isUpdate: !state.isUpdate })),
 }));
 
 export default useComponentDeviceStore;

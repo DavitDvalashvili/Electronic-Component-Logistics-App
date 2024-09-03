@@ -80,9 +80,8 @@ export const getComponentNames = (req, res) => {
   });
 };
 
-export const addComponentToDevice = async (req, res) => {
-  const { device_id } = req.params;
-  const { component_id, quantity_per_device } = req.body;
+export const addComponentDevice = async (req, res) => {
+  const { component_id, quantity_per_device, device_id } = req.body;
 
   try {
     // Check if the device exists
@@ -101,12 +100,11 @@ export const addComponentToDevice = async (req, res) => {
       return res.status(400).json({ message: "Component not found" });
     }
 
-    // Insert into device_components
+    // If no conflict, insert into device_components
     const insertQuery = `
       INSERT INTO device_components (device_id, component_id, quantity_per_device)
       VALUES (?, ?, ?)
     `;
-
     await db.query(insertQuery, [device_id, component_id, quantity_per_device]);
 
     return res.status(201).json({

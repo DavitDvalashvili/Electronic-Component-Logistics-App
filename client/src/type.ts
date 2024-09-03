@@ -66,9 +66,23 @@ export type ComponentDeviceState = {
   loading: boolean;
   devices: componentDevice[];
   components: deviceComponent[];
+  names: string[];
+  deviceComponents: deviceComponentItem[];
+  isUpdate: boolean;
   error: string;
   getDevices: (id: string) => Promise<void>;
   getComponents: (id: string) => Promise<void>;
+  getComponentsNames: () => Promise<void>;
+  addDeviceComponent: (
+    newComponentDevice: deviceComponentItem
+  ) => Promise<void>;
+  toggleUpdate: () => void;
+};
+
+type deviceComponentItem = {
+  component_id: number;
+  device_id: number;
+  quantity_per_device: number;
 };
 
 export type componentFilterState = {
@@ -213,6 +227,10 @@ export type calculatorProps = {
   setShowCalculator: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
+export type AddComponentProps = {
+  setShowAddDevice: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
 export type notFoundProps = {
   name: string;
 };
@@ -231,4 +249,9 @@ export type imageReviewDevice = {
   setImageReview: React.Dispatch<React.SetStateAction<boolean>>;
   imageUrls: string;
   device: device;
+};
+
+export type option = {
+  value: string;
+  label: string;
 };

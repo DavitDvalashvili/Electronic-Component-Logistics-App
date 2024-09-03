@@ -180,7 +180,7 @@ const ButtonBox = ({ currentComponent }: buttonBoxProps) => {
         type="file"
         ref={pdfInputRef}
         onChange={handlePdfChange}
-        //className="hidden"
+        className="hidden"
       />
     </div>
   );

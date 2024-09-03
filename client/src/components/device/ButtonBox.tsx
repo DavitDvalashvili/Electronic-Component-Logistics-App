@@ -8,6 +8,7 @@ import { buttonBox } from "../../type";
 import { useDeviceStore } from "../../store/deviceStore";
 import { useUploadStore } from "../../store/upload";
 import ImageReviewBox from "./ImageReviewBox";
+import AddComponent from "./AddComponent";
 
 const ButtonBox = ({ currentDevice }: buttonBox) => {
   const [showPopup, setShowPopup] = useState<boolean>(false);
@@ -21,6 +22,7 @@ const ButtonBox = ({ currentDevice }: buttonBox) => {
   const { uploadImage } = useUploadStore();
   const { updateDevice, deleteDevice, toggleUpdate } = useDeviceStore();
   const [showForm, setShowForm] = useState<boolean>(false);
+  const [showAddDevice, setShowAddDevice] = useState<boolean>(false);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const navigate = useNavigate();
@@ -159,6 +161,22 @@ const ButtonBox = ({ currentDevice }: buttonBox) => {
           className="w-full h-full absolute top-0 left-0 bg-blackLight min-h-screen flex justify-center items-center  z-10"
         >
           <Calculator setShowCalculator={setShowCalculator} />
+        </div>
+      )}
+      <button
+        className="px-2 py-2 bg-green text-white rounded-md cursor-pointer text-sm"
+        onClick={() => {
+          setShowAddDevice(true);
+        }}
+      >
+        მოწყობილობის დამატება
+      </button>
+      {showAddDevice && (
+        <div
+          id="updateQuantity"
+          className="w-full h-full absolute top-0 left-0 bg-blackLight min-h-screen flex justify-center items-center  z-10"
+        >
+          <AddComponent setShowAddDevice={setShowAddDevice} />
         </div>
       )}
     </div>

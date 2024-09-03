@@ -3,7 +3,7 @@ import {
   getDevices,
   getComponents,
   getComponentNames,
-  addComponentToDevice,
+  addComponentDevice,
 } from "../controllers/component.device.controller.js";
 
 const router = express.Router();
@@ -11,6 +11,6 @@ const router = express.Router();
 router.get("/device/:id", getComponents);
 router.get("/component/:id", getDevices);
 router.get("/component-names", getComponentNames);
-router.post("/add-component-device/:device_id", addComponentToDevice);
+router.post("/add", addComponentDevice);
 
 export default router;
