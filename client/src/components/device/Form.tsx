@@ -3,6 +3,7 @@ import { device } from "../../type";
 import { useDeviceStore } from "../../store/deviceStore";
 import { formProps } from "../../type";
 import { useEffect } from "react";
+import { motion } from "framer-motion";
 
 const Form = ({ setShowForm, status }: formProps) => {
   const { addDevice, device, updateDevice, toggleUpdate } = useDeviceStore();
@@ -37,8 +38,12 @@ const Form = ({ setShowForm, status }: formProps) => {
   }, [status, device, setValue]);
 
   return (
-    <form
-      className="max-w-[1440px] rounded-md bg-white h-fit p-5 border-gray-300 shadow-md "
+    <motion.form
+      initial={{ scale: 0, opacity: 0 }}
+      animate={{ scale: 1, opacity: 1 }}
+      exit={{ scale: -1, opacity: 0 }}
+      transition={{ duration: 0.5 }}
+      className="max-w-[1440px] mt-[200px] rounded-md bg-white h-fit p-5"
       onSubmit={handleSubmit(onSubmit)}
     >
       <div className=" xl:mx-auto md:grid grid-cols-1 md:grid-cols-2 gap-5">
@@ -179,12 +184,6 @@ const Form = ({ setShowForm, status }: formProps) => {
 
       <div className="flex justify-end items-center gap-5">
         <button
-          type="submit"
-          className="px-4 py-2 bg-green text-white rounded-md cursor-pointer text-[10px] "
-        >
-          {status == "adding" ? "დამატება" : "განახლება"}
-        </button>
-        <button
           type="button"
           className="px-4 py-2 bg-AntarcticDeep text-white rounded-md cursor-pointer text-[10px] "
           onClick={() => {
@@ -193,8 +192,14 @@ const Form = ({ setShowForm, status }: formProps) => {
         >
           გაუქმება
         </button>
+        <button
+          type="submit"
+          className="px-4 py-2 bg-green text-white rounded-md cursor-pointer text-[10px] "
+        >
+          {status == "adding" ? "დამატება" : "განახლება"}
+        </button>
       </div>
-    </form>
+    </motion.form>
   );
 };
 

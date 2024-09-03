@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { option, AddComponentProps } from "../../type";
 import { useDeviceStore } from "../../store/deviceStore";
+import { motion } from "framer-motion";
 
 const AddComponent = ({ setShowAddDevice }: AddComponentProps) => {
   const { getComponentsNames, names, addDeviceComponent, components, loading } =
@@ -72,7 +73,13 @@ const AddComponent = ({ setShowAddDevice }: AddComponentProps) => {
   };
 
   return (
-    <div className="bg-white text-AntarcticDeep p-10 rounded-md  text-lg">
+    <motion.div
+      initial={{ scale: 0, opacity: 0 }}
+      animate={{ scale: 1, opacity: 1 }}
+      exit={{ scale: -1, opacity: 0 }}
+      transition={{ duration: 0.5 }}
+      className="bg-white text-AntarcticDeep p-10 rounded-md  text-lg"
+    >
       <p className="font-semibold text-center mb-4">დაამატე კომპონენტი</p>
       {note && <p className="text-ChinChinCherry text-[12px]">{note}</p>}
       <div className="flex justify-start items-center gap-4 mb-4 w-[375px] ">
@@ -114,7 +121,7 @@ const AddComponent = ({ setShowAddDevice }: AddComponentProps) => {
           დამატება
         </button>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

@@ -1,6 +1,7 @@
 import useComponentDeviceStore from "../../store/componentDeviceStore";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { MdOutlineFolderDelete } from "react-icons/md";
 
 const ComponentsTable = () => {
   const { loading, components, error, getComponents } =
@@ -34,6 +35,9 @@ const ComponentsTable = () => {
                 <th className="px-6 py-3 text-sm font-bold text-SheetMetal text-center">
                   მოწყობილობის რაოდენობა
                 </th>
+                <th className="px-6 py-3 text-sm font-bold text-SheetMetal text-center">
+                  წაშლა
+                </th>
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
@@ -53,6 +57,9 @@ const ComponentsTable = () => {
                       component.component_available_quantity /
                         component.component_count_per_device
                     )}
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-center">
+                    <MdOutlineFolderDelete className="text-[22px] cursor-pointer" />
                   </td>
                 </tr>
               ))}

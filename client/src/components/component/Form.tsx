@@ -1,10 +1,9 @@
 import { SubmitHandler, useForm } from "react-hook-form";
 import { component } from "../../type";
 import { useComponentStore } from "../../store/componentStore";
-
 import { formProps } from "../../type";
-//import { update } from "../feature/componentSlice";
 import { useEffect } from "react";
+import { motion } from "framer-motion";
 
 const Form = ({ setShowForm, status }: formProps) => {
   const { addComponent, component, updateComponent, toggleUpdate } =
@@ -40,7 +39,11 @@ const Form = ({ setShowForm, status }: formProps) => {
   }, [status, component, setValue]);
 
   return (
-    <form
+    <motion.form
+      initial={{ scale: 0, opacity: 0 }}
+      animate={{ scale: 1, opacity: 1 }}
+      exit={{ scale: -1, opacity: 0 }}
+      transition={{ duration: 0.5 }}
       className="max-w-[1440px] mt-[100px] rounded-md bg-white h-fit p-5"
       onSubmit={handleSubmit(onSubmit)}
     >
@@ -407,12 +410,6 @@ const Form = ({ setShowForm, status }: formProps) => {
       </div>
       <div className="flex justify-end items-center gap-5">
         <button
-          type="submit"
-          className="px-4 py-2 bg-green text-white rounded-md cursor-pointer text-[10px] "
-        >
-          {status == "adding" ? "დამატება" : "განახლება"}
-        </button>
-        <button
           type="button"
           className="px-4 py-2 bg-AntarcticDeep text-white rounded-md cursor-pointer text-[10px] "
           onClick={() => {
@@ -421,8 +418,14 @@ const Form = ({ setShowForm, status }: formProps) => {
         >
           გაუქმება
         </button>
+        <button
+          type="submit"
+          className="px-4 py-2 bg-green text-white rounded-md cursor-pointer text-[10px] "
+        >
+          {status == "adding" ? "დამატება" : "განახლება"}
+        </button>
       </div>
-    </form>
+    </motion.form>
   );
 };
 

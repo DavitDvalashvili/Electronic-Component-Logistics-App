@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import "moment/locale/ka";
-import ButtonBox from "../components/device/ButtonBox";
+import ButtonBox from "../components/Layout/AsideDevice";
 import { useParams } from "react-router-dom";
 import { useDeviceStore } from "../store/deviceStore";
 import ComponentsTable from "../components/device/ComponentsTable";

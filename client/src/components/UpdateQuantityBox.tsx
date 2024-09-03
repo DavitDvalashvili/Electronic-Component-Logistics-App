@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { updateQuantityBoxProps } from "../type";
+import { motion } from "framer-motion";
 
 const UpdateQuantityBox = ({
   setShowPopup,
@@ -28,7 +29,13 @@ const UpdateQuantityBox = ({
   }, [value, increaseValue, decreaseValue]);
 
   return (
-    <div className="bg-white text-AntarcticDeep p-10 rounded-md flex flex-col items-center gap-4 text-lg">
+    <motion.div
+      initial={{ scale: 0, opacity: 0 }}
+      animate={{ scale: 1, opacity: 1 }}
+      exit={{ scale: -1, opacity: 0 }}
+      transition={{ duration: 0.5 }}
+      className="bg-white text-AntarcticDeep p-10 rounded-md flex flex-col items-center gap-4 text-lg"
+    >
       <p className="font-semibold">{name}</p>
       <div className="flex justify-start items-center gap-4">
         <p>ხელმისაწვდომი რაოდენობა:</p>
@@ -83,7 +90,7 @@ const UpdateQuantityBox = ({
           განახლება
         </button>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

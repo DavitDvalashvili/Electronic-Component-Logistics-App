@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import moment from "moment";
 import "moment/locale/ka";
-import ButtonBox from "../components/component/ButtonBox";
+import ButtonBox from "../components/Layout/AsideComponent";
 import { useParams } from "react-router-dom";
 import DevicesTable from "../components/component/DevicesTable";
 import { useComponentStore } from "../store/componentStore";
@@ -27,7 +27,7 @@ const Component = () => {
       <ButtonBox currentComponent={component} />
       <div
         key={component.id}
-        className=" py-10 px-4 max-w-[1440px] xl:mx-auto grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 "
+        className=" py-10 px-4 max-w-[1370px] xl:mx-auto grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 "
       >
         <div className="flex justify-center items-center md:col-span-2 xl:col-span-1  ">
           <div className="flex flex-col gap-4 h-[500px] w-full">

@@ -1,9 +1,8 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import { imageBoxProps } from "../type";
-
-import "swiper/css"; // Base Swiper styles
-import "swiper/css/navigation"; // Navigation module styles
+import "swiper/css";
+import "swiper/css/navigation";
 
 const ImageBox = ({ image_urls }: imageBoxProps) => {
   const imageArray = image_urls

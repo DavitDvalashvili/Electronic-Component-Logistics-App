@@ -1,6 +1,7 @@
 import { imageReview } from "../../type";
 import { useEffect, useState } from "react";
 import { useComponentStore } from "../../store/componentStore";
+import { motion } from "framer-motion";
 
 const ImageReviewBox = ({
   imageUrls,
@@ -37,7 +38,13 @@ const ImageReviewBox = ({
   };
 
   return (
-    <div className="bg-white text-AntarcticDeep p-10 rounded-md text-lg">
+    <motion.div
+      initial={{ scale: 0, opacity: 0 }}
+      animate={{ scale: 1, opacity: 1 }}
+      exit={{ scale: -1, opacity: 0 }}
+      transition={{ duration: 0.5 }}
+      className="bg-white text-AntarcticDeep p-10 rounded-md text-lg"
+    >
       <div className="flex justify-evenly items-center gap-5 flex-wrap">
         {urls.length > 0 ? (
           urls.map((url, index) => (
@@ -65,7 +72,7 @@ const ImageReviewBox = ({
           დადასტურება
         </button>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
