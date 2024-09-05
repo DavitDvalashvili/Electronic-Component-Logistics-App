@@ -19,6 +19,7 @@ const LinkComponent = ({ setShowAddDevice }: AddComponentProps) => {
 
   useEffect(() => {
     getComponentsNames();
+    getAllComponents();
   }, [getComponentsNames, getAllComponents, id]);
 
   const filterComponent = allComponents.filter(

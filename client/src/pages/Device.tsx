@@ -16,10 +16,6 @@ const Device = () => {
     getDevice(`${id}`);
   }, [id, getDevice, isUpdate]);
 
-  useEffect(() => {
-    console.log(loading);
-  }, [loading]);
-
   return (
     <div>
       {loading && <CustomLoader />}
