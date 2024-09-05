@@ -1,6 +1,7 @@
 import axios from "axios";
 import { create } from "zustand";
 import { componentState } from "../type";
+import { showSuccess, showError } from "../toast/ToastUtils";
 
 // API base URL
 const Api_Url = "http://localhost:3000/api";
@@ -93,9 +94,11 @@ export const useComponentStore = create<componentState>((set) => ({
       set((state) => ({
         component: { ...state.component, ...response.data },
       }));
+      showSuccess("კომპონენტი განახლდა წარმატებით");
       console.log("Updated component:", response.data);
     } catch (error) {
       console.error("Error updating component:", error);
+      showError("შეცდომა კომპონენტის განახლებისას");
     }
   },
 
@@ -109,8 +112,10 @@ export const useComponentStore = create<componentState>((set) => ({
       set((state) => ({
         components: [...state.components, response.data],
       }));
+      showSuccess("კომპონენტი დაემატა წარმატებით");
     } catch (error) {
       console.error("Error adding component:", error);
+      showError("შეცდომა კომპონენტის დამატებისას");
     }
   },
 
@@ -121,8 +126,10 @@ export const useComponentStore = create<componentState>((set) => ({
       set((state) => ({
         components: state.components.filter((comp) => comp.id !== id),
       }));
+      showSuccess("კომპონენტი წაიშალა წარმატებით");
     } catch (error) {
       console.error("Error deleting component:", error);
+      showError("შეცდომა კომპონენტის წაშლისას");
     }
   },
 

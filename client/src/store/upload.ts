@@ -19,6 +19,7 @@ export const useUploadStore = create(() => ({
 
       if (response && response.status === 200) {
         const { filenames } = response.data;
+
         return filenames.toString();
       } else {
         console.error("Upload failed or response is missing data.");
@@ -27,6 +28,7 @@ export const useUploadStore = create(() => ({
       console.error("Error uploading files:", error);
     }
   },
+
   uploadPDF: async (file: File) => {
     if (!file) return;
 
@@ -38,6 +40,7 @@ export const useUploadStore = create(() => ({
 
       if (response && response.status === 200) {
         const { filename } = response.data;
+
         return filename;
       } else {
         console.error("Upload failed or response is missing data.");

@@ -1,6 +1,7 @@
 import axios from "axios";
 import { create } from "zustand";
-import { device, deviceState } from "../type"; // Import the types correctly
+import { device, deviceState } from "../type";
+import { showSuccess, showError } from "../toast/ToastUtils";
 
 // API base URL
 const Api_Url = "http://localhost:3000/api";
@@ -86,8 +87,10 @@ export const useDeviceStore = create<deviceState>((set) => ({
       set((state) => ({
         device: { ...state.device, ...response.data },
       }));
+      showSuccess("მოწყობილობა განახლდა წარმატებით");
     } catch (error) {
       console.error("Error updating device:", error);
+      showError("შეცდომა მოწყობილობის განახლებისას");
     }
   },
 
@@ -98,8 +101,10 @@ export const useDeviceStore = create<deviceState>((set) => ({
       set((state) => ({
         devices: [...state.devices, response.data],
       }));
+      showSuccess("მოწყობილობა დაემატა წარმატებით");
     } catch (error) {
       console.error("Error adding device:", error);
+      showError("შეცდომა მოწყობილობის დამატებისას");
     }
   },
 
@@ -110,8 +115,10 @@ export const useDeviceStore = create<deviceState>((set) => ({
       set((state) => ({
         devices: state.devices.filter((dev) => dev.id !== id),
       }));
+      showSuccess("მოწყობილობა წაიშალა წარმატებით");
     } catch (error) {
       console.error("Error deleting device:", error);
+      showError("შეცდომა მოწყობილობის წაშლისას");
     }
   },
 

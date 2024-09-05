@@ -1,4 +1,6 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import Components from "./pages/Components";
 import Component from "./pages/Component";
 import Device from "./pages/Device";
@@ -17,6 +19,7 @@ function App() {
           <Route path="/device/:id" element={<Device />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
+        <ToastContainer />
       </BrowserRouter>
     </div>
   );
