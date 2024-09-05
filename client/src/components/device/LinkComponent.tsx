@@ -8,8 +8,14 @@ import { useDeviceStore } from "../../store/deviceStore";
 import { motion } from "framer-motion";
 
 const LinkComponent = ({ setShowAddDevice }: AddComponentProps) => {
-  const { getComponentsNames, names, addDeviceComponent, components, loading } =
-    useComponentDeviceStore();
+  const {
+    getComponentsNames,
+    names,
+    addDeviceComponent,
+    getComponents,
+    components,
+    loading,
+  } = useComponentDeviceStore();
   const { getDevice } = useDeviceStore();
   const { getAllComponents, allComponents } = useComponentStore();
   const [selectedOption, setSelectedOption] = useState<option | null>(null);
@@ -39,7 +45,9 @@ const LinkComponent = ({ setShowAddDevice }: AddComponentProps) => {
     setSelectedOption(selected);
   };
 
-  const handleSubmit = () => {
+  console.log(components);
+
+  const handleSubmit = async () => {
     if (!selectedOption?.value || value === 0) {
       setNote("აირჩეთ კომპონენტის დასახელება და მიუთითეთ რაოდენობა");
       return;
@@ -61,8 +69,8 @@ const LinkComponent = ({ setShowAddDevice }: AddComponentProps) => {
           device_id: Number(id),
           quantity_per_device: Number(value),
         });
-        getDevice(`${id}`);
-        setShowAddDevice(false);
+        await getDevice(id);
+        await getComponents(id);
         setNote("");
       } catch (err) {
         console.error(err);
@@ -71,6 +79,7 @@ const LinkComponent = ({ setShowAddDevice }: AddComponentProps) => {
     } else {
       setNote("Invalid device ID.");
     }
+    setShowAddDevice(false);
   };
 
   return (

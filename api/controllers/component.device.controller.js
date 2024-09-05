@@ -117,3 +117,26 @@ export const addComponentDevice = async (req, res) => {
     return res.status(500).json({ message: "Server error" });
   }
 };
+
+export const DeleteComponentDevice = async (req, res) => {
+  const { id } = req.params;
+
+  const q = `DELETE FROM device_components WHERE id = ?`;
+
+  console.log(id);
+
+  db.query(q, [id], (error, result) => {
+    if (error) {
+      console.log(error);
+      return res
+        .status(500)
+        .json({ error: "Failed to delete device-component" });
+    }
+    if (result.affectedRows === 0) {
+      return res.status(400).json({ error: "device-component not found" });
+    }
+    return res
+      .status(200)
+      .json({ message: "device-component deleted successfully" });
+  });
+};
