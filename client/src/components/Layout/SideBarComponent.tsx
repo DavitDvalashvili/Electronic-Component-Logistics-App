@@ -7,13 +7,12 @@ import { buttonBoxProps } from "../../type";
 import { useComponentStore } from "../../store/componentStore";
 import { useUploadStore } from "../../store/upload";
 import ImageReviewBox from "../component/ImageReviewBox";
-import { MdKeyboardDoubleArrowRight } from "react-icons/md";
-import { MdKeyboardDoubleArrowLeft } from "react-icons/md";
 import { MdOutlineDelete } from "react-icons/md";
 import { FaSortAmountUpAlt } from "react-icons/fa";
 import { FaRegFileImage } from "react-icons/fa6";
 import { GrUpdate } from "react-icons/gr";
 import { LuFileSpreadsheet } from "react-icons/lu";
+import { useDeviceStore } from "../../store/deviceStore";
 
 const SideBarComponent = ({ currentComponent }: buttonBoxProps) => {
   const [showPopup, setShowPopup] = useState<boolean>(false);
@@ -29,7 +28,7 @@ const SideBarComponent = ({ currentComponent }: buttonBoxProps) => {
   const [showForm, setShowForm] = useState<boolean>(false);
   const imageInputRef = useRef<HTMLInputElement | null>(null);
   const pdfInputRef = useRef<HTMLInputElement | null>(null);
-  const [showSideBar, setShowSideBar] = useState<boolean>(false);
+  const { showSideBar } = useDeviceStore();
 
   const navigate = useNavigate();
 
@@ -93,26 +92,8 @@ const SideBarComponent = ({ currentComponent }: buttonBoxProps) => {
   };
 
   return (
-    <div
-      className={`absolute  z-20 min-h-screen h-full bg-AntarcticDeep top-0  ${
-        showSideBar ? "left-0" : "left-[-300px]"
-      }`}
-    >
-      <div
-        className="text-white  fixed top-0 left-0 flex justify-center items-center gap-5 text-[20px] px-10 py-4 cursor-pointer w-[259.344px] "
-        onClick={() => {
-          setShowSideBar(!showSideBar);
-        }}
-      >
-        <span>{showSideBar ? "დამალვა" : "გამოჩენა"}</span>
-        {showSideBar ? (
-          <MdKeyboardDoubleArrowLeft className="text-red-600 text-[35px]" />
-        ) : (
-          <MdKeyboardDoubleArrowRight className="text-red-600 text-[35px]" />
-        )}
-      </div>
-      (
-      <aside className="flex flex-col gap-5 pt-20 p-5">
+    <div className="fixed w-fit min-h-screen h-full bg-AntarcticDeep top-[75px] left-0  z-20">
+      <aside className="flex flex-col gap-5   p-5  sticky  top-[68px] lef-0">
         <button
           className="px-2 py-2 text-white rounded-md cursor-pointer text-sm flex justify-start items-start gap-4"
           onClick={() => {
@@ -120,10 +101,10 @@ const SideBarComponent = ({ currentComponent }: buttonBoxProps) => {
           }}
         >
           <MdOutlineDelete className="text-[16px]" />
-          <span> წაშლა</span>
+          {showSideBar && <span> წაშლა</span>}
         </button>
         {showDelete && (
-          <div className="w-full h-full fixed top-0 left-0 bg-blackLight flex justify-center items-center z-10">
+          <div className="w-full h-full fixed top-0 left-0 bg-blackLight flex justify-center items-center ">
             <DeleteBox
               setShowDelete={setShowDelete}
               handleDelete={handleDelete}
@@ -138,7 +119,7 @@ const SideBarComponent = ({ currentComponent }: buttonBoxProps) => {
           }}
         >
           <FaSortAmountUpAlt className="text-[16px]" />
-          <span> რაოდენობის განახლება</span>
+          {showSideBar && <span> რაოდენობის განახლება</span>}
         </button>
         {showPopup && (
           <div
@@ -161,7 +142,7 @@ const SideBarComponent = ({ currentComponent }: buttonBoxProps) => {
           }}
         >
           <FaRegFileImage className="text-[16px]" />
-          <span>ფოტოების ატვირთვა</span>
+          {showSideBar && <span>ფოტოების ატვირთვა</span>}
         </button>
         <input
           type="file"
@@ -189,7 +170,7 @@ const SideBarComponent = ({ currentComponent }: buttonBoxProps) => {
           }}
         >
           <GrUpdate className="text-[16px]" />
-          <span>კომპონენტის განახლება</span>
+          {showSideBar && <span>კომპონენტის განახლება</span>}
         </button>
         {showForm && (
           <div
@@ -206,7 +187,7 @@ const SideBarComponent = ({ currentComponent }: buttonBoxProps) => {
           }}
         >
           <LuFileSpreadsheet className="text-16px" />
-          <span>DataSheet ატვირთვა</span>
+          {showSideBar && <span>DataSheet ატვირთვა</span>}
         </button>
         <input
           type="file"

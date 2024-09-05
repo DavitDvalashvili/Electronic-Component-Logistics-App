@@ -196,6 +196,7 @@ export type deviceState = {
   search_term: string;
   page: string;
   isUpdate: boolean;
+  showSideBar: boolean;
   getDevices: (params: {
     name: string;
     electrical_supply: string;
@@ -209,6 +210,7 @@ export type deviceState = {
   addDevice: (newDevice: device) => Promise<void>;
   deleteDevice: (id: string) => Promise<void>;
   toggleUpdate: () => void;
+  toggleShowSideBar: () => void;
 };
 
 export type deviceFilterState = {

@@ -123,8 +123,6 @@ export const DeleteComponentDevice = async (req, res) => {
 
   const q = `DELETE FROM device_components WHERE id = ?`;
 
-  console.log(id);
-
   db.query(q, [id], (error, result) => {
     if (error) {
       console.log(error);

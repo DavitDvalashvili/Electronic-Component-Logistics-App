@@ -18,6 +18,7 @@ export const useDeviceStore = create<deviceState>((set) => ({
   search_term: "",
   page: "1",
   isUpdate: false,
+  showSideBar: false,
 
   // Fetch devices with filters
   getDevices: async (params: {
@@ -124,4 +125,6 @@ export const useDeviceStore = create<deviceState>((set) => ({
 
   // Toggle update mode
   toggleUpdate: () => set((state) => ({ isUpdate: !state.isUpdate })),
+  toggleShowSideBar: () =>
+    set((state) => ({ showSideBar: !state.showSideBar })),
 }));
