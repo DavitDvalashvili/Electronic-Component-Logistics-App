@@ -4,17 +4,12 @@ import { useParams } from "react-router-dom";
 import { MdOutlineFolderDelete } from "react-icons/md";
 
 const ComponentsTable = () => {
-  const { loading, components, error, getComponents } =
-    useComponentDeviceStore();
+  const { components, getComponents } = useComponentDeviceStore();
   const { id } = useParams();
 
   useEffect(() => {
     getComponents(`${id}`);
   }, [getComponents, id]);
-
-  // Optional: Check if devices are being loaded or if there's an error
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error}</p>;
 
   return (
     components.length > 0 && (

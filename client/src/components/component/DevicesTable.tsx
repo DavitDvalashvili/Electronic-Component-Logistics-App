@@ -3,16 +3,12 @@ import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 const DevicesTable = () => {
-  const { loading, devices, error, getDevices } = useComponentDeviceStore();
+  const { devices, getDevices } = useComponentDeviceStore();
   const { id } = useParams();
 
   useEffect(() => {
     getDevices(`${id}`);
   }, [getDevices, id]);
-
-  // Optional: Check if devices are being loaded or if there's an error
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error}</p>;
 
   return (
     devices.length > 0 && (

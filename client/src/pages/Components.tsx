@@ -4,9 +4,12 @@ import UpdateQuantityBox from "../components/UpdateQuantityBox";
 import { component } from "../type";
 import { Link } from "react-router-dom";
 import { useComponentStore } from "../store/componentStore";
+import CustomLoader from "../components/CustomLoader";
+import NotFound from "../components/NotFound";
 
 const Components = () => {
-  const { components, updateComponent, toggleUpdate } = useComponentStore();
+  const { components, updateComponent, toggleUpdate, loading, error } =
+    useComponentStore();
   const [showPopup, setShowPopup] = useState<boolean>(false);
   const [currentComponent, setCurrentComponent] = useState<component>(
     components[0]
@@ -27,6 +30,9 @@ const Components = () => {
   return (
     <main>
       <InteractiveBox />
+      {loading && <CustomLoader />}
+      {error && <NotFound name="მოწყობილობა" />}
+
       {showPopup && currentComponent && (
         <div
           id="updateQuantity"

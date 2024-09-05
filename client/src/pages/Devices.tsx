@@ -4,9 +4,12 @@ import UpdateQuantityBox from "../components/UpdateQuantityBox";
 import { device } from "../type";
 import { Link } from "react-router-dom";
 import { useDeviceStore } from "../store/deviceStore";
+import NotFound from "../components/NotFound";
+import CustomLoader from "../components/CustomLoader";
 
 const Devices = () => {
-  const { devices, updateDevice, toggleUpdate } = useDeviceStore();
+  const { devices, updateDevice, toggleUpdate, error, loading } =
+    useDeviceStore();
   const [showPopup, setShowPopup] = useState<boolean>(false);
   const [currentDevice, setCurrentDevice] = useState<device>(devices[0]);
   const [quantity, setQuantity] = useState<number>(0);
@@ -24,6 +27,8 @@ const Devices = () => {
   return (
     <main>
       <InteractiveBox />
+      {loading && <CustomLoader />}
+      {error && <NotFound name="მოწყობილობა" />}
       {showPopup && currentDevice && (
         <div
           id="updateQuantity"
