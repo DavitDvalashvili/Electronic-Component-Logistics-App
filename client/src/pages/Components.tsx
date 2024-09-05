@@ -76,66 +76,64 @@ const Components = () => {
 
               {/* Information Column 1 */}
               <div className="md:col-span-1 flex flex-col gap-1">
-                <div className="flex gap-2">
-                  <div className="font-semibold text-gray-700">დასახელება:</div>
-                  <div>{component.name}</div>
+                <div className="flex gap-3">
+                  <div className="font-semibold text-gray-700">დასახელება</div>
+                  <div>{component.name || "---"}</div>
                 </div>
-                <div className="flex gap-2">
-                  <div className="font-semibold text-gray-700">ოჯახი:</div>
-                  <div>{component.family}</div>
+                <div className="flex gap-3">
+                  <div className="font-semibold text-gray-700">ოჯახი</div>
+                  <div>{component.family || "---"}</div>
                 </div>
-                <div className="flex gap-2">
+                <div className="flex gap-3">
                   <div className="font-semibold text-gray-700">
                     კორპუსის ტიპი:
                   </div>
-                  <div>{component.package_type}</div>
+                  <div>{component.package_type || "---"}</div>
                 </div>
-                <div className="flex gap-2">
-                  <div className="font-semibold text-gray-700">ნომინალი:</div>
-                  <div>{component.nominal_value}</div>
+                <div className="flex gap-3">
+                  <div className="font-semibold text-gray-700">ნომინალი</div>
+                  <div>{component.nominal_value || "---"}</div>
                 </div>
-                <div className="flex gap-2">
-                  <div className="font-semibold text-gray-700">ელ. კვება:</div>
-                  <div>{component.electrical_supply}</div>
+                <div className="flex gap-3">
+                  <div className="font-semibold text-gray-700">ელ. კვება</div>
+                  <div>{component.electrical_supply || "---"}</div>
                 </div>
               </div>
 
               {/* Information Column 2 */}
               <div className="md:col-span-1 flex flex-col gap-1">
-                <div className="flex gap-2"></div>
-                <div className="flex gap-2">
+                <div className="flex gap-3"></div>
+                <div className="flex gap-3">
                   <div className="font-semibold text-gray-700">
-                    ერთეულის ღირებულება:
+                    ერთეულის ღირებულება
                   </div>
-                  <div>{component.unit_cost}</div>
+                  <div>{component.unit_cost || "---"}</div>
                 </div>
-                <div className="flex gap-2">
+                <div className="flex gap-3">
                   <div className="font-semibold text-gray-700">რაოდენობა</div>
-                  <div>{component.available_quantity}</div>
+                  <div>{component.available_quantity || "---"}</div>
                 </div>
-                <div className="">
+                <div>
                   <div className="font-semibold text-gray-700">
-                    შენახვის ადგილმდებარეობა:
+                    შენახვის ადგილმდებარეობა
                   </div>
                   <div className="flex gap-3">
                     <div>
-                      <span>კარადა:</span> {component.storage_cabinet}
+                      <span>კარადა</span> {component.storage_cabinet || "---"}
                     </div>
                     <div>
                       {" "}
-                      <span>თარო:</span> {component.storage_shelf}
+                      <span>თარო</span> {component.storage_shelf || "---"}
                     </div>
                     <div>
                       {" "}
-                      <span>უჯრა:</span> {component.storage_drawer}
+                      <span>უჯრა</span> {component.storage_drawer || "---"}
                     </div>
                   </div>
                 </div>
-                <div className="">
-                  <div className="font-semibold text-gray-700">
-                    დანიშნულება:
-                  </div>
-                  <div className="truncate">{component.purpose}</div>
+                <div className="flex gap-3">
+                  <div className="font-semibold text-gray-700">დანიშნულება</div>
+                  <div className="truncate">{component.purpose || "---"}</div>
                 </div>
               </div>
             </div>

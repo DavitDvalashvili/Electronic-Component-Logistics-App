@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import axios from "axios";
 import { ComponentDeviceState } from "../type";
+import { showError, showSuccess } from "../toast/ToastUtils";
 
 const Api_Url = "http://localhost:3000/api";
 
@@ -35,6 +36,7 @@ const useComponentDeviceStore = create<ComponentDeviceState>((set) => ({
       });
     }
   },
+
   getComponents: async (id: string) => {
     set({ loading: true });
     try {
@@ -58,6 +60,7 @@ const useComponentDeviceStore = create<ComponentDeviceState>((set) => ({
       });
     }
   },
+
   getComponentsNames: async () => {
     set({ loading: true });
     try {
@@ -104,6 +107,21 @@ const useComponentDeviceStore = create<ComponentDeviceState>((set) => ({
       }
 
       set({ error: errorMessage, loading: false });
+    }
+  },
+
+  deleteComponent: async (id) => {
+    try {
+      await axios.delete(`${Api_Url}/component-device/delete/${id}`);
+      set((state) => ({
+        deviceComponents: state.deviceComponents.filter(
+          (comp) => comp.device_component_id !== id
+        ),
+      }));
+      showSuccess("კომპონენტი წაიშალა წარმატებით");
+    } catch (error) {
+      console.error("Error deleting component:", error);
+      showError("შეცდომა კომპონენტის წაშლისას");
     }
   },
 }));

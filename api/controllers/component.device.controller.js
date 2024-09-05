@@ -41,13 +41,14 @@ export const getComponents = async (req, res) => {
   }
 
   const query = `
-    SELECT c.name AS component_name, 
+    SELECT dc.id AS device_component_id,
+           c.name AS component_name, 
            SUM(dc.quantity_per_device) AS component_count_per_device, 
            c.available_quantity AS component_available_quantity
-    FROM components c
-    JOIN device_components dc ON c.id = dc.component_id
+    FROM device_components dc
+    JOIN components c ON c.id = dc.component_id
     WHERE dc.device_id = ?
-    GROUP BY c.name, c.available_quantity
+    GROUP BY dc.id, c.name, c.available_quantity
   `;
 
   try {

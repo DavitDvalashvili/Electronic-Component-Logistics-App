@@ -1,15 +1,35 @@
 import useComponentDeviceStore from "../../store/componentDeviceStore";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { MdOutlineFolderDelete } from "react-icons/md";
+import DeleteBox from "../DeleteBox";
+import { deviceComponent } from "../../type";
+import { useDeviceStore } from "../../store/deviceStore";
 
 const ComponentsTable = () => {
-  const { components, getComponents } = useComponentDeviceStore();
+  const { components, getComponents, deleteComponent } =
+    useComponentDeviceStore();
   const { id } = useParams();
+  const { isUpdate, toggleUpdate, getDevice } = useDeviceStore();
+  const [showDelete, setShowDelete] = useState<boolean>(false);
+  const [currentComponent, setCurrentComponent] = useState<deviceComponent>({
+    component_name: " ",
+    component_count_per_device: 0,
+    component_available_quantity: 0,
+    device_component_id: "",
+  });
 
   useEffect(() => {
     getComponents(`${id}`);
-  }, [getComponents, id]);
+    getDevice(`${id}`);
+  }, [getComponents, id, isUpdate, getDevice]);
+
+  const handleDelete = async () => {
+    if (currentComponent) {
+      await deleteComponent(currentComponent.device_component_id);
+      toggleUpdate();
+    }
+  };
 
   return (
     components.length > 0 && (
@@ -36,8 +56,8 @@ const ComponentsTable = () => {
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
-              {components.map((component, index) => (
-                <tr key={index}>
+              {components.map((component) => (
+                <tr key={component.device_component_id}>
                   <td className="px-6 py-4 whitespace-nowrap text-center">
                     {component.component_name}
                   </td>
@@ -53,7 +73,13 @@ const ComponentsTable = () => {
                         component.component_count_per_device
                     )}
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-center">
+                  <td
+                    className="px-6 py-4 whitespace-nowrap text-center"
+                    onClick={() => {
+                      setShowDelete(true);
+                      setCurrentComponent(component);
+                    }}
+                  >
                     <MdOutlineFolderDelete className="text-[22px] cursor-pointer" />
                   </td>
                 </tr>
@@ -61,6 +87,15 @@ const ComponentsTable = () => {
             </tbody>
           </table>
         </div>
+        {showDelete && (
+          <div className="w-full h-full fixed top-0 left-0 bg-blackLight flex justify-center items-center ">
+            <DeleteBox
+              setShowDelete={setShowDelete}
+              handleDelete={handleDelete}
+              name={currentComponent.component_name}
+            />
+          </div>
+        )}
 
         <div className="md:hidden">
           <h2 className="text-xl font-bold mb-4">დაკავშირებული კომპონენტები</h2>

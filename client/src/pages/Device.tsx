@@ -34,46 +34,36 @@ const Device = () => {
             </div>
             {/* Information Column 1 */}
             <div className="flex flex-col gap-2 border border-gray-300 rounded-lg p-5 bg-white shadow-md">
-              <div className="flex gap-2 items-center">
-                <div className="font-semibold text-gray-700 w-[150px]">
-                  დასახელება:
-                </div>
-                <div>{device.name || "მონაცემი არ არის"}</div>
+              <div className="flex gap-3 items-center">
+                <div className="font-semibold text-gray-700">დასახელება</div>
+                <div>{device.name || "---"}</div>
               </div>
 
-              <div className="flex gap-2 items-center">
-                <div className="font-semibold text-gray-700 w-[150px]">
-                  ელ. კვება:
-                </div>
-                <div>{device.electrical_supply || "მონაცემი არ არის"}</div>
+              <div className="flex gap-3 items-center">
+                <div className="font-semibold text-gray-700">ელ. კვება</div>
+                <div>{device.electrical_supply || "---"}</div>
               </div>
-              <div className="flex gap-2 items-center">
-                <div className="font-semibold text-gray-700 w-[150px]">
-                  დანიშნულება:
-                </div>
-                <div>{device.purpose || "მონაცემი არ არის"}</div>
+              <div className="flex gap-3 items-center">
+                <div className="font-semibold text-gray-700">დანიშნულება</div>
+                <div>{device.purpose || "---"}</div>
               </div>
             </div>
             {/* Information Column 2 */}
             <div className="flex flex-col gap-2 border border-gray-300 rounded-lg p-5 bg-white shadow-md">
-              <div className="flex gap-2 items-center">
-                <div className="font-semibold text-gray-700 w-[150px]">
-                  ერთეულის ღირებულება:
+              <div className="flex gap-3 items-center">
+                <div className="font-semibold text-gray-700">
+                  ერთეულის ღირებულება
                 </div>
-                <div>{device.unit_cost || "მონაცემი არ არის"}</div>
+                <div>{device.unit_cost || "---"}</div>
               </div>
 
-              <div className="flex gap-2 items-center">
-                <div className="font-semibold text-gray-700 w-[150px]">
-                  რაოდენობა:
-                </div>
-                <div>{device.available_quantity || "მონაცემი არ არის"}</div>
+              <div className="flex gap-3 items-center">
+                <div className="font-semibold text-gray-700">რაოდენობა</div>
+                <div>{device.available_quantity || "---"}</div>
               </div>
-              <div className="flex gap-2 items-center">
-                <div className="font-semibold text-gray-700 w-[150px]">
-                  ზომა:
-                </div>
-                <div>{device.size || "მონაცემი არ არის"}</div>
+              <div className="flex gap-3 items-center">
+                <div className="font-semibold text-gray-700">ზომა</div>
+                <div>{device.size || "---"}</div>
               </div>
             </div>
             <div className="col-span-1 md:col-span-2 xl:col-span-3">

@@ -60,6 +60,7 @@ export type deviceComponent = {
   component_name: string;
   component_count_per_device: number;
   component_available_quantity: number;
+  device_component_id: string;
 };
 
 export type ComponentDeviceState = {
@@ -75,12 +76,14 @@ export type ComponentDeviceState = {
   addDeviceComponent: (
     newComponentDevice: deviceComponentItem
   ) => Promise<void>;
+  deleteComponent: (id: string) => Promise<void>;
 };
 
 type deviceComponentItem = {
   component_id: number;
   device_id: number;
   quantity_per_device: number;
+  //device_component_id: string;
 };
 
 export type componentFilterState = {

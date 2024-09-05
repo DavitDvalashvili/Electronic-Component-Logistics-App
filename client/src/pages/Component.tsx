@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import moment from "moment";
+//import moment from "moment";
 import "moment/locale/ka";
 import SideBarComponent from "../components/Layout/SideBarComponent";
 import { useParams } from "react-router-dom";
@@ -38,130 +38,112 @@ const Component = () => {
             </div>
 
             {/* Information Column 1 */}
-            <div className="md:col-span-1 flex flex-col gap-2 mt-12">
+            <div className="md:col-span-1 flex flex-col gap-3 mt-12">
               <h2 className="text-xl font-bold mb-3">ზოგადი ინფორმაცია</h2>
-              <div className="flex flex-col gap-2 border border-gray-300 rounded-lg p-4 bg-white shadow-md mb-4">
-                <div className="flex gap-2 items-center">
-                  <div className="font-semibold text-gray-700 w-[150px]">
-                    დასახელება:
-                  </div>
-                  <div>{component.name}</div>
+              <div className="flex flex-col gap-3 border border-gray-300 rounded-lg p-4 bg-white shadow-md mb-4">
+                <div className="flex gap-3 items-center">
+                  <div className="font-semibold text-gray-700">დასახელება</div>
+                  <div>{component.name || "---"}</div>
                 </div>
-                <div className="flex gap-2 items-center">
-                  <div className="font-semibold text-gray-700  w-[150px]">
-                    ოჯახი:
-                  </div>
-                  <div>{component.family}</div>
+                <div className="flex gap-3 items-center">
+                  <div className="font-semibold text-gray-700  ">ოჯახი</div>
+                  <div>{component.family || "---"}</div>
                 </div>
-                <div className="flex gap-2 items-center">
-                  <div className="font-semibold text-gray-700  w-[150px] ">
-                    ერთეულის ღირებულება:
+                <div className="flex gap-3 items-center">
+                  <div className="font-semibold text-gray-700 ">
+                    ერთეულის ღირებულება
                   </div>
-                  <div className="">{component.unit_cost}</div>
+                  <div className="">{component.unit_cost || "---"}</div>
                 </div>
-                <div className="flex gap-2 items-center">
-                  <div className="font-semibold text-gray-700  w-[150px] ">
-                    რაოდენობა:
+                <div className="flex gap-3 items-center">
+                  <div className="font-semibold text-gray-700 ">რაოდენობა</div>
+                  <div className="">
+                    {component.available_quantity || "---"}
                   </div>
-                  <div className="">{component.available_quantity}</div>
                 </div>
-                <div className="flex gap-2 items-center">
-                  <div className="font-semibold text-gray-700  w-[150px] ">
-                    სხვა ხარჯები:
+                <div className="flex gap-3 items-center">
+                  <div className="font-semibold text-gray-700">
+                    სხვა ხარჯები
                   </div>
-                  <div className="">{component.other_cost}</div>
+                  <div className="">{component.other_cost || "---"}</div>
                 </div>
-                <div className="flex gap-2 items-center">
-                  <div className="font-semibold text-gray-700  w-[150px] ">
-                    დანიშნულება:
-                  </div>
-                  <div className="">{component.purpose}</div>
+                <div className="flex gap-3 items-center">
+                  <div className="font-semibold text-gray-700">დანიშნულება</div>
+                  <div className="">{component.purpose || "---"}</div>
                 </div>
               </div>
 
               <h2 className="text-xl font-bold mb-3">ტექნკური მახასიათებელი</h2>
-              <div className="flex flex-col gap-2 border border-gray-300 rounded-lg p-4 bg-white shadow-md mb-4">
-                <div className="flex gap-2 items-center">
-                  <div className="font-semibold text-gray-700 w-[150px]">
-                    კორპუსის ტიპი:
+              <div className="flex flex-col gap-3 border border-gray-300 rounded-lg p-4 bg-white shadow-md mb-4">
+                <div className="flex gap-3 items-center">
+                  <div className="font-semibold text-gray-700">
+                    კორპუსის ტიპი
                   </div>
-                  <div className="">{component.package_type}</div>
+                  <div className="">{component.package_type || "---"}</div>
                 </div>
-                <div className="flex gap-2 items-center">
-                  <div className="font-semibold text-gray-700 w-[150px]">
-                    ნომინალი:
-                  </div>
-                  <div className="">{component.nominal_value}</div>
+                <div className="flex gap-3 items-center">
+                  <div className="font-semibold text-gray-700">ნომინალი</div>
+                  <div className="">{component.nominal_value || "---"}</div>
                 </div>
-                <div className="flex gap-2 items-center">
-                  <div className="font-semibold text-gray-700 w-[150px]">
-                    ელ. კვება:
-                  </div>
-                  <div className="">{component.electrical_supply}</div>
+                <div className="flex gap-3 items-center">
+                  <div className="font-semibold text-gray-700">ელ. კვება</div>
+                  <div className="">{component.electrical_supply || "---"}</div>
                 </div>
               </div>
             </div>
 
             {/* Information Column 2 */}
-            <div className="md:col-span-1 flex flex-col gap-2 md:mt-12">
+            <div className="md:col-span-1 flex flex-col gap-3 md:mt-12">
               <h2 className="text-xl font-bold mb-3">ლოჯისტიკა</h2>
-              <div className="flex flex-col gap-2 border border-gray-300 rounded-lg p-4 bg-white shadow-md mb-4">
-                <div className="flex gap-2 items-center">
-                  <div className="font-semibold text-gray-700 w-[150px]">
-                    მწარმოებელის დასახელება:
+              <div className="flex flex-col gap-3 border border-gray-300 rounded-lg p-4 bg-white shadow-md mb-4">
+                <div className="flex gap-3 items-center">
+                  <div className="font-semibold text-gray-700">
+                    მწარმოებელის დასახელება
                   </div>
-                  <div className="">{component.suppliers_name}</div>
+                  <div className="">{component.suppliers_name || "---"}</div>
                 </div>
-                <div className="flex gap-2 items-center">
-                  <div className="font-semibold text-gray-700 w-[150px]">
-                    საკონტაქტო პირი:
-                  </div>
-                  <div className="">{component.suppliers_contact_person}</div>
-                </div>
-                <div className="flex gap-2 items-center">
-                  <div className="font-semibold text-gray-700 w-[150px]">
-                    საკონტაქტო ინფორმაცია:
-                  </div>
-                  <div className="">{component.suppliers_contact_details}</div>
-                </div>
-                <div className="flex gap-2 items-center">
-                  <div className="font-semibold text-gray-700 w-[150px]">
-                    მიღების თარიღი:
+                <div className="flex gap-3 items-center">
+                  <div className="font-semibold text-gray-700">
+                    საკონტაქტო პირი
                   </div>
                   <div className="">
-                    {moment(component.receipt_date)
-                      .locale("ka")
-                      .format("D MMMM YYYY")}
+                    {component.suppliers_contact_person || "---"}
                   </div>
                 </div>
-                <div className="flex gap-2 items-center">
-                  <div className="font-semibold text-gray-700 w-[150px]">
-                    ინვოისი:
+                <div className="flex gap-3 items-center">
+                  <div className="font-semibold text-gray-700">
+                    საკონტაქტო ინფორმაცია
                   </div>
-                  <div className="">{component.invoice_number}</div>
+                  <div className="">
+                    {component.suppliers_contact_details || "---"}
+                  </div>
+                </div>
+                <div className="flex gap-3 items-center">
+                  <div className="font-semibold text-gray-700">
+                    მიღების თარიღი
+                  </div>
+                  <div className="">{component.receipt_date || "---"}</div>
+                </div>
+                <div className="flex gap-3 items-center">
+                  <div className="font-semibold text-gray-700">ინვოისი:</div>
+                  <div>{component.invoice_number || "---"}</div>
                 </div>
               </div>
               <h2 className="text-xl font-bold mb-3">
                 შენახვის ადგილმდებარეობა
               </h2>
-              <div className="flex flex-col gap-2 border border-gray-300 rounded-lg p-4 bg-white shadow-md mb-4">
-                <div className="flex gap-2 items-center">
-                  <div className="font-semibold text-gray-700 w-[150px]">
-                    კარადა:
-                  </div>
-                  <div className="">{component.storage_cabinet}</div>
+              <div className="flex flex-col gap-3 border border-gray-300 rounded-lg p-4 bg-white shadow-md mb-4">
+                <div className="flex gap-3 items-center">
+                  <div className="font-semibold text-gray-700">კარადა</div>
+                  <div className="">{component.storage_cabinet || "---"}</div>
                 </div>
-                <div className="flex gap-2 items-center">
-                  <div className="font-semibold text-gray-700 w-[150px]">
-                    თარო:
-                  </div>
-                  <div className="">{component.storage_shelf}</div>
+                <div className="flex gap-3 items-center">
+                  <div className="font-semibold text-gray-700">თარო</div>
+                  <div className="">{component.storage_shelf || "---"}</div>
                 </div>
-                <div className="flex gap-2 items-center">
-                  <div className="font-semibold text-gray-700 w-[150px]">
-                    უჯრა:
-                  </div>
-                  <div className="">{component.storage_drawer}</div>
+                <div className="flex gap-3 items-center">
+                  <div className="font-semibold text-gray-700">უჯრა</div>
+                  <div className="">{component.storage_drawer || "---"}</div>
                 </div>
               </div>
             </div>

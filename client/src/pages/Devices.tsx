@@ -69,41 +69,40 @@ const Devices = () => {
 
               {/* Information Column 1 */}
               <div className="md:col-span-1 flex flex-col gap-1">
-                <div className="flex gap-2">
-                  <div className="font-semibold text-gray-700">დასახელება:</div>
-                  <div>{device.name}</div>
+                <div className="flex gap-3 items-center">
+                  <div className="font-semibold text-gray-700 ">დასახელება</div>
+                  <div>{device.name || "---"}</div>
                 </div>
-                <div className="flex gap-2">
-                  <div className="font-semibold text-gray-700">ელ. კვება:</div>
-                  <div>{device.electrical_supply}</div>
+                <div className="flex gap-3 items-center">
+                  <div className="font-semibold text-gray-700 ">ელ. კვება</div>
+                  <div>{device.electrical_supply || "---"}</div>
                 </div>
-                <div className="">
-                  <div className="font-semibold text-gray-700">
-                    დანიშნულება:
+                <div className="flex gap-3 items-center">
+                  <div className="font-semibold text-gray-700 ">
+                    დანიშნულება
                   </div>
-                  <div className="truncate">{device.purpose}</div>
+                  <div className="truncate">{device.purpose || "---"}</div>
                 </div>
               </div>
               {/* Information Column 2 */}
               <div className="md:col-span-1 flex flex-col gap-1">
-                <div className="flex gap-2"></div>
-                <div className="flex gap-2">
-                  <div className="font-semibold text-gray-700">
-                    ერთეულის ღირებულება:
+                <div className="flex gap-3 items-center">
+                  <div className="font-semibold text-gray-700 ">
+                    ერთეულის ღირებულება
                   </div>
-                  <div>{device.unit_cost}</div>
+                  <div>{device.unit_cost || "---"}</div>
                 </div>
-                <div className="flex gap-2">
-                  <div className="font-semibold text-gray-700">რაოდენობა:</div>
-                  <div>{device.available_quantity}</div>
+                <div className="flex gap-3 items-center">
+                  <div className="font-semibold text-gray-700 ">რაოდენობა</div>
+                  <div>{device.available_quantity || "---"}</div>
                 </div>
-                <div className="flex gap-2">
-                  <div className="font-semibold text-gray-700">ზომა:</div>
-                  <div>{device.size}</div>
+                <div className="flex gap-3 items-center">
+                  <div className="font-semibold text-gray-700">ზომა</div>
+                  <div>{device.size || "---"}</div>
                 </div>
               </div>
             </div>
-            <div className="mt-2 flex justify-center items-center  mx-auto gap-2">
+            <div className="mt-2 flex justify-center items-center  mx-auto gap-3">
               <button
                 onClick={() => {
                   setCurrentDevice(device);
