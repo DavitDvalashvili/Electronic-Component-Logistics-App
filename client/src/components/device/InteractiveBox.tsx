@@ -60,7 +60,7 @@ const InteractiveBox = () => {
           </div>
           <SearchBox />
           <button
-            className="px-4 py-2 bg-green text-white rounded-md cursor-pointer text-sm"
+            className="px-4 py-2 bg-green text-white rounded-md cursor-pointer text-sm transition-transform duration-200 hover:shadow-lg hover:scale-105"
             onClick={() => {
               setShowForm(true);
             }}

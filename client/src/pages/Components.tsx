@@ -143,12 +143,12 @@ const Components = () => {
                   setCurrentComponent(component);
                   setShowPopup(true);
                 }}
-                className="px-2 py-2 bg-SheetMetal text-white rounded-md cursor-pointer text-sm"
+                className="px-2 py-2 bg-SheetMetal text-white rounded-md cursor-pointer text-sm transition-transform duration-200 hover:shadow-lg hover:scale-105"
               >
                 რაოდენობის განახლება
               </button>
               <Link to={`/component/${component.id}`}>
-                <button className="px-2 py-2 bg-NorthAtlanticBreeze text-white rounded-md cursor-pointer text-sm">
+                <button className="px-2 py-2 bg-NorthAtlanticBreeze text-white rounded-md cursor-pointer text-sm transition-transform duration-200 hover:shadow-lg hover:scale-105">
                   დეტალურად ნახვა
                 </button>
               </Link>

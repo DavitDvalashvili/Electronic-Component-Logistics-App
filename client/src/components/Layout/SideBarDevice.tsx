@@ -75,7 +75,8 @@ const AsideDevice = ({ currentDevice }: buttonBox) => {
     <motion.div className="fixed w-fit min-h-screen h-full bg-AntarcticDeep top-[75px] left-0 z-20 ">
       <aside className="flex flex-col gap-5   p-5  sticky  top-[68px] lef-0">
         <button
-          className="px-2 py-2 text-white rounded-md cursor-pointer text-sm flex justify-start items-start gap-4"
+          className="px-2 py-2 text-white rounded-md cursor-pointer text-sm flex justify-start items-start gap-4
+           transition-transform duration-200 hover:shadow-lg hover:scale-110 "
           onClick={() => {
             setShowDelete(true);
           }}
@@ -93,7 +94,8 @@ const AsideDevice = ({ currentDevice }: buttonBox) => {
           </div>
         )}
         <button
-          className="px-2 py-2 text-white rounded-md cursor-pointer text-sm flex justify-start items-start gap-4"
+          className="px-2 py-2 text-white rounded-md cursor-pointer text-sm flex justify-start items-start gap-4
+           transition-transform duration-200 hover:shadow-lg hover:scale-110 "
           onClick={() => {
             setShowPopup(true);
           }}
@@ -116,7 +118,8 @@ const AsideDevice = ({ currentDevice }: buttonBox) => {
           </div>
         )}
         <button
-          className="px-2 py-2 text-white rounded-md cursor-pointer text-sm flex justify-start items-start gap-4"
+          className="px-2 py-2 text-white rounded-md cursor-pointer text-sm flex justify-start items-start gap-4
+           transition-transform duration-200 hover:shadow-lg hover:scale-110 "
           onClick={() => {
             handleUploadClick();
           }}
@@ -144,7 +147,8 @@ const AsideDevice = ({ currentDevice }: buttonBox) => {
           </div>
         )}
         <button
-          className="px-2 py-2 text-white rounded-md cursor-pointer text-sm flex justify-start items-start gap-4"
+          className="px-2 py-2 text-white rounded-md cursor-pointer text-sm flex justify-start items-start gap-4
+           transition-transform duration-200 hover:shadow-lg hover:scale-110"
           onClick={() => {
             setShowForm(true);
           }}
@@ -161,7 +165,8 @@ const AsideDevice = ({ currentDevice }: buttonBox) => {
           </div>
         )}
         <button
-          className="px-2 py-2 text-white rounded-md cursor-pointer text-sm flex justify-start items-start gap-4"
+          className="px-2 py-2 text-white rounded-md cursor-pointer text-sm flex justify-start items-start gap-4
+           transition-transform duration-200 hover:shadow-lg hover:scale-110"
           onClick={() => {
             setShowCalculator(true);
           }}
@@ -178,7 +183,8 @@ const AsideDevice = ({ currentDevice }: buttonBox) => {
           </div>
         )}
         <button
-          className="px-2 py-2 text-white rounded-md cursor-pointer text-sm flex justify-start items-start gap-4"
+          className="px-2 py-2 text-white rounded-md cursor-pointer text-sm flex justify-start items-start gap-4
+          transition-transform duration-200 hover:shadow-lg hover:scale-110 "
           onClick={() => {
             setShowAddDevice(true);
           }}
@@ -189,7 +195,7 @@ const AsideDevice = ({ currentDevice }: buttonBox) => {
         {showAddDevice && (
           <div
             id="updateQuantity"
-            className="w-full h-full fixed top-0 left-0 bg-blackLight flex justify-center items-center z-10"
+            className="w-full h-full fixed top-0 left-0 bg-blackLight flex justify-center items-center z-10 "
           >
             <AddComponent setShowAddDevice={setShowAddDevice} />
           </div>
