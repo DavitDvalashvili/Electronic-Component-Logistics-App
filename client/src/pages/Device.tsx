@@ -17,7 +17,7 @@ const Device = () => {
   }, [id, getDevice, isUpdate]);
 
   return (
-    <div>
+    <div className="pl-[70px]">
       {loading && <CustomLoader />}
       {error && <NotFound name="მოწყობილობა" />}
       {device && (

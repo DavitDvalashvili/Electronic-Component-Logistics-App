@@ -72,7 +72,7 @@ const AsideDevice = ({ currentDevice }: buttonBox) => {
   };
 
   return (
-    <motion.div className="fixed w-fit min-h-screen h-full bg-AntarcticDeep top-[75px] left-0  ">
+    <motion.div className="fixed w-fit min-h-screen h-full bg-AntarcticDeep top-[75px] left-0 z-20 ">
       <aside className="flex flex-col gap-5   p-5  sticky  top-[68px] lef-0">
         <button
           className="px-2 py-2 text-white rounded-md cursor-pointer text-sm flex justify-start items-start gap-4"

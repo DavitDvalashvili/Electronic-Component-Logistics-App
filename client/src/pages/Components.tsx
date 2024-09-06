@@ -28,7 +28,7 @@ const Components = () => {
   };
 
   return (
-    <main>
+    <main className="mx-5 pb-10">
       <InteractiveBox />
       {loading && <CustomLoader />}
       {error && <NotFound name="მოწყობილობა" />}

@@ -21,7 +21,7 @@ const Component = () => {
   }, [id, getComponent, isUpdate]);
 
   return (
-    <div>
+    <div className="pl-[70px]">
       {loading && <CustomLoader />}
       {error && <NotFound name="მოწყობილობა" />}
       {component && (
@@ -110,9 +110,9 @@ const Component = () => {
                     {component.suppliers_contact_person || "---"}
                   </div>
                 </div>
-                <div className="flex gap-3 items-center">
+                <div className="flex justify-start gap-3 items-center">
                   <div className="font-semibold text-gray-700">
-                    საკონტაქტო ინფორმაცია
+                    საკონტაქტო ინფო
                   </div>
                   <div className="">
                     {component.suppliers_contact_details || "---"}

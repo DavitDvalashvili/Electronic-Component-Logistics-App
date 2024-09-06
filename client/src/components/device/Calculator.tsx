@@ -60,7 +60,7 @@ const Calculator = ({ setShowCalculator }: calculatorProps) => {
                     ხელმისაწვდომი კომპონენტების რაოდენონა
                   </th>
                   <th className="px-6 py-3  text-xs font-meld text-SheetMetal text-center">
-                    კომპონენტის ნაშთი
+                    ნაშთი/დანაკლისი
                   </th>
                 </tr>
               </thead>
@@ -77,15 +77,8 @@ const Calculator = ({ setShowCalculator }: calculatorProps) => {
                       {component.component_available_quantity}
                     </td>
                     <td className="px-6 py-4 whitespace-wrap text-center">
-                      {getDeviceAmount() === deviceAmount
-                        ? component.component_available_quantity -
-                          Math.floor(
-                            component.component_available_quantity /
-                              component.component_count_per_device
-                          ) *
-                            component.component_count_per_device
-                        : component.component_available_quantity -
-                          deviceAmount * component.component_count_per_device}
+                      {component.component_available_quantity -
+                        component.component_count_per_device * deviceAmount}
                     </td>
                   </tr>
                 ))}

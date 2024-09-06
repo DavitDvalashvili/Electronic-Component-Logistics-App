@@ -15,7 +15,7 @@ const SwiperWrapper = ({ image_urls }: imageBoxProps) => {
         navigation
         pagination={{ clickable: true }}
         modules={[Navigation]}
-        className="max-w-6xl rounded-md w-full h-full z-[-2]"
+        className="max-w-6xl rounded-md w-full h-full z-[1]"
       >
         {imageArray.length > 0 ? (
           imageArray.map((url, index) => (
