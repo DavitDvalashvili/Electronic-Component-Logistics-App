@@ -3,8 +3,7 @@ import { create } from "zustand";
 import { componentState } from "../type";
 import { showSuccess, showError } from "../toast/ToastUtils";
 
-// API base URL
-const Api_Url = "http://localhost:3000/api";
+const Api_Url = import.meta.env.VITE_API_URL;
 
 export const useComponentStore = create<componentState>((set) => ({
   loading: false,

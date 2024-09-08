@@ -1,8 +1,6 @@
 import axios from "axios";
 import { create } from "zustand";
-
-// API base URL
-const Api_Url = "http://localhost:3000/api";
+const Api_Url = import.meta.env.VITE_API_URL;
 
 export const useUploadStore = create(() => ({
   // Upload files and update component images

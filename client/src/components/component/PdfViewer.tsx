@@ -20,7 +20,6 @@ const PdfViewer = () => {
     <div className="h-[780px] mx-auto max-w-6xl border border-gray-300 rounded-lg shadow-md">
       <Viewer
         fileUrl={component?.data_sheet}
-        className="z-50"
         plugins={[
           pageNavigationPluginInstance,
           getFilePluginInstance,

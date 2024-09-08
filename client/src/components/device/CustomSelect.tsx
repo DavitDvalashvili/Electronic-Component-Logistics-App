@@ -4,7 +4,7 @@ import axios from "axios";
 import { useDeviceFilterStore } from "../../store/filterStore";
 import { CustomSelectDeviceProps, OptionItem } from "../../type";
 
-const Api_Url = "http://localhost:3000/api";
+const Api_Url = import.meta.env.VITE_API_URL;
 
 const CustomSelect = ({
   filterDeviceBy,

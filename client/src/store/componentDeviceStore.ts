@@ -3,7 +3,7 @@ import axios from "axios";
 import { ComponentDeviceState } from "../type";
 import { showError, showSuccess } from "../toast/ToastUtils";
 
-const Api_Url = "http://localhost:3000/api";
+const Api_Url = import.meta.env.VITE_API_URL;
 
 const useComponentDeviceStore = create<ComponentDeviceState>((set) => ({
   loading: false,
