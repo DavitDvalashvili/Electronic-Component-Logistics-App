@@ -135,49 +135,65 @@ export const addComponent = (req, res) => {
     data_sheet,
   } = req.body;
 
-  // SQL query to insert a new component
-  const q = `
-    INSERT INTO components 
-    (family, name, purpose, package_type, nominal_value, electrical_supply, unit_cost, other_cost, invoice_number, available_quantity, storage_cabinet, storage_drawer, storage_shelf, suppliers_name, suppliers_contact_person, suppliers_contact_details, receipt_date, images_urls, data_sheet)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
-
   // Convert images_urls array to a JSON string if using JSON column
   const imagesUrlsString = Array.isArray(images_urls)
     ? images_urls.join(",")
     : images_urls;
 
-  // Array of values to insert
-  const values = [
-    family,
-    name,
-    purpose,
-    package_type,
-    nominal_value,
-    electrical_supply,
-    unit_cost,
-    other_cost,
-    invoice_number,
-    available_quantity,
-    storage_cabinet,
-    storage_drawer,
-    storage_shelf,
-    suppliers_name,
-    suppliers_contact_person,
-    suppliers_contact_details,
-    receipt_date,
-    imagesUrlsString,
-    data_sheet,
-  ];
+  // SQL query to check if a component with the same name already exists
+  const checkNameQuery = "SELECT * FROM components WHERE name = ?";
 
-  // Execute the SQL query
-  pool.query(q, values, (err, result) => {
+  pool.query(checkNameQuery, [name], (err, results) => {
     if (err) {
-      console.error("Error inserting component:", err); // Log the error to see what went wrong
-      return res.status(500).json({ message: "Failed to add component" });
+      console.error("Error checking for existing component:", err);
+      return res.status(500).json({ message: "Database error occurred" });
     }
-    return res
-      .status(201)
-      .json({ id: result.insertId, message: "Component added successfully" });
+
+    // If a component with the same name exists, return 409 status
+    if (results.length > 0) {
+      return res.status(409).json({ message: "Component already exists" });
+    }
+
+    // SQL query to insert a new component if the name does not exist
+    const insertQuery = `
+      INSERT INTO components 
+      (family, name, purpose, package_type, nominal_value, electrical_supply, unit_cost, other_cost, invoice_number, available_quantity, storage_cabinet, storage_drawer, storage_shelf, suppliers_name, suppliers_contact_person, suppliers_contact_details, receipt_date, images_urls, data_sheet)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+
+    // Array of values to insert
+    const values = [
+      family,
+      name,
+      purpose,
+      package_type,
+      nominal_value,
+      electrical_supply,
+      unit_cost,
+      other_cost,
+      invoice_number,
+      available_quantity,
+      storage_cabinet,
+      storage_drawer,
+      storage_shelf,
+      suppliers_name,
+      suppliers_contact_person,
+      suppliers_contact_details,
+      receipt_date,
+      imagesUrlsString,
+      data_sheet,
+    ];
+
+    // Execute the SQL query to insert the new component
+    pool.query(insertQuery, values, (err, result) => {
+      if (err) {
+        console.error("Error inserting component:", err);
+        return res.status(500).json({ message: "Failed to add component" });
+      }
+      return res.status(201).json({
+        id: result.insertId,
+        message: "Component added successfully",
+      });
+    });
   });
 };
 
@@ -228,71 +244,90 @@ export const updateComponent = (req, res) => {
     data_sheet,
   } = req.body;
 
-  // SQL query to update the component details
-  const q = `
-    UPDATE components
-    SET 
-      family = ?, 
-      name = ?, 
-      purpose = ?, 
-      package_type = ?, 
-      nominal_value = ?, 
-      electrical_supply = ?, 
-      unit_cost = ?, 
-      other_cost =?,
-      invoice_number =?,
-      available_quantity = ?, 
-      storage_cabinet = ?, 
-      storage_drawer = ?, 
-      storage_shelf = ?, 
-      suppliers_name = ?, 
-      suppliers_contact_person = ?, 
-      suppliers_contact_details = ?, 
-      receipt_date = ?,
-      images_urls = ?, 
-      data_sheet = ?
-    WHERE id = ?`;
+  // Query to check if another component with the same name exists
+  const checkQuery = `SELECT * FROM components WHERE name = ? AND id != ?`;
 
-  // Ensure images_urls is a properly formatted JSON string
-  const imagesUrlsString =
-    typeof images_urls === "string" ? images_urls : JSON.stringify(images_urls);
-
-  // Array of values to update
-  const values = [
-    family,
-    name,
-    purpose,
-    package_type,
-    nominal_value,
-    electrical_supply,
-    unit_cost,
-    other_cost,
-    invoice_number,
-    available_quantity,
-    storage_cabinet,
-    storage_drawer,
-    storage_shelf,
-    suppliers_name,
-    suppliers_contact_person,
-    suppliers_contact_details,
-    receipt_date,
-    imagesUrlsString,
-    data_sheet,
-    componentId,
-  ];
-
-  // Execute the SQL query
-  pool.query(q, values, (err, result) => {
+  pool.query(checkQuery, [name, componentId], (err, result) => {
     if (err) {
-      console.error(err); // Log the error to see what went wrong
-      return res.status(500).json({ message: "Failed to update component" });
+      console.error("Error checking for existing component name:", err);
+      return res.status(500).json({ message: "Database error" });
     }
 
-    if (result.affectedRows === 0) {
-      // No rows were affected, which means no component with the given ID was found
-      return res.status(404).json({ message: "Component not found" });
+    // If a component with the same name already exists, return 409 Conflict
+    if (result.length > 0) {
+      return res
+        .status(409)
+        .json({ message: "Component with this name already exists" });
     }
 
-    return res.status(200).json({ message: "Component updated successfully" });
+    // Proceed to update the component if no conflict is found
+    const updateQuery = `
+      UPDATE components
+      SET 
+        family = ?, 
+        name = ?, 
+        purpose = ?, 
+        package_type = ?, 
+        nominal_value = ?, 
+        electrical_supply = ?, 
+        unit_cost = ?, 
+        other_cost =?,
+        invoice_number =?,
+        available_quantity = ?, 
+        storage_cabinet = ?, 
+        storage_drawer = ?, 
+        storage_shelf = ?, 
+        suppliers_name = ?, 
+        suppliers_contact_person = ?, 
+        suppliers_contact_details = ?, 
+        receipt_date = ?,
+        images_urls = ?, 
+        data_sheet = ?
+      WHERE id = ?`;
+
+    // Ensure images_urls is a properly formatted JSON string
+    const imagesUrlsString =
+      typeof images_urls === "string"
+        ? images_urls
+        : JSON.stringify(images_urls);
+
+    const values = [
+      family,
+      name,
+      purpose,
+      package_type,
+      nominal_value,
+      electrical_supply,
+      unit_cost,
+      other_cost,
+      invoice_number,
+      available_quantity,
+      storage_cabinet,
+      storage_drawer,
+      storage_shelf,
+      suppliers_name,
+      suppliers_contact_person,
+      suppliers_contact_details,
+      receipt_date,
+      imagesUrlsString,
+      data_sheet,
+      componentId,
+    ];
+
+    // Execute the update query
+    pool.query(updateQuery, values, (err, result) => {
+      if (err) {
+        console.error("Error updating component:", err);
+        return res.status(500).json({ message: "Failed to update component" });
+      }
+
+      if (result.affectedRows === 0) {
+        return res.status(404).json({ message: "Component not found" });
+      }
+
+      return res
+        .status(200)
+        .json({ message: "Component updated successfully" });
+    });
   });
 };

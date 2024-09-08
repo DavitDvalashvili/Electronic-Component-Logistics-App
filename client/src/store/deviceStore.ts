@@ -89,8 +89,15 @@ export const useDeviceStore = create<deviceState>((set) => ({
       }));
       showSuccess("მოწყობილობა განახლდა წარმატებით");
     } catch (error) {
-      console.error("Error updating device:", error);
-      showError("შეცდომა მოწყობილობის განახლებისას");
+      console.log(error);
+      if (axios.isAxiosError(error) && error.response) {
+        if (error.response.status === 409) {
+          showError("მოწყობილობა ამ სახელით უკვე არსებობს");
+        }
+      } else {
+        console.error("Error updating device:", error);
+        showError("შეცდომა მოწყობილობის განახლებისას");
+      }
     }
   },
 
@@ -103,8 +110,15 @@ export const useDeviceStore = create<deviceState>((set) => ({
       }));
       showSuccess("მოწყობილობა დაემატა წარმატებით");
     } catch (error) {
-      console.error("Error adding device:", error);
-      showError("შეცდომა მოწყობილობის დამატებისას");
+      // Check if the error is an AxiosError and has a response
+      if (axios.isAxiosError(error) && error.response) {
+        if (error.response.status === 409) {
+          showError("მოწყობილობა ამ სახელით უკვე არსებობს");
+        }
+      } else {
+        console.error("Error adding device:", error);
+        showError("შეცდომა მოწყობილობის დამატებისას");
+      }
     }
   },
 

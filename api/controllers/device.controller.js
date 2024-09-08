@@ -88,21 +88,39 @@ export const addDevice = (req, res) => {
     images_urls = ["../../public/image.png"],
   } = req.body;
 
-  const q = `
-    INSERT INTO devices 
-    (name, purpose, electrical_supply, size, images_urls)
-    VALUES (?, ?, ?, ?, ?)`;
+  // Query to check if a device with the same name already exists
+  const checkQuery = `SELECT * FROM devices WHERE name = ?`;
 
-  const values = [name, purpose, electrical_supply, size, images_urls];
-
-  pool.query(q, values, (err, result) => {
+  pool.query(checkQuery, [name], (err, result) => {
     if (err) {
-      console.error("Error inserting device:", err);
-      return res.status(500).json({ message: "Failed to add device" });
+      console.error("Error checking for existing device:", err);
+      return res.status(500).json({ message: "Database error" });
     }
-    return res
-      .status(201)
-      .json({ id: result.insertId, message: "Device added successfully" });
+
+    // If a device with the same name already exists, return 409 Conflict
+    if (result.length > 0) {
+      return res
+        .status(409)
+        .json({ message: "Device with this name already exists" });
+    }
+
+    // If no device with the same name, proceed to insert the new device
+    const insertQuery = `
+      INSERT INTO devices 
+      (name, purpose, electrical_supply, size, images_urls)
+      VALUES (?, ?, ?, ?, ?)`;
+
+    const values = [name, purpose, electrical_supply, size, images_urls];
+
+    pool.query(insertQuery, values, (err, result) => {
+      if (err) {
+        console.error("Error inserting device:", err);
+        return res.status(500).json({ message: "Failed to add device" });
+      }
+      return res
+        .status(201)
+        .json({ id: result.insertId, message: "Device added successfully" });
+    });
   });
 };
 
@@ -118,40 +136,58 @@ export const updateDevice = (req, res) => {
     images_urls,
   } = req.body;
 
-  const q = `
-    UPDATE devices
-    SET 
-      name = ?, 
-      purpose = ?, 
-      electrical_supply = ?, 
-      size = ?,
-      available_quantity = ?,
-      unit_cost = ?,
-      images_urls = ?
-    WHERE id = ?`;
+  // Query to check if another device with the same name already exists (excluding the current device by id)
+  const checkQuery = `SELECT * FROM devices WHERE name = ? AND id != ?`;
 
-  const values = [
-    name,
-    purpose,
-    electrical_supply,
-    size,
-    available_quantity,
-    unit_cost,
-    images_urls,
-    id,
-  ];
-
-  pool.query(q, values, (err, result) => {
+  pool.query(checkQuery, [name, id], (err, result) => {
     if (err) {
-      console.error(err);
-      return res.status(500).json({ message: "Failed to update device" });
+      console.error("Error checking for existing device name:", err);
+      return res.status(500).json({ message: "Database error" });
     }
 
-    if (result.affectedRows === 0) {
-      return res.status(404).json({ message: "Device not found" });
+    // If a device with the same name exists, return 409 Conflict
+    if (result.length > 0) {
+      return res
+        .status(409)
+        .json({ message: "Device with this name already exists" });
     }
 
-    return res.status(200).json({ message: "Device updated successfully" });
+    // Proceed with the update if no duplicate name is found
+    const updateQuery = `
+      UPDATE devices
+      SET 
+        name = ?, 
+        purpose = ?, 
+        electrical_supply = ?, 
+        size = ?,
+        available_quantity = ?,
+        unit_cost = ?,
+        images_urls = ?
+      WHERE id = ?`;
+
+    const values = [
+      name,
+      purpose,
+      electrical_supply,
+      size,
+      available_quantity,
+      unit_cost,
+      images_urls,
+      id,
+    ];
+
+    pool.query(updateQuery, values, (err, result) => {
+      if (err) {
+        console.error("Error updating device:", err);
+        return res.status(500).json({ message: "Failed to update device" });
+      }
+
+      if (result.affectedRows === 0) {
+        return res.status(404).json({ message: "Device not found" });
+      }
+
+      return res.status(200).json({ message: "Device updated successfully" });
+    });
   });
 };
 

@@ -96,8 +96,14 @@ export const useComponentStore = create<componentState>((set) => ({
       showSuccess("კომპონენტი განახლდა წარმატებით");
       console.log("Updated component:", response.data);
     } catch (error) {
-      console.error("Error updating component:", error);
-      showError("შეცდომა კომპონენტის განახლებისას");
+      if (axios.isAxiosError(error) && error.response) {
+        if (error.response.status === 409) {
+          showError("კომპონენტი ამ სახელით უკვე არსებობს");
+        }
+      } else {
+        console.error("Error updating component:", error);
+        showError("შეცდომა კომპონენტის განახლებისას");
+      }
     }
   },
 
@@ -113,8 +119,15 @@ export const useComponentStore = create<componentState>((set) => ({
       }));
       showSuccess("კომპონენტი დაემატა წარმატებით");
     } catch (error) {
-      console.error("Error adding component:", error);
-      showError("შეცდომა კომპონენტის დამატებისას");
+      // Check if the error is an AxiosError and has a response
+      if (axios.isAxiosError(error) && error.response) {
+        if (error.response.status === 409) {
+          showError("კომპონენტი ამ სახელით უკვე არსებობს");
+        }
+      } else {
+        console.error("Error adding component:", error);
+        showError("შეცდომა კომპონენტის დამატებისას");
+      }
     }
   },
 
