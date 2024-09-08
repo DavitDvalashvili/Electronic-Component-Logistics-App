@@ -1,4 +1,4 @@
-import db from "../db/database.js";
+import pool from "../db/database.js";
 
 // Get all devices with optional search and pagination
 export const getDevices = (req, res) => {
@@ -54,7 +54,7 @@ export const getDevices = (req, res) => {
     queryParams.push(pageSize, offset);
   }
 
-  db.query(q, queryParams, (err, data) => {
+  pool.query(q, queryParams, (err, data) => {
     if (err) {
       return res.status(500).json({ message: "Server error" });
     }
@@ -67,7 +67,7 @@ export const getDevice = (req, res) => {
   const id = req.params.id;
   const q = "SELECT * FROM devices WHERE id = ?";
 
-  db.query(q, [id], (err, data) => {
+  pool.query(q, [id], (err, data) => {
     if (err) {
       return res.status(500).json({ message: "Server error" });
     }
@@ -95,7 +95,7 @@ export const addDevice = (req, res) => {
 
   const values = [name, purpose, electrical_supply, size, images_urls];
 
-  db.query(q, values, (err, result) => {
+  pool.query(q, values, (err, result) => {
     if (err) {
       console.error("Error inserting device:", err);
       return res.status(500).json({ message: "Failed to add device" });
@@ -141,7 +141,7 @@ export const updateDevice = (req, res) => {
     id,
   ];
 
-  db.query(q, values, (err, result) => {
+  pool.query(q, values, (err, result) => {
     if (err) {
       console.error(err);
       return res.status(500).json({ message: "Failed to update device" });
@@ -161,7 +161,7 @@ export const deleteDevice = (req, res) => {
 
   const q = `DELETE FROM devices WHERE id = ?`;
 
-  db.query(q, [deviceId], (err, result) => {
+  pool.query(q, [deviceId], (err, result) => {
     if (err) {
       console.error(err);
       return res.status(500).json({ error: "Failed to delete device" });

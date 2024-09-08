@@ -1,4 +1,4 @@
-import db from "../db/database.js";
+import pool from "../db/database.js";
 
 export const getComponentFilterOptions = (req, res) => {
   const filterBy = req.query.filterBy;
@@ -21,7 +21,7 @@ export const getComponentFilterOptions = (req, res) => {
   const q = `SELECT DISTINCT ${filterBy} FROM components`;
 
   // Execute the query
-  db.query(q, (err, data) => {
+  pool.query(q, (err, data) => {
     if (err) {
       console.error("Database query error:", err);
       return res
@@ -52,7 +52,7 @@ export const getDeviceFilterOptions = (req, res) => {
   const q = `SELECT DISTINCT ${filterBy} FROM devices`;
 
   // Execute the query
-  db.query(q, (err, data) => {
+  pool.query(q, (err, data) => {
     if (err) {
       console.error("Database query error:", err);
       return res

@@ -1,4 +1,4 @@
-import db from "../db/database.js";
+import pool from "../db/database.js";
 
 export const getComponents = (req, res) => {
   const {
@@ -84,8 +84,9 @@ export const getComponents = (req, res) => {
     queryParams.push(pageSize, offset);
   }
 
-  db.query(q, queryParams, (err, data) => {
+  pool.query(q, queryParams, (err, data) => {
     if (err) {
+      console.error("Database query error:", err);
       return res.status(500).json({ message: "Server error" });
     }
     return res.status(200).json(data);
@@ -96,7 +97,7 @@ export const getComponent = (req, res) => {
   const componentId = req.params.id;
   const q = "SELECT * FROM components WHERE id = ?";
 
-  db.query(q, [componentId], (err, data) => {
+  pool.query(q, [componentId], (err, data) => {
     if (err) {
       // Send a generic 500 error response if the database query fails
       return res.status(500).json({ message: "Server error" });
@@ -169,7 +170,7 @@ export const addComponent = (req, res) => {
   ];
 
   // Execute the SQL query
-  db.query(q, values, (err, result) => {
+  pool.query(q, values, (err, result) => {
     if (err) {
       console.error("Error inserting component:", err); // Log the error to see what went wrong
       return res.status(500).json({ message: "Failed to add component" });
@@ -187,7 +188,7 @@ export const deleteComponent = (req, res) => {
   const q = `DELETE FROM components WHERE id = ?`;
 
   // Execute the SQL query
-  db.query(q, [componentId], (err, result) => {
+  pool.query(q, [componentId], (err, result) => {
     if (err) {
       console.error(err); // Log the error to see what went wrong
       return res.status(500).json({ error: "Failed to delete component" });
@@ -281,7 +282,7 @@ export const updateComponent = (req, res) => {
   ];
 
   // Execute the SQL query
-  db.query(q, values, (err, result) => {
+  pool.query(q, values, (err, result) => {
     if (err) {
       console.error(err); // Log the error to see what went wrong
       return res.status(500).json({ message: "Failed to update component" });

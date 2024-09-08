@@ -1,4 +1,4 @@
-import db from "../db/database.js";
+import pool from "../db/database.js";
 
 export const getDevices = async (req, res) => {
   const { id } = req.params;
@@ -19,7 +19,7 @@ export const getDevices = async (req, res) => {
     `;
 
   try {
-    db.query(query, [id], (error, results) => {
+    pool.query(query, [id], (error, results) => {
       if (error) {
         console.error("Database query error:", error);
         return res.status(500).json({ message: "Server error" });
@@ -69,7 +69,7 @@ export const getComponents = async (req, res) => {
 export const getComponentNames = (req, res) => {
   const q = "SELECT name FROM components";
 
-  db.query(q, (err, data) => {
+  pool.query(q, (err, data) => {
     if (err) {
       console.error("Error fetching component names:", err);
       return res.status(500).json({ message: "Server error" });
@@ -124,7 +124,7 @@ export const DeleteComponentDevice = async (req, res) => {
 
   const q = `DELETE FROM device_components WHERE id = ?`;
 
-  db.query(q, [id], (error, result) => {
+  pool.query(q, [id], (error, result) => {
     if (error) {
       console.log(error);
       return res
