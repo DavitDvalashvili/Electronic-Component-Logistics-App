@@ -10,7 +10,7 @@ const FilterContainer = () => {
 
   useEffect(() => {
     getComponents(state);
-  }, [state, getComponents, isUpdate]);
+  }, [getComponents, isUpdate]);
 
   return (
     <section className="grid grid-cols-2 lg:grid-cols-3 gap-4">

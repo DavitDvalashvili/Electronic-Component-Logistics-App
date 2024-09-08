@@ -18,9 +18,9 @@ const Form = ({ setShowForm, status }: formProps) => {
   const onSubmit: SubmitHandler<device> = async (data) => {
     try {
       if (status === "adding") {
-        addDevice(data);
+        await addDevice(data);
       } else if (status === "updating") {
-        updateDevice(data);
+        await updateDevice(data);
       }
       toggleUpdate();
       setShowForm(false);

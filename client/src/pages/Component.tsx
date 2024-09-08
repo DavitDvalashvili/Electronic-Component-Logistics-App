@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-//import moment from "moment";
 import "moment/locale/ka";
 import SideBarComponent from "../components/Layout/SideBarComponent";
 import { useParams } from "react-router-dom";
@@ -17,7 +16,6 @@ const Component = () => {
 
   useEffect(() => {
     getComponent(`${id}`);
-    console.log(isUpdate);
   }, [id, getComponent, isUpdate]);
 
   return (

@@ -19,9 +19,9 @@ const Form = ({ setShowForm, status }: formProps) => {
   const onSubmit: SubmitHandler<component> = async (data) => {
     try {
       if (status === "adding") {
-        addComponent({ ...data });
+        await addComponent({ ...data });
       } else if (status === "updating") {
-        updateComponent(data);
+        await updateComponent(data);
       }
       toggleUpdate();
       setShowForm(false);

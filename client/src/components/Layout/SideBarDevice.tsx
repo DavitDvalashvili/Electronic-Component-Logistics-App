@@ -35,9 +35,9 @@ const AsideDevice = ({ currentDevice }: buttonBox) => {
 
   const navigate = useNavigate();
 
-  const handleClick = () => {
+  const handleClick = async () => {
     if (currentDevice) {
-      updateDevice({
+      await updateDevice({
         ...currentDevice,
         available_quantity: quantity,
       });

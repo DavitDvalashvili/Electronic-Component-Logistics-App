@@ -32,9 +32,9 @@ const SideBarComponent = ({ currentComponent }: buttonBoxProps) => {
 
   const navigate = useNavigate();
 
-  const handleClick = () => {
+  const handleClick = async () => {
     if (currentComponent) {
-      updateComponent({
+      await updateComponent({
         ...currentComponent,
         available_quantity: quantity,
         receipt_date: currentComponent.receipt_date.split("T")[0],
