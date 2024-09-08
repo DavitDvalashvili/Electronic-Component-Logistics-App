@@ -88,7 +88,7 @@ const ComponentsTable = () => {
           </table>
         </div>
         {showDelete && (
-          <div className="w-full h-full fixed top-0 left-0 bg-blackLight flex justify-center items-center ">
+          <div className="w-full h-full fixed top-0 left-0 bg-blackLight flex justify-center items-center z-20 ">
             <DeleteBox
               setShowDelete={setShowDelete}
               handleDelete={handleDelete}

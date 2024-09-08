@@ -52,7 +52,7 @@ export const getComponents = async (req, res) => {
   `;
 
   try {
-    db.query(query, [id], (error, results) => {
+    pool.query(query, [id], (error, results) => {
       if (error) {
         console.error("Database query error:", error);
         return res.status(500).json({ message: "Server error" });
@@ -87,7 +87,7 @@ export const addComponentDevice = async (req, res) => {
   try {
     // Check if the device exists
     const deviceQuery = "SELECT id FROM devices WHERE id = ?";
-    const device = await db.query(deviceQuery, [device_id]);
+    const device = await pool.query(deviceQuery, [device_id]);
 
     if (device.length === 0) {
       return res.status(400).json({ message: "Device not found" });
@@ -95,7 +95,7 @@ export const addComponentDevice = async (req, res) => {
 
     // Check if the component exists
     const componentQuery = "SELECT id FROM components WHERE id = ?";
-    const component = await db.query(componentQuery, [component_id]);
+    const component = await pool.query(componentQuery, [component_id]);
 
     if (!component || component.length === 0) {
       return res.status(400).json({ message: "Component not found" });
@@ -106,7 +106,11 @@ export const addComponentDevice = async (req, res) => {
       INSERT INTO device_components (device_id, component_id, quantity_per_device)
       VALUES (?, ?, ?)
     `;
-    await db.query(insertQuery, [device_id, component_id, quantity_per_device]);
+    await pool.query(insertQuery, [
+      device_id,
+      component_id,
+      quantity_per_device,
+    ]);
 
     return res.status(201).json({
       component_id,
