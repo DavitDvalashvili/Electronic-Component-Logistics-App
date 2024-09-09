@@ -8,6 +8,7 @@ import { useDeviceStore } from "../../store/deviceStore";
 import { motion } from "framer-motion";
 
 const LinkComponent = ({ setShowAddDevice }: AddComponentProps) => {
+  // Destructure store methods and states
   const {
     getComponentsNames,
     names,
@@ -18,36 +19,43 @@ const LinkComponent = ({ setShowAddDevice }: AddComponentProps) => {
   } = useComponentDeviceStore();
   const { getDevice } = useDeviceStore();
   const { getAllComponents, allComponents } = useComponentStore();
+
+  // Local state management
   const [selectedOption, setSelectedOption] = useState<option | null>(null);
   const [value, setValue] = useState<number>(0);
   const [note, setNote] = useState<string>("");
   const id = useParams().id;
 
+  // Fetch component names and all components on mount or when ID changes
   useEffect(() => {
     getComponentsNames();
     getAllComponents();
   }, [getComponentsNames, getAllComponents, id]);
 
+  // Filter components based on selected option
   const filterComponent = allComponents.filter(
     (component) => component.name == selectedOption?.value
   );
 
+  // Check if the component already exists in the current device
   const existingComponent = components.filter(
     (component) => component.component_name === selectedOption?.value
   );
 
+  // Prepare options for the select input
   const options: option[] = names.map((option) => ({
     value: option,
     label: option,
   }));
 
+  // Handle changes in the select input
   const handleSelectChange = (selected: option | null) => {
     setSelectedOption(selected);
   };
 
-  console.log(components);
-
+  // Submit form data to add a component to the device
   const handleSubmit = async () => {
+    // Validation checks
     if (!selectedOption?.value || value === 0) {
       setNote("აირჩეთ კომპონენტის დასახელება და მიუთითეთ რაოდენობა");
       return;
@@ -64,6 +72,7 @@ const LinkComponent = ({ setShowAddDevice }: AddComponentProps) => {
           setNote("კომპონენტი არ მოიძებნა");
           return;
         }
+        // Add the component to the device
         addDeviceComponent({
           component_id: Number(filterComponent[0].id),
           device_id: Number(id),

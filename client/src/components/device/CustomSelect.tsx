@@ -4,12 +4,14 @@ import axios from "axios";
 import { useDeviceFilterStore } from "../../store/filterStore";
 import { CustomSelectDeviceProps, OptionItem } from "../../type";
 
+// API URL from environment variables
 const Api_Url = import.meta.env.VITE_API_URL;
 
 const CustomSelect = ({
   filterDeviceBy,
   placeholder,
 }: CustomSelectDeviceProps) => {
+  // Destructure selected value and the setter function from the store
   const { [filterDeviceBy]: selectedValue, setDeviceFilter } =
     useDeviceFilterStore();
 
@@ -20,6 +22,7 @@ const CustomSelect = ({
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
+    // Fetch options from API based on the filter criteria
     const fetchOptions = async () => {
       setIsLoading(true);
       try {
@@ -27,6 +30,7 @@ const CustomSelect = ({
           `${Api_Url}/filter-options/device/?filterBy=${filterDeviceBy}`
         );
 
+        // Transform and filter the API response to match select options format
         const filteredOptions = response.data
           .map((item) => ({
             value: item[filterDeviceBy],

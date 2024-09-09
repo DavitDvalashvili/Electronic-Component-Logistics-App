@@ -14,6 +14,7 @@ const Component = () => {
   const { getComponent, component, loading, error, isUpdate } =
     useComponentStore();
 
+  // Fetch component data when the component ID or update status changes
   useEffect(() => {
     getComponent(`${id}`);
   }, [id, getComponent, isUpdate]);

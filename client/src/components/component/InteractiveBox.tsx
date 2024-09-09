@@ -14,18 +14,20 @@ const InteractiveBox = () => {
   const [totalPages, setTotalPages] = useState<number>(1);
   const { allComponents, getAllComponents } = useComponentStore();
   const { setComponentFilter } = useComponentFilterStore();
-
   const [showForm, setShowForm] = useState<boolean>(false);
 
+  // Toggle filter visibility
   const handleClick = () => {
     setShowFilter(!showFilter);
   };
 
   useEffect(() => {
+    // Fetch all components when the component mounts
     getAllComponents();
   }, []);
 
   useEffect(() => {
+    // Update total pages when allComponents data changes
     setTotalPages(Math.ceil(allComponents.length / 10));
   }, [allComponents]);
 

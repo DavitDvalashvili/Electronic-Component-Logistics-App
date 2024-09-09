@@ -8,14 +8,17 @@ import CustomLoader from "../components/CustomLoader";
 import NotFound from "../components/NotFound";
 
 const Components = () => {
+  // Access state and actions from component store
   const { components, updateComponent, toggleUpdate, loading, error } =
     useComponentStore();
+  // Local state to manage the popup visibility, current component, and quantity
   const [showPopup, setShowPopup] = useState<boolean>(false);
   const [currentComponent, setCurrentComponent] = useState<component>(
     components[0]
   );
   const [quantity, setQuantity] = useState<number>(0);
 
+  // Handler for updating the component's quantity
   const handleClick = () => {
     if (currentComponent && currentComponent.id) {
       updateComponent({

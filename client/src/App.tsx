@@ -14,6 +14,7 @@ import Device from "./pages/Device";
 import Devices from "./pages/Devices";
 import Header from "./components/Layout/Header";
 
+// Define the router configuration for the application
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route element={<Layout />}>
@@ -26,6 +27,7 @@ const router = createBrowserRouter(
   )
 );
 
+// Layout component includes the header and page content
 function Layout() {
   return (
     <>
@@ -35,6 +37,7 @@ function Layout() {
   );
 }
 
+// Main application component
 function App() {
   return (
     <div className="app font-bpg relative">

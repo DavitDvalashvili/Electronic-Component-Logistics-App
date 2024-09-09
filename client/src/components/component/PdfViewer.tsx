@@ -8,12 +8,14 @@ import { defaultLayoutPlugin } from "@react-pdf-viewer/default-layout";
 import { useComponentStore } from "../../store/componentStore";
 
 const PdfViewer = () => {
+  // Initialize PDF viewer plugins
   const pageNavigationPluginInstance = pageNavigationPlugin();
   const getFilePluginInstance = getFilePlugin();
   const scrollModePluginInstance = scrollModePlugin();
   const defaultLayoutPluginInstance = defaultLayoutPlugin();
   const { component } = useComponentStore();
 
+  // Return early if data_sheet is not available
   if (!component?.data_sheet) return;
 
   return (

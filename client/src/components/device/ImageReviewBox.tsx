@@ -8,12 +8,13 @@ const ImageReviewBox = ({
   setImageReview,
   device,
 }: imageReviewDevice) => {
+  // State to hold the parsed image URLs
   const [urls, setUrls] = useState<string[]>([]);
   const { updateDevice, toggleUpdate } = useDeviceStore();
 
   useEffect(() => {
-    console.log("imageUrls updated:", imageUrls);
     if (typeof imageUrls === "string" && imageUrls.trim() !== "") {
+      // Parse the imageUrls string into an array of URLs
       const newUrls = imageUrls.split(",").map((url) => url.trim());
       // Adding a small delay to allow React to process state update properly
       setTimeout(() => setUrls(newUrls), 100);
@@ -22,8 +23,10 @@ const ImageReviewBox = ({
     }
   }, [imageUrls]);
 
+  // Handle the form submission
   const handleSubmit = async () => {
     try {
+      // Update the device with new image URLs if device exists
       if (device) {
         await updateDevice({
           ...device,

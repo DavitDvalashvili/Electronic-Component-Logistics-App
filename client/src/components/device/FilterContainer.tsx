@@ -4,10 +4,11 @@ import { useDeviceStore } from "../../store/deviceStore";
 import { useDeviceFilterStore } from "../../store/filterStore";
 
 const FilterContainer = () => {
+  // Destructure getDevices function and isUpdate flag from the device store
   const { getDevices, isUpdate } = useDeviceStore();
-
   const state = useDeviceFilterStore((state) => state);
 
+  // Fetch devices based on current filter state
   useEffect(() => {
     getDevices(state);
   }, [state, getDevices, isUpdate]);

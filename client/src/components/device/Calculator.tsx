@@ -9,10 +9,12 @@ const Calculator = ({ setShowCalculator }: calculatorProps) => {
   const [value, setValue] = useState<number>(0);
   const [deviceAmount, setDeviceAmount] = useState<number>(0);
 
+  // Fetch components when the component mounts or id changes
   useEffect(() => {
     getComponents(`${id}`);
   }, [getComponents, id]);
 
+  // Calculate the minimum device amount based on components availability
   const getDeviceAmount = () => {
     return components
       .map((component) =>
@@ -24,6 +26,7 @@ const Calculator = ({ setShowCalculator }: calculatorProps) => {
       .reduce((min, current) => (current < min ? current : min), Infinity);
   };
 
+  // Update deviceAmount when components or value changes
   useEffect(() => {
     setDeviceAmount(getDeviceAmount());
   }, [value, setValue, components]);

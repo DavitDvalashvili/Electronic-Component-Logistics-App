@@ -4,10 +4,13 @@ import { useComponentStore } from "../../store/componentStore";
 import { useComponentFilterStore } from "../../store/filterStore";
 
 const FilterContainer = () => {
+  // Destructure `getComponents` and `isUpdate` from the component store
   const { getComponents, isUpdate } = useComponentStore();
 
+  // Access the filter state from the filter store
   const state = useComponentFilterStore((state) => state);
 
+  // Fetch components whenever the filter state or `getComponents` function changes
   useEffect(() => {
     getComponents(state);
   }, [state, getComponents, isUpdate]);

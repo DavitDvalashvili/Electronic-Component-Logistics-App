@@ -3,9 +3,11 @@ import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 const DevicesTable = () => {
+  // Destructure the `devices` array and `getDevices` function from the store
   const { devices, getDevices } = useComponentDeviceStore();
   const { id } = useParams();
 
+  // Fetch devices when the component mounts or when `id` or `getDevices` changes
   useEffect(() => {
     getDevices(`${id}`);
   }, [getDevices, id]);

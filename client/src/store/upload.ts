@@ -1,7 +1,10 @@
 import axios from "axios";
 import { create } from "zustand";
+
+// Base API URL from environment variables
 const Api_Url = import.meta.env.VITE_API_URL;
 
+// Zustand store for file uploads
 export const useUploadStore = create(() => ({
   // Upload files and update component images
   uploadImage: async (files: FileList) => {
@@ -27,6 +30,7 @@ export const useUploadStore = create(() => ({
     }
   },
 
+  // Upload a single PDF file and return the filename
   uploadPDF: async (file: File) => {
     if (!file) return;
 

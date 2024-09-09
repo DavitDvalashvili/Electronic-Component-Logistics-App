@@ -3,6 +3,7 @@ import { create } from "zustand";
 import { device, deviceState } from "../type";
 import { showSuccess, showError } from "../toast/ToastUtils";
 
+// Base API URL from environment variables
 const Api_Url = import.meta.env.VITE_API_URL;
 
 export const useDeviceStore = create<deviceState>((set) => ({

@@ -8,12 +8,16 @@ import NotFound from "../components/NotFound";
 import CustomLoader from "../components/CustomLoader";
 
 const Devices = () => {
+  // Access devices data, update function, toggle function, and loading/error states from device store
   const { devices, updateDevice, toggleUpdate, error, loading } =
     useDeviceStore();
+
+  // Local state to control the display of the update quantity popup and track the current device and quantity
   const [showPopup, setShowPopup] = useState<boolean>(false);
   const [currentDevice, setCurrentDevice] = useState<device>(devices[0]);
   const [quantity, setQuantity] = useState<number>(0);
 
+  // Function to handle the click event for updating the device quantity
   const handleClick = () => {
     if (currentDevice && currentDevice.id) {
       updateDevice({

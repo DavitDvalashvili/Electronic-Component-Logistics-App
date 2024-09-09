@@ -7,10 +7,13 @@ import { deviceComponent } from "../../type";
 import { useDeviceStore } from "../../store/deviceStore";
 
 const ComponentsTable = () => {
+  // Extract relevant states and functions from the stores
   const { components, getComponents, deleteComponent } =
     useComponentDeviceStore();
   const { id } = useParams();
   const { isUpdate, toggleUpdate, getDevice } = useDeviceStore();
+
+  // State for showing delete confirmation box and current component to delete
   const [showDelete, setShowDelete] = useState<boolean>(false);
   const [currentComponent, setCurrentComponent] = useState<deviceComponent>({
     component_name: " ",
@@ -19,11 +22,13 @@ const ComponentsTable = () => {
     device_component_id: "",
   });
 
+  // Fetch components and device data when component mounts or when id or isUpdate changes
   useEffect(() => {
     getComponents(`${id}`);
     getDevice(`${id}`);
   }, [getComponents, id, isUpdate, getDevice]);
 
+  // Handle delete operation
   const handleDelete = async () => {
     if (currentComponent) {
       await deleteComponent(currentComponent.device_component_id);

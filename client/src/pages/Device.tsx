@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-import "moment/locale/ka";
 import SideBarDevice from "../components/Layout/SideBarDevice";
 import { useParams } from "react-router-dom";
 import { useDeviceStore } from "../store/deviceStore";
@@ -9,9 +8,13 @@ import CustomLoader from "../components/CustomLoader";
 import ImageBox from "../components/SwiperWrapper";
 
 const Device = () => {
+  // Extract device ID from URL parameters
   const { id } = useParams();
+
+  // Access device data, loading, error state, and update status from device store
   const { getDevice, device, error, loading, isUpdate } = useDeviceStore();
 
+  // Fetch device details when component mounts or updates based on the ID and update status
   useEffect(() => {
     getDevice(`${id}`);
   }, [id, getDevice, isUpdate]);

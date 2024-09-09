@@ -9,27 +9,34 @@ import { useDeviceFilterStore } from "../../store/filterStore";
 import Form from "../device/Form";
 
 const InteractiveBox = () => {
+  // State to toggle filter visibility
   const [showFilter, setShowFilter] = useState<boolean>(true);
+
+  // State to manage the current page and total pages for pagination
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [totalPages, setTotalPages] = useState<number>(1);
+
+  // Store methods for fetching all devices and setting filters
   const { allDevices, getAllDevices } = useDeviceStore();
   const { setDeviceFilter } = useDeviceFilterStore();
-
   const [showForm, setShowForm] = useState<boolean>(false);
 
+  // Toggle the visibility of the filter container
   const handleClick = () => {
     setShowFilter(!showFilter);
   };
 
+  // Fetch all devices when the component mounts
   useEffect(() => {
     getAllDevices();
   }, []);
 
+  // Update total pages whenever the list of all devices changes
   useEffect(() => {
     setTotalPages(Math.ceil(allDevices.length / 10));
   }, [allDevices]);
 
-  // Handle page change and call getComponents with updated filters
+  // Handle page change and update the filter with the new page number
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
     setDeviceFilter("page", page.toString());

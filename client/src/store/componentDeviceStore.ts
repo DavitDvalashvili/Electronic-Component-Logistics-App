@@ -3,6 +3,7 @@ import axios from "axios";
 import { ComponentDeviceState } from "../type";
 import { showError, showSuccess } from "../toast/ToastUtils";
 
+// Base API URL from environment variables
 const Api_Url = import.meta.env.VITE_API_URL;
 
 const useComponentDeviceStore = create<ComponentDeviceState>((set) => ({
@@ -13,6 +14,7 @@ const useComponentDeviceStore = create<ComponentDeviceState>((set) => ({
   names: [],
   deviceComponents: [],
 
+  // Fetches devices based on component ID
   getDevices: async (id: string) => {
     set({ loading: true });
     try {
@@ -37,6 +39,7 @@ const useComponentDeviceStore = create<ComponentDeviceState>((set) => ({
     }
   },
 
+  // Fetches components based on device ID
   getComponents: async (id: string) => {
     set({ loading: true });
     try {
@@ -61,6 +64,7 @@ const useComponentDeviceStore = create<ComponentDeviceState>((set) => ({
     }
   },
 
+  // Fetches component names
   getComponentsNames: async () => {
     set({ loading: true });
     try {
@@ -85,6 +89,7 @@ const useComponentDeviceStore = create<ComponentDeviceState>((set) => ({
     }
   },
 
+  // Adds a new device-component
   addDeviceComponent: async (deviceComponent) => {
     set({ loading: true });
     try {
@@ -110,6 +115,7 @@ const useComponentDeviceStore = create<ComponentDeviceState>((set) => ({
     }
   },
 
+  // Deletes a device-component
   deleteComponent: async (id) => {
     try {
       await axios.delete(`${Api_Url}/component-device/delete/${id}`);

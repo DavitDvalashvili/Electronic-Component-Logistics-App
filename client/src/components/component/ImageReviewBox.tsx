@@ -8,15 +8,17 @@ const ImageReviewBox = ({
   setImageReview,
   component,
 }: imageReview) => {
+  // State to store processed image URLs
   const [urls, setUrls] = useState<string[]>([]);
   const { updateComponent, toggleUpdate } = useComponentStore();
 
   useEffect(() => {
     console.log("imageUrls updated:", imageUrls);
     if (typeof imageUrls === "string" && imageUrls.trim() !== "") {
+      // Split and trim image URLs from the string
       const newUrls = imageUrls.split(",").map((url) => url.trim());
       // Adding a small delay to allow React to process state update properly
-      setTimeout(() => setUrls(newUrls), 100);
+      setTimeout(() => setUrls(newUrls), 50);
     } else {
       setUrls([]);
     }
@@ -24,13 +26,14 @@ const ImageReviewBox = ({
 
   const handleSubmit = async () => {
     try {
+      // Update component with new image URLs
       if (component) {
         await updateComponent({
           ...component,
           images_urls: imageUrls,
         });
       }
-      await toggleUpdate();
+      toggleUpdate();
       setImageReview(false);
     } catch (error) {
       console.error("Error updating component:", error);

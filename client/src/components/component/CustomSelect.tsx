@@ -4,21 +4,24 @@ import axios from "axios";
 import { useComponentFilterStore } from "../../store/filterStore";
 import { CustomSelectComponentProps, OptionItem } from "../../type";
 
+// Base API URL from environment variables
 const Api_Url = import.meta.env.VITE_API_URL;
 
 const CustomSelect = ({
   filterComponentBy,
   placeholder,
 }: CustomSelectComponentProps) => {
+  // Extract the selected value and setter function from Zustand store
   const { [filterComponentBy]: selectedValue, setComponentFilter } =
     useComponentFilterStore();
 
+  // State for managing options and loading status
   const [options, setOptions] = useState<{ value: string; label: string }[]>(
     []
   );
-
   const [isLoading, setIsLoading] = useState(false);
 
+  // Effect to fetch options based on the filterComponentBy prop
   useEffect(() => {
     const fetchOptions = async () => {
       setIsLoading(true);
@@ -26,7 +29,7 @@ const CustomSelect = ({
         const response = await axios.get<OptionItem[]>(
           `${Api_Url}/filter-options/component/?filterBy=${filterComponentBy}`
         );
-
+        // Map response data to options format for react-select
         const filteredOptions = response.data
           .map((item) => ({
             value: item[filterComponentBy],

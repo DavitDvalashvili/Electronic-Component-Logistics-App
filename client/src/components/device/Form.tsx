@@ -6,8 +6,10 @@ import { useEffect } from "react";
 import { motion } from "framer-motion";
 
 const Form = ({ setShowForm, status }: formProps) => {
+  // Destructure functions and state from the device store
   const { addDevice, device, updateDevice, toggleUpdate } = useDeviceStore();
 
+  // Initialize form methods from react-hook-form
   const {
     register,
     handleSubmit,
@@ -15,12 +17,13 @@ const Form = ({ setShowForm, status }: formProps) => {
     setValue,
   } = useForm<device>();
 
+  // Submit handler for the form
   const onSubmit: SubmitHandler<device> = async (data) => {
     try {
       if (status === "adding") {
-        await addDevice(data);
+        await addDevice(data); // Add new device
       } else if (status === "updating") {
-        await updateDevice(data);
+        await updateDevice(data); // Update existing device
       }
       toggleUpdate();
       setShowForm(false);
@@ -30,6 +33,7 @@ const Form = ({ setShowForm, status }: formProps) => {
   };
 
   useEffect(() => {
+    // Populate form fields with existing device data when updating
     if (status === "updating" && device !== null) {
       (Object.keys(device) as (keyof device)[]).forEach((field) => {
         setValue(field, device[field]);

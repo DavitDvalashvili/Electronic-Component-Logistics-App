@@ -3,8 +3,10 @@ import { create } from "zustand";
 import { componentState } from "../type";
 import { showSuccess, showError } from "../toast/ToastUtils";
 
+// Base API URL from environment variables
 const Api_Url = import.meta.env.VITE_API_URL;
 
+// Zustand store for component management
 export const useComponentStore = create<componentState>((set) => ({
   loading: false,
   components: [],
@@ -22,6 +24,7 @@ export const useComponentStore = create<componentState>((set) => ({
   page: "1",
   isUpdate: false,
 
+  // Fetch components based on given parameters
   getComponents: async (params) => {
     set({ loading: true });
     try {
@@ -52,11 +55,9 @@ export const useComponentStore = create<componentState>((set) => ({
       set({ allComponents: response.data, error: "" });
     } catch (error) {
       if (error instanceof Error) {
-        // error is an instance of Error, so it has a message property
-        set({ allComponents: [], error: error.message });
+        set({ allComponents: [], error: error.message }); // Handle Error instance
       } else {
-        // If the error is not an instance of Error, handle it as a generic error
-        set({ allComponents: [], error: "Something went wrong" });
+        set({ allComponents: [], error: "Something went wrong" }); // Generic error message
       }
     } finally {
       set({ loading: false });
@@ -71,11 +72,9 @@ export const useComponentStore = create<componentState>((set) => ({
       set({ component: response.data, error: "" });
     } catch (error) {
       if (error instanceof Error) {
-        // error is an instance of Error, so it has a message property
-        set({ component: null, error: error.message });
+        set({ component: null, error: error.message }); // Handle Error instance
       } else {
-        // If the error is not an instance of Error, handle it as a generic error
-        set({ component: null, error: "Something went wrong" });
+        set({ component: null, error: "Something went wrong" }); // Generic error message
       }
     } finally {
       set({ loading: false });

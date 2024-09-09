@@ -4,11 +4,14 @@ import { useComponentStore } from "../../store/componentStore";
 import { formProps } from "../../type";
 import { useEffect } from "react";
 import { motion } from "framer-motion";
+import GeorgianDatePicker from "./DatePicker";
 
 const Form = ({ setShowForm, status }: formProps) => {
+  // Destructure store actions and state
   const { addComponent, component, updateComponent, toggleUpdate } =
     useComponentStore();
 
+  // Initialize form with react-hook-form
   const {
     register,
     handleSubmit,
@@ -16,6 +19,7 @@ const Form = ({ setShowForm, status }: formProps) => {
     setValue,
   } = useForm<component>();
 
+  // Handle form submission
   const onSubmit: SubmitHandler<component> = async (data) => {
     try {
       if (status === "adding") {
@@ -323,6 +327,7 @@ const Form = ({ setShowForm, status }: formProps) => {
                   {...register("receipt_date", {})}
                 />
               </div>
+              <GeorgianDatePicker />
             </div>
             {/* 13 */}
             <div className="flex gap-2 items-end">
