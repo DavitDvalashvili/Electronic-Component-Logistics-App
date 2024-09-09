@@ -5,6 +5,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 
 const SwiperWrapper = ({ image_urls }: imageBoxProps) => {
+  // Split and trim image URLs into an array
   const imageArray = image_urls
     ? image_urls.split(",").map((url) => url.trim())
     : [];

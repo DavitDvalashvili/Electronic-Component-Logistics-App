@@ -6,13 +6,13 @@ import { useLocation } from "react-router-dom";
 import { SlArrowLeft } from "react-icons/sl";
 
 const Header = () => {
+  // State and function to control sidebar visibility
   const { toggleShowSideBar, showSideBar } = useDeviceStore();
-
   const location = useLocation(); // Get the current path
   const index = location.pathname.split("/")[2];
-
   const navigate = useNavigate();
 
+  // Navigate to the previous page
   const handleClick = () => {
     console.log("navigate");
     navigate(-1);

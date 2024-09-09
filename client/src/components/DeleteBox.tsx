@@ -2,6 +2,7 @@ import { DeleteBoxProps } from "../type";
 import { motion } from "framer-motion";
 
 const DeleteBox = ({ setShowDelete, handleDelete, name }: DeleteBoxProps) => {
+  // Handles the confirmation of the delete action
   const handleSubmit = () => {
     setShowDelete(false);
     handleDelete();

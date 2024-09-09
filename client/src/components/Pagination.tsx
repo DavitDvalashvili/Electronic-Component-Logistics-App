@@ -4,8 +4,10 @@ import { pagination } from "../type";
 import { useState, useEffect } from "react";
 
 const Pagination = ({ totalPages, currentPage, onPageChange }: pagination) => {
+  // State to track the current page
   const [current, setCurrent] = useState<number>(currentPage);
 
+  // Update the current page state when the currentPage prop changes
   useEffect(() => {
     setCurrent(currentPage);
   }, [currentPage]);

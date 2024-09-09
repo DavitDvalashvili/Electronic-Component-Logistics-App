@@ -18,6 +18,7 @@ import { IoIosLink } from "react-icons/io";
 import { motion } from "framer-motion";
 
 const AsideDevice = ({ currentDevice }: buttonBox) => {
+  // State management for different popups and modals
   const [showPopup, setShowPopup] = useState<boolean>(false);
   const [showDelete, setShowDelete] = useState<boolean>(false);
   const [showCalculator, setShowCalculator] = useState<boolean>(false);
@@ -35,6 +36,7 @@ const AsideDevice = ({ currentDevice }: buttonBox) => {
 
   const navigate = useNavigate();
 
+  // Function to handle quantity update
   const handleClick = async () => {
     if (currentDevice) {
       await updateDevice({
@@ -45,6 +47,7 @@ const AsideDevice = ({ currentDevice }: buttonBox) => {
     }
   };
 
+  // Function to handle device deletion
   const handleDelete = () => {
     if (currentDevice) {
       deleteDevice(currentDevice.id);
@@ -52,6 +55,7 @@ const AsideDevice = ({ currentDevice }: buttonBox) => {
     }
   };
 
+  // Function to handle file input change and upload
   const handleFileChange = async (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
@@ -65,6 +69,7 @@ const AsideDevice = ({ currentDevice }: buttonBox) => {
     }
   };
 
+  // Function to trigger file input click
   const handleUploadClick = () => {
     if (fileInputRef.current) {
       fileInputRef.current.click();

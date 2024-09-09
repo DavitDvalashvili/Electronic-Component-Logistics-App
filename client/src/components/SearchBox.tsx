@@ -6,12 +6,15 @@ import {
 import { useLocation } from "react-router-dom";
 
 const SearchBox = () => {
+  // Get current pathname from the location
   const location = useLocation();
   const pathname = location.pathname.slice(1);
 
+  // Get filter functions from the filter stores
   const { setComponentFilter } = useComponentFilterStore();
   const { setDeviceFilter } = useDeviceFilterStore();
 
+  // Handle input changes based on the current pathname
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (pathname === "devices") {
       setDeviceFilter("search_term", e.target.value);

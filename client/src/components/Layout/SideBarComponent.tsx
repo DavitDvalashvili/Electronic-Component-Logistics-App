@@ -15,6 +15,7 @@ import { LuFileSpreadsheet } from "react-icons/lu";
 import { useDeviceStore } from "../../store/deviceStore";
 
 const SideBarComponent = ({ currentComponent }: buttonBoxProps) => {
+  // State variables for managing component popups and file inputs
   const [showPopup, setShowPopup] = useState<boolean>(false);
   const [showDelete, setShowDelete] = useState<boolean>(false);
   const [imageReview, setImageReview] = useState<boolean>(false);
@@ -22,6 +23,8 @@ const SideBarComponent = ({ currentComponent }: buttonBoxProps) => {
   const [quantity, setQuantity] = useState<number>(
     currentComponent?.available_quantity
   );
+
+  // Access functions and state from stores
   const { updateComponent, deleteComponent, toggleUpdate } =
     useComponentStore();
   const { uploadImage, uploadPDF } = useUploadStore();
@@ -29,9 +32,9 @@ const SideBarComponent = ({ currentComponent }: buttonBoxProps) => {
   const imageInputRef = useRef<HTMLInputElement | null>(null);
   const pdfInputRef = useRef<HTMLInputElement | null>(null);
   const { showSideBar } = useDeviceStore();
-
   const navigate = useNavigate();
 
+  // Update component quantity
   const handleClick = async () => {
     if (currentComponent) {
       await updateComponent({
@@ -43,6 +46,7 @@ const SideBarComponent = ({ currentComponent }: buttonBoxProps) => {
     }
   };
 
+  // Delete component and navigate to components page
   const handleDelete = () => {
     if (currentComponent) {
       deleteComponent(currentComponent.id);
@@ -50,6 +54,7 @@ const SideBarComponent = ({ currentComponent }: buttonBoxProps) => {
     }
   };
 
+  // Handle image file upload
   const handleFileChange = async (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
@@ -63,6 +68,7 @@ const SideBarComponent = ({ currentComponent }: buttonBoxProps) => {
     }
   };
 
+  // Handle PDF file upload
   const handlePdfChange = async (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
@@ -79,12 +85,14 @@ const SideBarComponent = ({ currentComponent }: buttonBoxProps) => {
     }
   };
 
+  // Trigger file input click
   const handleUploadClick = () => {
     if (imageInputRef.current) {
       imageInputRef.current.click();
     }
   };
 
+  //Trigger file upload
   const handleUploadPdfClick = () => {
     if (pdfInputRef.current) {
       pdfInputRef.current.click();

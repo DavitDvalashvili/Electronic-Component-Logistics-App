@@ -13,17 +13,19 @@ const UpdateQuantityBox = ({
   const [increaseValue, setIncreaseValue] = useState<number>(0);
   const [decreaseValue, setDecreaseValue] = useState<number>(0);
 
-  // Handle the submit action
+  // Handle the submit action to update quantity and close the popup
   const handleSubmit = () => {
     setQuantity(value);
     setShowPopup(false);
     handleClick();
   };
 
+  // Update the value based on increase and decrease values
   useEffect(() => {
     setValue(quantity + increaseValue - decreaseValue);
   }, [increaseValue, decreaseValue]);
 
+  // Update the external quantity state when the local value changes
   useEffect(() => {
     setQuantity(value);
   }, [value, increaseValue, decreaseValue]);

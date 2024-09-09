@@ -3,6 +3,7 @@ import { ThreeDots } from "react-loader-spinner";
 const CustomLoader = () => {
   return (
     <div className=" h-full flex justify-center items-center mt-[200px] ">
+      {/* Loader component from react-loader-spinner */}
       <ThreeDots
         visible={true}
         height="80"
