@@ -6,10 +6,11 @@ import { Link } from "react-router-dom";
 import { useComponentStore } from "../store/componentStore";
 import CustomLoader from "../components/CustomLoader";
 import NotFound from "../components/NotFound";
+import { useComponentFilterStore } from "../store/filterStore";
 
 const Components = () => {
   // Access state and actions from component store
-  const { components, updateComponent, toggleUpdate, loading, error } =
+  const { components, updateComponent, loading, error, getComponents } =
     useComponentStore();
   // Local state to manage the popup visibility, current component, and quantity
   const [showPopup, setShowPopup] = useState<boolean>(false);
@@ -18,15 +19,18 @@ const Components = () => {
   );
   const [quantity, setQuantity] = useState<number>(0);
 
+  // Access the filter state from the filter store
+  const state = useComponentFilterStore((state) => state);
+
   // Handler for updating the component's quantity
-  const handleClick = () => {
+  const handleClick = async () => {
     if (currentComponent && currentComponent.id) {
-      updateComponent({
+      await updateComponent({
         ...currentComponent,
         available_quantity: quantity,
         receipt_date: currentComponent.receipt_date.split("T")[0],
       });
-      toggleUpdate();
+      await getComponents(state);
     }
   };
 
@@ -39,7 +43,7 @@ const Components = () => {
       {showPopup && currentComponent && (
         <div
           id="updateQuantity"
-          className="w-full h-full fixed top-0 left-0 bg-blackLight flex justify-center items-center"
+          className="w-full h-full fixed top-0 left-0 bg-blackLight flex justify-center items-center z-20"
         >
           <UpdateQuantityBox
             setShowPopup={setShowPopup}

@@ -13,8 +13,10 @@ import { FaRegFileImage } from "react-icons/fa6";
 import { GrUpdate } from "react-icons/gr";
 import { LuFileSpreadsheet } from "react-icons/lu";
 import { useDeviceStore } from "../../store/deviceStore";
+import { useParams } from "react-router-dom";
 
 const SideBarComponent = ({ currentComponent }: buttonBoxProps) => {
+  const { id } = useParams();
   // State variables for managing component popups and file inputs
   const [showPopup, setShowPopup] = useState<boolean>(false);
   const [showDelete, setShowDelete] = useState<boolean>(false);
@@ -25,7 +27,7 @@ const SideBarComponent = ({ currentComponent }: buttonBoxProps) => {
   );
 
   // Access functions and state from stores
-  const { updateComponent, deleteComponent, toggleUpdate } =
+  const { updateComponent, deleteComponent, getComponent } =
     useComponentStore();
   const { uploadImage, uploadPDF } = useUploadStore();
   const [showForm, setShowForm] = useState<boolean>(false);
@@ -42,7 +44,7 @@ const SideBarComponent = ({ currentComponent }: buttonBoxProps) => {
         available_quantity: quantity,
         receipt_date: currentComponent.receipt_date.split("T")[0],
       });
-      toggleUpdate();
+      await getComponent(`${id}`);
     }
   };
 
@@ -80,7 +82,7 @@ const SideBarComponent = ({ currentComponent }: buttonBoxProps) => {
           ...currentComponent,
           data_sheet: response,
         });
-        toggleUpdate();
+        await getComponent(`${id}`);
       }
     }
   };
@@ -134,7 +136,7 @@ const SideBarComponent = ({ currentComponent }: buttonBoxProps) => {
         {showPopup && (
           <div
             id="updateQuantity"
-            className="w-full h-full fixed top-0 left-0 bg-blackLight flex justify-center items-center z-10"
+            className="w-full h-full fixed top-0 left-0 bg-blackLight flex justify-center items-center z-20"
           >
             <UpdateQuantityBox
               setShowPopup={setShowPopup}

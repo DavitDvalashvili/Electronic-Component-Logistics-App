@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import UpdateQuantityBox from "../UpdateQuantityBox";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Form from "../device/Form";
 import Calculator from "../device/Calculator";
 import DeleteBox from "../DeleteBox";
@@ -16,8 +16,8 @@ import { GrUpdate } from "react-icons/gr";
 import { SlCalculator } from "react-icons/sl";
 import { IoIosLink } from "react-icons/io";
 import { motion } from "framer-motion";
-
 const AsideDevice = ({ currentDevice }: buttonBox) => {
+  const { id } = useParams();
   // State management for different popups and modals
   const [showPopup, setShowPopup] = useState<boolean>(false);
   const [showDelete, setShowDelete] = useState<boolean>(false);
@@ -28,7 +28,7 @@ const AsideDevice = ({ currentDevice }: buttonBox) => {
     currentDevice?.available_quantity
   );
   const { uploadImage } = useUploadStore();
-  const { updateDevice, deleteDevice, toggleUpdate } = useDeviceStore();
+  const { updateDevice, deleteDevice, getDevice } = useDeviceStore();
   const [showForm, setShowForm] = useState<boolean>(false);
   const [showAddDevice, setShowAddDevice] = useState<boolean>(false);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
@@ -43,7 +43,7 @@ const AsideDevice = ({ currentDevice }: buttonBox) => {
         ...currentDevice,
         available_quantity: quantity,
       });
-      toggleUpdate();
+      getDevice(`${id}`);
     }
   };
 

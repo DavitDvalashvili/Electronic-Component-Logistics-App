@@ -2,6 +2,7 @@ import { imageReview } from "../../type";
 import { useEffect, useState } from "react";
 import { useComponentStore } from "../../store/componentStore";
 import { motion } from "framer-motion";
+import { useParams } from "react-router-dom";
 
 const ImageReviewBox = ({
   imageUrls,
@@ -10,7 +11,8 @@ const ImageReviewBox = ({
 }: imageReview) => {
   // State to store processed image URLs
   const [urls, setUrls] = useState<string[]>([]);
-  const { updateComponent, toggleUpdate } = useComponentStore();
+  const { id } = useParams();
+  const { updateComponent, getComponent } = useComponentStore();
 
   useEffect(() => {
     console.log("imageUrls updated:", imageUrls);
@@ -33,7 +35,7 @@ const ImageReviewBox = ({
           images_urls: imageUrls,
         });
       }
-      toggleUpdate();
+      await getComponent(`${id}`);
       setImageReview(false);
     } catch (error) {
       console.error("Error updating component:", error);

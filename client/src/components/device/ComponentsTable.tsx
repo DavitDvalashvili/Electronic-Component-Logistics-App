@@ -11,7 +11,7 @@ const ComponentsTable = () => {
   const { components, getComponents, deleteComponent } =
     useComponentDeviceStore();
   const { id } = useParams();
-  const { isUpdate, toggleUpdate, getDevice } = useDeviceStore();
+  const { getDevice } = useDeviceStore();
 
   // State for showing delete confirmation box and current component to delete
   const [showDelete, setShowDelete] = useState<boolean>(false);
@@ -26,13 +26,14 @@ const ComponentsTable = () => {
   useEffect(() => {
     getComponents(`${id}`);
     getDevice(`${id}`);
-  }, [getComponents, id, isUpdate, getDevice]);
+  }, [getComponents, id, getDevice]);
 
   // Handle delete operation
   const handleDelete = async () => {
     if (currentComponent) {
       await deleteComponent(currentComponent.device_component_id);
-      toggleUpdate();
+      await getDevice(`${id}`);
+      await getComponents(`${id}`);
     }
   };
 

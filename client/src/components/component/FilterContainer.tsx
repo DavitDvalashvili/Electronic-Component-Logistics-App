@@ -5,7 +5,7 @@ import { useComponentFilterStore } from "../../store/filterStore";
 
 const FilterContainer = () => {
   // Destructure `getComponents` and `isUpdate` from the component store
-  const { getComponents, isUpdate } = useComponentStore();
+  const { getComponents } = useComponentStore();
 
   // Access the filter state from the filter store
   const state = useComponentFilterStore((state) => state);
@@ -13,7 +13,7 @@ const FilterContainer = () => {
   // Fetch components whenever the filter state or `getComponents` function changes
   useEffect(() => {
     getComponents(state);
-  }, [state, getComponents, isUpdate]);
+  }, [state, getComponents]);
 
   return (
     <section className="grid grid-cols-2 lg:grid-cols-3 gap-4">

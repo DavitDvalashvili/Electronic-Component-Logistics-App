@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-
 import { format } from "date-fns";
 import SideBarComponent from "../components/Layout/SideBarComponent";
 import { useParams } from "react-router-dom";
@@ -12,13 +11,12 @@ import NotFound from "../components/NotFound";
 
 const Component = () => {
   const { id } = useParams();
-  const { getComponent, component, loading, error, isUpdate } =
-    useComponentStore();
+  const { getComponent, component, loading, error } = useComponentStore();
 
   // Fetch component data when the component ID or update status changes
   useEffect(() => {
     getComponent(`${id}`);
-  }, [id, getComponent, isUpdate]);
+  }, [id, getComponent]);
 
   return (
     <div className="pl-[70px]">

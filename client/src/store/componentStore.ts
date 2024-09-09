@@ -22,7 +22,6 @@ export const useComponentStore = create<componentState>((set) => ({
   search_term: "",
   files: "",
   page: "1",
-  isUpdate: false,
 
   // Fetch components based on given parameters
   getComponents: async (params) => {
@@ -143,7 +142,4 @@ export const useComponentStore = create<componentState>((set) => ({
       showError("შეცდომა კომპონენტის წაშლისას");
     }
   },
-
-  // Toggle update mode
-  toggleUpdate: () => set((state) => ({ isUpdate: !state.isUpdate })),
 }));

@@ -5,11 +5,22 @@ import { formProps } from "../../type";
 import { useEffect } from "react";
 import { motion } from "framer-motion";
 import GeorgianDatePicker from "./DatePicker";
+import { useParams } from "react-router-dom";
+import { useComponentFilterStore } from "../../store/filterStore";
 
 const Form = ({ setShowForm, status }: formProps) => {
+  const { id } = useParams();
+  // Access the filter state from the filter store
+  const state = useComponentFilterStore((state) => state);
+
   // Destructure store actions and state
-  const { addComponent, component, updateComponent, toggleUpdate } =
-    useComponentStore();
+  const {
+    addComponent,
+    component,
+    updateComponent,
+    getComponent,
+    getComponents,
+  } = useComponentStore();
 
   // Initialize form with react-hook-form
   const {
@@ -26,10 +37,11 @@ const Form = ({ setShowForm, status }: formProps) => {
       console.log(data);
       if (status === "adding") {
         await addComponent({ ...data });
+        getComponents(state);
       } else if (status === "updating") {
         await updateComponent(data);
+        await getComponent(`${id}`);
       }
-      toggleUpdate();
       setShowForm(false);
     } catch (error) {
       console.error(error);

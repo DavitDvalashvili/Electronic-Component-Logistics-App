@@ -4,10 +4,15 @@ import { useDeviceStore } from "../../store/deviceStore";
 import { formProps } from "../../type";
 import { useEffect } from "react";
 import { motion } from "framer-motion";
+import { useParams } from "react-router-dom";
+import { useDeviceFilterStore } from "../../store/filterStore";
 
 const Form = ({ setShowForm, status }: formProps) => {
+  const { id } = useParams();
   // Destructure functions and state from the device store
-  const { addDevice, device, updateDevice, toggleUpdate } = useDeviceStore();
+  const { addDevice, device, updateDevice, getDevice, getDevices } =
+    useDeviceStore();
+  const state = useDeviceFilterStore((state) => state);
 
   // Initialize form methods from react-hook-form
   const {
@@ -22,10 +27,12 @@ const Form = ({ setShowForm, status }: formProps) => {
     try {
       if (status === "adding") {
         await addDevice(data); // Add new device
+        await getDevices(state);
       } else if (status === "updating") {
         await updateDevice(data); // Update existing device
+        await getDevice(`${id}`);
       }
-      toggleUpdate();
+
       setShowForm(false);
     } catch (error) {
       console.error(error);

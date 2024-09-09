@@ -35,7 +35,6 @@ export type initialStateComponent = {
   suppliers_name: string;
   search_term: string;
   page: string;
-  isUpdate: boolean;
 };
 
 export type pagination = {
@@ -136,7 +135,6 @@ export type componentState = {
   suppliers_name: string;
   search_term: string;
   page: string;
-  isUpdate: boolean;
   getComponents: (params: {
     name: string;
     family: string;
@@ -152,7 +150,6 @@ export type componentState = {
   updateComponent: (component: component) => Promise<void>;
   addComponent: (newComponent: component) => Promise<void>;
   deleteComponent: (id: string) => Promise<void>;
-  toggleUpdate: () => void;
 };
 
 export type formProps = {
@@ -198,7 +195,6 @@ export type deviceState = {
   size: string;
   search_term: string;
   page: string;
-  isUpdate: boolean;
   showSideBar: boolean;
   getDevices: (params: {
     name: string;
@@ -212,7 +208,6 @@ export type deviceState = {
   updateDevice: (device: device) => Promise<void>;
   addDevice: (newDevice: device) => Promise<void>;
   deleteDevice: (id: string) => Promise<void>;
-  toggleUpdate: () => void;
   toggleShowSideBar: () => void;
 };
 

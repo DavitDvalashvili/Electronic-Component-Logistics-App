@@ -6,25 +6,27 @@ import { Link } from "react-router-dom";
 import { useDeviceStore } from "../store/deviceStore";
 import NotFound from "../components/NotFound";
 import CustomLoader from "../components/CustomLoader";
+import { useDeviceFilterStore } from "../store/filterStore";
 
 const Devices = () => {
   // Access devices data, update function, toggle function, and loading/error states from device store
-  const { devices, updateDevice, toggleUpdate, error, loading } =
+  const { devices, updateDevice, getDevices, error, loading } =
     useDeviceStore();
 
   // Local state to control the display of the update quantity popup and track the current device and quantity
   const [showPopup, setShowPopup] = useState<boolean>(false);
   const [currentDevice, setCurrentDevice] = useState<device>(devices[0]);
   const [quantity, setQuantity] = useState<number>(0);
+  const state = useDeviceFilterStore((state) => state);
 
   // Function to handle the click event for updating the device quantity
-  const handleClick = () => {
+  const handleClick = async () => {
     if (currentDevice && currentDevice.id) {
-      updateDevice({
+      await updateDevice({
         ...currentDevice,
         available_quantity: quantity,
       });
-      toggleUpdate();
+      await getDevices(state);
     }
   };
 
@@ -36,7 +38,7 @@ const Devices = () => {
       {showPopup && currentDevice && (
         <div
           id="updateQuantity"
-          className="w-full h-full fixed top-0 left-0 bg-blackLight flex justify-center items-center"
+          className="w-full h-full fixed top-0 left-0 bg-blackLight flex justify-center items-center z-20"
         >
           <UpdateQuantityBox
             setShowPopup={setShowPopup}

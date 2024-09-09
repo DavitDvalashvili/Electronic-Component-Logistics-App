@@ -5,13 +5,13 @@ import { useDeviceFilterStore } from "../../store/filterStore";
 
 const FilterContainer = () => {
   // Destructure getDevices function and isUpdate flag from the device store
-  const { getDevices, isUpdate } = useDeviceStore();
+  const { getDevices } = useDeviceStore();
   const state = useDeviceFilterStore((state) => state);
 
   // Fetch devices based on current filter state
   useEffect(() => {
     getDevices(state);
-  }, [state, getDevices, isUpdate]);
+  }, [state, getDevices]);
 
   return (
     <section className="grid grid-cols-2 lg:grid-cols-3 gap-4">

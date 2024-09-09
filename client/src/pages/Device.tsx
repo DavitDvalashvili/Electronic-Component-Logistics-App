@@ -12,12 +12,12 @@ const Device = () => {
   const { id } = useParams();
 
   // Access device data, loading, error state, and update status from device store
-  const { getDevice, device, error, loading, isUpdate } = useDeviceStore();
+  const { getDevice, device, error, loading } = useDeviceStore();
 
   // Fetch device details when component mounts or updates based on the ID and update status
   useEffect(() => {
     getDevice(`${id}`);
-  }, [id, getDevice, isUpdate]);
+  }, [id, getDevice]);
 
   return (
     <div className="pl-[70px]">

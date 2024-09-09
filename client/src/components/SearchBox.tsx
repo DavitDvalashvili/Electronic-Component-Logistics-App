@@ -24,7 +24,7 @@ const SearchBox = () => {
   };
 
   return (
-    <div className="py-[3px] px-3 border-solid border-[1px] border-shadowColor rounded-md flex justify-start gap-4 items-center w-auto w-[350px] md:w-[300px]">
+    <div className="py-[3px] px-3 border-solid border-[1px] border-shadowColor rounded-md flex justify-start gap-4 items-center w-[350px] md:w-[300px]">
       <IoSearch className="text-xl" />
       <input
         type="search"

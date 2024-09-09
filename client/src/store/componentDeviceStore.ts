@@ -102,6 +102,7 @@ const useComponentDeviceStore = create<ComponentDeviceState>((set) => ({
         loading: false,
         error: "",
       }));
+      showSuccess("კომპონენტი დაემატა წარმატებით");
     } catch (error: unknown) {
       let errorMessage = "Something went wrong";
 
@@ -110,6 +111,7 @@ const useComponentDeviceStore = create<ComponentDeviceState>((set) => ({
       } else if (error instanceof Error) {
         errorMessage = error.message;
       }
+      showError("შეცდომა კომპონენტის დამატებისას");
 
       set({ error: errorMessage, loading: false });
     }

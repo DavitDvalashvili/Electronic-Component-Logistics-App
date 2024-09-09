@@ -2,15 +2,17 @@ import { imageReviewDevice } from "../../type";
 import { useEffect, useState } from "react";
 import { useDeviceStore } from "../../store/deviceStore";
 import { motion } from "framer-motion";
+import { useParams } from "react-router-dom";
 
 const ImageReviewBox = ({
   imageUrls,
   setImageReview,
   device,
 }: imageReviewDevice) => {
+  const { id } = useParams();
   // State to hold the parsed image URLs
   const [urls, setUrls] = useState<string[]>([]);
-  const { updateDevice, toggleUpdate } = useDeviceStore();
+  const { updateDevice, getDevice } = useDeviceStore();
 
   useEffect(() => {
     if (typeof imageUrls === "string" && imageUrls.trim() !== "") {
@@ -33,7 +35,7 @@ const ImageReviewBox = ({
           images_urls: imageUrls,
         });
       }
-      await toggleUpdate();
+      await getDevice(`${id}`);
       setImageReview(false);
     } catch (error) {
       console.error("Error updating component:", error);
