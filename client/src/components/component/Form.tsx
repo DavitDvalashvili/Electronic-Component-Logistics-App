@@ -15,6 +15,7 @@ const Form = ({ setShowForm, status }: formProps) => {
   const {
     register,
     handleSubmit,
+    control,
     formState: { errors },
     setValue,
   } = useForm<component>();
@@ -22,6 +23,7 @@ const Form = ({ setShowForm, status }: formProps) => {
   // Handle form submission
   const onSubmit: SubmitHandler<component> = async (data) => {
     try {
+      console.log(data);
       if (status === "adding") {
         await addComponent({ ...data });
       } else if (status === "updating") {
@@ -321,13 +323,8 @@ const Form = ({ setShowForm, status }: formProps) => {
                 <span className="text-[10px] text-ChinChinCherry h-4">
                   {errors.receipt_date?.message}
                 </span>
-                <input
-                  className="focus:outline-none border-[1px] rounded-sm border-Waiting focus:border-AntarcticDeep w-[180px] pl-1 cursor-text"
-                  type="date"
-                  {...register("receipt_date", {})}
-                />
+                <GeorgianDatePicker control={control} name="receipt_date" />
               </div>
-              <GeorgianDatePicker />
             </div>
             {/* 13 */}
             <div className="flex gap-2 items-end">

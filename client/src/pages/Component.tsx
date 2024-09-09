@@ -1,5 +1,6 @@
 import { useEffect } from "react";
-import "moment/locale/ka";
+
+import { format } from "date-fns";
 import SideBarComponent from "../components/Layout/SideBarComponent";
 import { useParams } from "react-router-dom";
 import DevicesTable from "../components/component/DevicesTable";
@@ -121,7 +122,10 @@ const Component = () => {
                   <div className="font-semibold text-gray-700">
                     მიღების თარიღი
                   </div>
-                  <div className="">{component.receipt_date || "---"}</div>
+                  <div className="">
+                    {format(new Date(component.receipt_date), "yyyy-MM-dd") ||
+                      "---"}
+                  </div>
                 </div>
                 <div className="flex gap-3 items-center">
                   <div className="font-semibold text-gray-700">ინვოისი:</div>
