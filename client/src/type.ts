@@ -1,3 +1,5 @@
+import { Control } from "react-hook-form";
+
 export type component = {
   id: string;
   family: string;
@@ -251,7 +253,7 @@ export type imageReviewDevice = {
   device: device;
 };
 
-export type option = {
-  value: string;
-  label: string;
+export type GeorgianDatePickerProps = {
+  name: string;
+  control: Control<any>;
 };
