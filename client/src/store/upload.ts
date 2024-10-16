@@ -16,7 +16,7 @@ export const useUploadStore = create(() => ({
     }
 
     try {
-      const response = await axios.post(`${Api_Url}/uploadImage`, formData);
+      const response = await axios.post(`${Api_Url}/api/uploadImage`, formData);
 
       if (response && response.status === 200) {
         const { filenames } = response.data;
@@ -38,7 +38,7 @@ export const useUploadStore = create(() => ({
     formData.append("file", file);
 
     try {
-      const response = await axios.post(`${Api_Url}/uploadPDF`, formData);
+      const response = await axios.post(`${Api_Url}/api/uploadPDF`, formData);
 
       if (response && response.status === 200) {
         const { filename } = response.data;

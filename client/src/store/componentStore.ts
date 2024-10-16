@@ -27,7 +27,7 @@ export const useComponentStore = create<componentState>((set) => ({
   getComponents: async (params) => {
     set({ loading: true });
     try {
-      const response = await axios.get(`${Api_Url}/components/get/`, {
+      const response = await axios.get(`${Api_Url}/api/components/get/`, {
         params,
       });
       set({ components: response.data, error: "" });
@@ -50,7 +50,7 @@ export const useComponentStore = create<componentState>((set) => ({
   getAllComponents: async () => {
     set({ loading: true });
     try {
-      const response = await axios.get(`${Api_Url}/components/get/`);
+      const response = await axios.get(`${Api_Url}/api/components/get/`);
       set({ allComponents: response.data, error: "" });
     } catch (error) {
       if (error instanceof Error) {
@@ -67,7 +67,7 @@ export const useComponentStore = create<componentState>((set) => ({
   getComponent: async (id) => {
     set({ loading: true });
     try {
-      const response = await axios.get(`${Api_Url}/components/get/${id}`);
+      const response = await axios.get(`${Api_Url}/api/components/get/${id}`);
       set({ component: response.data, error: "" });
     } catch (error) {
       if (error instanceof Error) {
@@ -85,7 +85,7 @@ export const useComponentStore = create<componentState>((set) => ({
     try {
       const { id, ...updatedData } = component;
       const response = await axios.put(
-        `${Api_Url}/components/update/${id}`,
+        `${Api_Url}/api/components/update/${id}`,
         updatedData
       );
       set((state) => ({
@@ -109,7 +109,7 @@ export const useComponentStore = create<componentState>((set) => ({
   addComponent: async (newComponent) => {
     try {
       const response = await axios.post(
-        `${Api_Url}/components/add`,
+        `${Api_Url}/api/components/add`,
         newComponent
       );
       set((state) => ({
@@ -132,7 +132,7 @@ export const useComponentStore = create<componentState>((set) => ({
   // Delete a component
   deleteComponent: async (id) => {
     try {
-      await axios.delete(`${Api_Url}/components/delete/${id}`);
+      await axios.delete(`${Api_Url}/api/components/delete/${id}`);
       set((state) => ({
         components: state.components.filter((comp) => comp.id !== id),
       }));

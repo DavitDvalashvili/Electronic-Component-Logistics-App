@@ -27,7 +27,7 @@ const CustomSelect = ({
       setIsLoading(true);
       try {
         const response = await axios.get<OptionItem[]>(
-          `${Api_Url}/filter-options/component/?filterBy=${filterComponentBy}`
+          `${Api_Url}/api/filter-options/component/?filterBy=${filterComponentBy}`
         );
         // Map response data to options format for react-select
         const filteredOptions = response.data

@@ -29,7 +29,7 @@ export const useDeviceStore = create<deviceState>((set) => ({
   }) => {
     set({ loading: true });
     try {
-      const response = await axios.get(`${Api_Url}/devices/get/`, {
+      const response = await axios.get(`${Api_Url}/api/devices/get/`, {
         params,
       });
       set({ devices: response.data, error: "" });
@@ -48,7 +48,7 @@ export const useDeviceStore = create<deviceState>((set) => ({
   getAllDevices: async () => {
     set({ loading: true });
     try {
-      const response = await axios.get(`${Api_Url}/devices/get/`);
+      const response = await axios.get(`${Api_Url}/api/devices/get/`);
       set({ allDevices: response.data, error: "" });
     } catch (error) {
       set({
@@ -64,7 +64,7 @@ export const useDeviceStore = create<deviceState>((set) => ({
   getDevice: async (id: string) => {
     set({ loading: true });
     try {
-      const response = await axios.get(`${Api_Url}/devices/get/${id}`);
+      const response = await axios.get(`${Api_Url}/api/devices/get/${id}`);
       set({ device: response.data, error: "" });
     } catch (error) {
       set({
@@ -81,7 +81,7 @@ export const useDeviceStore = create<deviceState>((set) => ({
     try {
       const { id, ...updatedData } = device;
       const response = await axios.put(
-        `${Api_Url}/devices/update/${id}`,
+        `${Api_Url}/api/devices/update/${id}`,
         updatedData
       );
       set((state) => ({
@@ -104,7 +104,10 @@ export const useDeviceStore = create<deviceState>((set) => ({
   // Add a new device
   addDevice: async (newDevice: device) => {
     try {
-      const response = await axios.post(`${Api_Url}/devices/add`, newDevice);
+      const response = await axios.post(
+        `${Api_Url}/api/devices/add`,
+        newDevice
+      );
       set((state) => ({
         devices: [...state.devices, response.data],
       }));
@@ -125,7 +128,7 @@ export const useDeviceStore = create<deviceState>((set) => ({
   // Delete a device
   deleteDevice: async (id: string) => {
     try {
-      await axios.delete(`${Api_Url}/devices/delete/${id}`);
+      await axios.delete(`${Api_Url}/api/devices/delete/${id}`);
       set((state) => ({
         devices: state.devices.filter((dev) => dev.id !== id),
       }));

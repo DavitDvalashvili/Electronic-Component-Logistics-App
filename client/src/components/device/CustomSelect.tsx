@@ -27,7 +27,7 @@ const CustomSelect = ({
       setIsLoading(true);
       try {
         const response = await axios.get<OptionItem[]>(
-          `${Api_Url}/filter-options/device/?filterBy=${filterDeviceBy}`
+          `${Api_Url}/api/filter-options/device/?filterBy=${filterDeviceBy}`
         );
 
         // Transform and filter the API response to match select options format

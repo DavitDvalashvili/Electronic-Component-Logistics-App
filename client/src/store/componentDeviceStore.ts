@@ -19,7 +19,7 @@ const useComponentDeviceStore = create<ComponentDeviceState>((set) => ({
     set({ loading: true });
     try {
       const response = await axios.get(
-        `${Api_Url}/component-device/component/${id}`
+        `${Api_Url}/api/component-device/component/${id}`
       );
       set({ devices: response.data, error: "", loading: false });
     } catch (error: unknown) {
@@ -44,7 +44,7 @@ const useComponentDeviceStore = create<ComponentDeviceState>((set) => ({
     set({ loading: true });
     try {
       const response = await axios.get(
-        `${Api_Url}/component-device/device/${id}`
+        `${Api_Url}/api/component-device/device/${id}`
       );
       set({ components: response.data, error: "", loading: false });
     } catch (error: unknown) {
@@ -69,7 +69,7 @@ const useComponentDeviceStore = create<ComponentDeviceState>((set) => ({
     set({ loading: true });
     try {
       const response = await axios.get(
-        `${Api_Url}/component-device/component-names`
+        `${Api_Url}/api/component-device/component-names`
       );
       set({ names: response.data, error: "", loading: false });
     } catch (error: unknown) {
@@ -94,7 +94,7 @@ const useComponentDeviceStore = create<ComponentDeviceState>((set) => ({
     set({ loading: true });
     try {
       const response = await axios.post(
-        `${Api_Url}/component-device/add`,
+        `${Api_Url}/api/component-device/add`,
         deviceComponent
       );
       set((state) => ({
@@ -120,7 +120,7 @@ const useComponentDeviceStore = create<ComponentDeviceState>((set) => ({
   // Deletes a device-component
   deleteComponent: async (id) => {
     try {
-      await axios.delete(`${Api_Url}/component-device/delete/${id}`);
+      await axios.delete(`${Api_Url}/api/component-device/delete/${id}`);
       set((state) => ({
         deviceComponents: state.deviceComponents.filter(
           (comp) => comp.device_component_id !== id
