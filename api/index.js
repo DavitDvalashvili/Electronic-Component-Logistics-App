@@ -19,10 +19,10 @@ const __dirname = path.dirname(__filename);
 
 app.use(
   cors({
-    origin: "*",
+    origin: ["http://192.168.0.100:8000"],
+    methods: ["GET", "POST", "UPDATE", "DELETE", "PUT"],
   })
 );
-
 // Middleware to parse JSON request bodies
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

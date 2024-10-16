@@ -7,6 +7,7 @@ import { buttonBoxProps } from "../../type";
 import { useComponentStore } from "../../store/componentStore";
 import { useUploadStore } from "../../store/upload";
 import ImageReviewBox from "../component/ImageReviewBox";
+import { MdAddAPhoto } from "react-icons/md";
 import { MdOutlineDelete } from "react-icons/md";
 import { FaSortAmountUpAlt } from "react-icons/fa";
 import { FaRegFileImage } from "react-icons/fa6";
@@ -14,6 +15,7 @@ import { GrUpdate } from "react-icons/gr";
 import { LuFileSpreadsheet } from "react-icons/lu";
 import { useDeviceStore } from "../../store/deviceStore";
 import { useParams } from "react-router-dom";
+import CameraCapture from "../component/CameraCapture";
 
 const SideBarComponent = ({ currentComponent }: buttonBoxProps) => {
   const { id } = useParams();
@@ -22,6 +24,7 @@ const SideBarComponent = ({ currentComponent }: buttonBoxProps) => {
   const [showDelete, setShowDelete] = useState<boolean>(false);
   const [imageReview, setImageReview] = useState<boolean>(false);
   const [imageUrls, setImageUrls] = useState<string>("");
+  const [showCameraCapture, setShowCameraCapture] = useState<boolean>(false);
   const [quantity, setQuantity] = useState<number>(
     currentComponent?.available_quantity
   );
@@ -157,6 +160,34 @@ const SideBarComponent = ({ currentComponent }: buttonBoxProps) => {
           <FaRegFileImage className="text-[16px]" />
           {showSideBar && <span>ფოტოების ატვირთვა</span>}
         </button>
+
+        {/* working area.................................. */}
+
+        <button
+          className="px-2 py-2 text-white rounded-md cursor-pointer text-sm flex justify-start items-start gap-4
+           transition-transform duration-200 hover:shadow-lg hover:scale-110 "
+          onClick={() => {
+            setShowCameraCapture(true);
+          }}
+        >
+          <MdAddAPhoto className="text-[16px]" />
+          {showSideBar && <span>ფოტოების ატვირთვა</span>}
+        </button>
+
+        {showCameraCapture && (
+          <div
+            id="updateQuantity"
+            className="w-full h-full fixed top-0 left-0 bg-blackLight flex justify-center items-center z-20"
+          >
+            <CameraCapture
+              setShowCameraCapture={setShowCameraCapture}
+              component={currentComponent}
+            />
+          </div>
+        )}
+
+        {/* working area..............................*/}
+
         <input
           type="file"
           ref={imageInputRef}

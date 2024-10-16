@@ -20,7 +20,7 @@ export const useUploadStore = create(() => ({
 
       if (response && response.status === 200) {
         const { filenames } = response.data;
-
+        console.log(response.data);
         return filenames.toString();
       } else {
         console.error("Upload failed or response is missing data.");

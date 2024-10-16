@@ -241,6 +241,11 @@ export type imageBoxProps = {
   image_urls: string;
 };
 
+export type imageCaptureProps = {
+  setShowCameraCapture: React.Dispatch<React.SetStateAction<boolean>>;
+  component: component;
+};
+
 export type imageReview = {
   setImageReview: React.Dispatch<React.SetStateAction<boolean>>;
   imageUrls: string;
