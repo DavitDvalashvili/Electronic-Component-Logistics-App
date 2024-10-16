@@ -18,7 +18,7 @@ const GeorgianDatePicker = ({
         <DatePicker
           className="focus:outline-none border-[1px] rounded-sm border-Waiting focus:border-AntarcticDeep pl-1"
           selected={value}
-          onChange={(date) => onChange(date)} // Pass the selected date to onChange
+          onChange={(date) => onChange(date)}
           onBlur={onBlur}
           ref={ref}
           dateFormat="P"
