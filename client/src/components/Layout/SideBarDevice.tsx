@@ -16,6 +16,9 @@ import { GrUpdate } from "react-icons/gr";
 import { SlCalculator } from "react-icons/sl";
 import { IoIosLink } from "react-icons/io";
 import { motion } from "framer-motion";
+import CameraCapture from "../device/CameraCapture";
+import { MdAddAPhoto } from "react-icons/md";
+
 const AsideDevice = ({ currentDevice }: buttonBox) => {
   const { id } = useParams();
   // State management for different popups and modals
@@ -32,6 +35,7 @@ const AsideDevice = ({ currentDevice }: buttonBox) => {
   const [showForm, setShowForm] = useState<boolean>(false);
   const [showAddDevice, setShowAddDevice] = useState<boolean>(false);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const [showCameraCapture, setShowCameraCapture] = useState<boolean>(false);
   const { showSideBar } = useDeviceStore();
 
   const navigate = useNavigate();
@@ -151,6 +155,30 @@ const AsideDevice = ({ currentDevice }: buttonBox) => {
             />
           </div>
         )}
+
+        <button
+          className="px-2 py-2 text-white rounded-md cursor-pointer text-sm flex justify-start items-start gap-4
+           transition-transform duration-200 hover:shadow-lg hover:scale-110 "
+          onClick={() => {
+            setShowCameraCapture(true);
+          }}
+        >
+          <MdAddAPhoto className="text-[16px]" />
+          {showSideBar && <span>ფოტოების ატვირთვა</span>}
+        </button>
+
+        {showCameraCapture && (
+          <div
+            id="updateQuantity"
+            className="w-full h-full fixed top-0 left-0 bg-blackLight flex justify-center items-center z-20"
+          >
+            <CameraCapture
+              setShowCameraCapture={setShowCameraCapture}
+              device={currentDevice}
+            />
+          </div>
+        )}
+
         <button
           className="px-2 py-2 text-white rounded-md cursor-pointer text-sm flex justify-start items-start gap-4
            transition-transform duration-200 hover:shadow-lg hover:scale-110"

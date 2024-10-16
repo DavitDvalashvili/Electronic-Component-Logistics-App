@@ -161,8 +161,6 @@ const SideBarComponent = ({ currentComponent }: buttonBoxProps) => {
           {showSideBar && <span>ფოტოების ატვირთვა</span>}
         </button>
 
-        {/* working area.................................. */}
-
         <button
           className="px-2 py-2 text-white rounded-md cursor-pointer text-sm flex justify-start items-start gap-4
            transition-transform duration-200 hover:shadow-lg hover:scale-110 "
@@ -185,8 +183,6 @@ const SideBarComponent = ({ currentComponent }: buttonBoxProps) => {
             />
           </div>
         )}
-
-        {/* working area..............................*/}
 
         <input
           type="file"

@@ -1,23 +1,23 @@
 import { useState, useRef, useEffect } from "react";
-import { imageCaptureComponent } from "../../type";
+import { imageCaptureDevice } from "../../type";
 import { useUploadStore } from "../../store/upload";
-import { useComponentStore } from "../../store/componentStore";
+import { useDeviceStore } from "../../store/deviceStore";
 
 const CameraCapture = ({
   setShowCameraCapture,
-  component,
-}: imageCaptureComponent) => {
+  device,
+}: imageCaptureDevice) => {
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const [image, setImage] = useState<string | null>(null);
   const streamRef = useRef<MediaStream | null>(null);
   const { uploadImage } = useUploadStore();
-  const { updateComponent, getComponent } = useComponentStore();
+  const { updateDevice, getDevice } = useDeviceStore();
 
   const startCamera = async () => {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-      streamRef.current = stream; // Store the stream
+      streamRef.current = stream;
       if (videoRef.current) {
         videoRef.current.srcObject = stream;
         videoRef.current.play();
@@ -45,15 +45,15 @@ const CameraCapture = ({
   const update = async (imageUrl: string) => {
     try {
       // Update component with new image URLs
-      if (component) {
-        await updateComponent({
-          ...component,
+      if (device) {
+        await updateDevice({
+          ...device,
           images_urls: imageUrl,
         });
         stopCamera();
         setShowCameraCapture(false);
       }
-      await getComponent(`${component.id}`);
+      await getDevice(`${device.id}`);
     } catch (error) {
       console.error("Error updating component:", error);
     }
