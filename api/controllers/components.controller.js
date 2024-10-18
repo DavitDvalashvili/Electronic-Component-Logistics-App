@@ -25,7 +25,17 @@ export const getComponents = (req, res) => {
     paginationClause = " LIMIT ? OFFSET ?";
   }
 
-  let q = "SELECT * FROM components";
+  let q = `
+    SELECT c.*,
+    (
+      SELECT i.image_url
+      FROM images i
+      WHERE i.component_id = c.id
+      LIMIT 1
+    ) AS default_image
+    FROM components c
+
+  `;
   let queryParams = [];
   let conditions = [];
 
@@ -85,6 +95,8 @@ export const getComponents = (req, res) => {
   }
 
   pool.query(q, queryParams, (err, data) => {
+    console.log(data);
+
     if (err) {
       console.error("Database query error:", err);
       return res.status(500).json({ message: "Server error" });
@@ -93,23 +105,65 @@ export const getComponents = (req, res) => {
   });
 };
 
-export const getComponent = (req, res) => {
-  const componentId = req.params.id;
-  const q = "SELECT * FROM components WHERE id = ?";
+export const getComponent = async (req, res) => {
+  const id = req.params.id;
 
-  pool.query(q, [componentId], (err, data) => {
-    if (err) {
-      // Send a generic 500 error response if the database query fails
-      return res.status(500).json({ message: "Server error" });
-    }
-    if (!data || data.length === 0) {
-      // Send a 404 response if no component is found
-      return res.status(404).json({ message: "Component not found!" });
-    }
+  try {
+    const query = `
+      SELECT 
+        c.id,
+        c.family,
+        c.purpose,
+        c.package_type,
+        c.nominal_value,
+        c.electrical_supply,
+        c.unit_cost,
+        c.other_cost,
+        c.invoice_number,
+        c.available_quantity,
+        c.storage_cabinet,
+        c.storage_drawer,
+        c.storage_shelf,
+        c.suppliers_name,
+        c.suppliers_contact_person,
+        c.suppliers_contact_details,
+        c.receipt_date,
+       data_sheet,
+        JSON_ARRAYAGG(
+          JSON_OBJECT(
+            'image_url', i.image_url
+          )
+        ) as images
+      FROM 
+        components c
+      LEFT JOIN 
+        images i ON c.id = i.component_id
+      WHERE 
+        c.id = ?
+      GROUP BY 
+        c.id;
+    `;
 
-    // Send the first item from the data array as a single object
-    return res.status(200).json(data[0]);
-  });
+    const device = await pool.query(query, id, (err, data) => {
+      data[0] = {
+        ...data[0],
+        images: JSON.parse(data[0].images),
+      };
+
+      if (err) {
+        return res.status(500).json({ message: "Server error" });
+      }
+      if (!data || data.length === 0) {
+        return res.status(404).json({ message: "Component not found!" });
+      }
+      return res.status(200).json(data[0]);
+    });
+
+    console.log(device);
+  } catch (error) {
+    console.error("Error fetching component:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
 };
 
 export const addComponent = (req, res) => {
@@ -131,14 +185,8 @@ export const addComponent = (req, res) => {
     suppliers_contact_person,
     suppliers_contact_details,
     receipt_date,
-    images_urls = ["../../public/image.png"],
     data_sheet,
   } = req.body;
-
-  // Convert images_urls array to a JSON string if using JSON column
-  const imagesUrlsString = Array.isArray(images_urls)
-    ? images_urls.join(",")
-    : images_urls;
 
   // SQL query to check if a component with the same name already exists
   const checkNameQuery = "SELECT * FROM components WHERE name = ?";
@@ -157,8 +205,8 @@ export const addComponent = (req, res) => {
     // SQL query to insert a new component if the name does not exist
     const insertQuery = `
       INSERT INTO components 
-      (family, name, purpose, package_type, nominal_value, electrical_supply, unit_cost, other_cost, invoice_number, available_quantity, storage_cabinet, storage_drawer, storage_shelf, suppliers_name, suppliers_contact_person, suppliers_contact_details, receipt_date, images_urls, data_sheet)
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+      (family, name, purpose, package_type, nominal_value, electrical_supply, unit_cost, other_cost, invoice_number, available_quantity, storage_cabinet, storage_drawer, storage_shelf, suppliers_name, suppliers_contact_person, suppliers_contact_details, receipt_date, data_sheet)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
 
     // Array of values to insert
     const values = [
@@ -179,7 +227,6 @@ export const addComponent = (req, res) => {
       suppliers_contact_person,
       suppliers_contact_details,
       receipt_date,
-      imagesUrlsString,
       data_sheet,
     ];
 
@@ -240,7 +287,6 @@ export const updateComponent = (req, res) => {
     suppliers_contact_person,
     suppliers_contact_details,
     receipt_date,
-    images_urls, // Assuming this is already a JSON string or can be stringified
     data_sheet,
   } = req.body;
 
@@ -281,15 +327,8 @@ export const updateComponent = (req, res) => {
         suppliers_contact_person = ?, 
         suppliers_contact_details = ?, 
         receipt_date = ?,
-        images_urls = ?, 
         data_sheet = ?
       WHERE id = ?`;
-
-    // Ensure images_urls is a properly formatted JSON string
-    const imagesUrlsString =
-      typeof images_urls === "string"
-        ? images_urls
-        : JSON.stringify(images_urls);
 
     const values = [
       family,
@@ -309,7 +348,6 @@ export const updateComponent = (req, res) => {
       suppliers_contact_person,
       suppliers_contact_details,
       receipt_date,
-      imagesUrlsString,
       data_sheet,
       componentId,
     ];
