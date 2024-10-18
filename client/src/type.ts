@@ -1,4 +1,4 @@
-import { Control } from "react-hook-form";
+import { Control, FieldValues } from "react-hook-form";
 
 export type component = {
   id: string;
@@ -19,8 +19,17 @@ export type component = {
   suppliers_contact_details: string;
   receipt_date: string;
   invoice_number: string;
-  images_urls: string;
+  default_image: string;
   data_sheet: string;
+  images: image[];
+};
+
+export type image = {
+  image_url: string;
+};
+
+export type swiperWrapperProps = {
+  images: image[];
 };
 
 export type initialStateComponent = {
@@ -84,7 +93,7 @@ type deviceComponentItem = {
   component_id: number;
   device_id: number;
   quantity_per_device: number;
-  //device_component_id: string;
+  device_component_id: string;
 };
 
 export type componentFilterState = {
@@ -183,7 +192,8 @@ export type device = {
   size: string;
   available_quantity: number;
   unit_cost: number;
-  images_urls: string;
+  default_image: string;
+  images: image[];
 };
 
 export type deviceState = {
@@ -237,10 +247,6 @@ export type notFoundProps = {
   name: string;
 };
 
-export type imageBoxProps = {
-  image_urls: string;
-};
-
 export type imageCaptureComponent = {
   setShowCameraCapture: React.Dispatch<React.SetStateAction<boolean>>;
   component: component;
@@ -263,7 +269,13 @@ export type imageReviewDevice = {
   device: device;
 };
 
-export type GeorgianDatePickerProps = {
+export type GeorgianDatePickerProps<T extends FieldValues> = {
   name: string;
-  control: Control<any>;
+  control: Control<T>;
+};
+
+export type imageDataType = {
+  images_urls: string;
+  component_id: string | null;
+  device_id: string | null;
 };

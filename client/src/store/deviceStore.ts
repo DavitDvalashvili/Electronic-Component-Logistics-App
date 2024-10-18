@@ -32,6 +32,7 @@ export const useDeviceStore = create<deviceState>((set) => ({
       const response = await axios.get(`${Api_Url}/api/devices/get/`, {
         params,
       });
+      console.log(response.data);
       set({ devices: response.data, error: "" });
     } catch (error) {
       console.error("Error fetching devices:", error);
@@ -65,6 +66,7 @@ export const useDeviceStore = create<deviceState>((set) => ({
     set({ loading: true });
     try {
       const response = await axios.get(`${Api_Url}/api/devices/get/${id}`);
+      console.log(response.data);
       set({ device: response.data, error: "" });
     } catch (error) {
       set({

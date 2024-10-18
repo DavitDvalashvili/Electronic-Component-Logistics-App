@@ -58,18 +58,16 @@ const Devices = () => {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-5 ">
               {/* Images Column */}
               <div className="flex justify-center items-center">
-                <div className="flex justify-center items-center md:col-span-1 h-[120px] w-[160px]">
-                  {device.images_urls &&
-                    device.images_urls.split(",").length > 0 && (
-                      <img
-                        src={device.images_urls.split(",")[0]}
-                        alt="Component"
-                        className="w-full h-full object-cover rounded"
-                        onError={(e) => {
-                          e.currentTarget.src = "/image.png";
-                        }}
-                      />
-                    )}
+                <div className="flex justify-center items-center md:col-span-1 h-[160px] w-[200px]">
+                  <div
+                    className="w-full h-full"
+                    style={{
+                      backgroundImage: `url(${device.default_image})`,
+                      backgroundSize: "contain",
+                      backgroundRepeat: "no-repeat",
+                      backgroundPosition: "center",
+                    }}
+                  ></div>
                 </div>
               </div>
 

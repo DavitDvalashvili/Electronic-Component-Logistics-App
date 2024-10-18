@@ -48,7 +48,7 @@ const CameraCapture = ({
       if (device) {
         await updateDevice({
           ...device,
-          images_urls: imageUrl,
+          image_url: imageUrl,
         });
         stopCamera();
         setShowCameraCapture(false);

@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useDeviceStore } from "../../store/deviceStore";
 import { motion } from "framer-motion";
 import { useParams } from "react-router-dom";
+import { useUploadStore } from "../../store/upload";
 
 const ImageReviewBox = ({
   imageUrls,
@@ -12,7 +13,8 @@ const ImageReviewBox = ({
   const { id } = useParams();
   // State to hold the parsed image URLs
   const [urls, setUrls] = useState<string[]>([]);
-  const { updateDevice, getDevice } = useDeviceStore();
+  const { getDevice } = useDeviceStore();
+  const { updateImage } = useUploadStore();
 
   useEffect(() => {
     if (typeof imageUrls === "string" && imageUrls.trim() !== "") {
@@ -29,12 +31,13 @@ const ImageReviewBox = ({
   const handleSubmit = async () => {
     try {
       // Update the device with new image URLs if device exists
-      if (device) {
-        await updateDevice({
-          ...device,
-          images_urls: imageUrls,
-        });
-      }
+
+      await updateImage({
+        images_urls: urls.toString(),
+        device_id: device.id,
+        component_id: null,
+      });
+
       await getDevice(`${id}`);
       setImageReview(false);
     } catch (error) {

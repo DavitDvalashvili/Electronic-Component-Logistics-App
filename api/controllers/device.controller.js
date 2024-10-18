@@ -1,7 +1,7 @@
 import pool from "../db/database.js";
 
 // Get all devices with optional search and pagination
-export const getDevices = (req, res) => {
+export const getDevices = async (req, res) => {
   const { search_term, page, name, electrical_supply, size } = req.query;
 
   const pageSize = 10;
@@ -24,7 +24,7 @@ export const getDevices = (req, res) => {
       WHERE i.device_id = d.id
       LIMIT 1
     ) AS default_image
-    FROM components d`;
+    FROM devices d`;
   let queryParams = [];
   let conditions = [];
 
@@ -61,7 +61,7 @@ export const getDevices = (req, res) => {
     queryParams.push(pageSize, offset);
   }
 
-  pool.query(q, queryParams, (err, data) => {
+  await pool.query(q, queryParams, (err, data) => {
     if (err) {
       return res.status(500).json({ message: "Server error" });
     }

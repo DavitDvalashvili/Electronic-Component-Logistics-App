@@ -30,10 +30,10 @@ export const addImages = async (req, res) => {
 
     for (const image_url of urlArr) {
       if (component_id) {
-        insertQuery = `INSERT INTO images (images_urls, component_id) VALUE(?, ?)`;
+        insertQuery = `INSERT INTO images (image_url, component_id) VALUE(?, ?)`;
         queryValues = [image_url, component_id];
       } else if (device_id) {
-        insertQuery = `INSERT INTO images (images_urls, device_id) VALUE(?, ?)`;
+        insertQuery = `INSERT INTO images (image_url, device_id) VALUE(?, ?)`;
         queryValues = [image_url, device_id];
       }
 

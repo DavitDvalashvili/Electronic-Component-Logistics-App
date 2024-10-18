@@ -64,20 +64,15 @@ const Components = () => {
               {/* Images Column */}
               <div className="flex justify-center items-center">
                 <div className="flex justify-center items-center md:col-span-1 h-[160px] w-[200px]">
-                  {component.images_urls &&
-                    component.images_urls.split(",").length > 0 && (
-                      <div
-                        className="w-full h-full"
-                        style={{
-                          backgroundImage: `url(${
-                            component.images_urls.split(",")[0]
-                          })`,
-                          backgroundSize: "contain",
-                          backgroundRepeat: "no-repeat",
-                          backgroundPosition: "center",
-                        }}
-                      ></div>
-                    )}
+                  <div
+                    className="w-full h-full"
+                    style={{
+                      backgroundImage: `url(${component.default_image})`,
+                      backgroundSize: "contain",
+                      backgroundRepeat: "no-repeat",
+                      backgroundPosition: "center",
+                    }}
+                  ></div>
                 </div>
               </div>
 

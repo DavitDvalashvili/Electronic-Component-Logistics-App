@@ -1,14 +1,11 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
-import { imageBoxProps } from "../type";
+import { swiperWrapperProps } from "../type";
 import "swiper/css";
 import "swiper/css/navigation";
 
-const SwiperWrapper = ({ image_urls }: imageBoxProps) => {
-  // Split and trim image URLs into an array
-  const imageArray = image_urls
-    ? image_urls.split(",").map((url) => url.trim())
-    : [];
+const SwiperWrapper = ({ images }: swiperWrapperProps) => {
+  console.log(images);
 
   return (
     <div className="w-full h-full ">
@@ -18,12 +15,12 @@ const SwiperWrapper = ({ image_urls }: imageBoxProps) => {
         modules={[Navigation]}
         className="max-w-6xl rounded-md w-full h-full z-[1]"
       >
-        {imageArray.length > 0 ? (
-          imageArray.map((url, index) => (
+        {images.length > 0 ? (
+          images.map((image, index) => (
             <SwiperSlide key={index}>
               <div
                 style={{
-                  backgroundImage: `url(${url})`,
+                  backgroundImage: `url(${image.image_url})`,
                   backgroundSize: "contain",
                   backgroundRepeat: "no-repeat",
                   backgroundPosition: "center",

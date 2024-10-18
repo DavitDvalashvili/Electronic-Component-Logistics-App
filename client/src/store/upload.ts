@@ -1,11 +1,21 @@
 import axios from "axios";
 import { create } from "zustand";
+import { imageDataType } from "../type";
 
 // Base API URL from environment variables
 const Api_Url = import.meta.env.VITE_API_URL;
 
 // Zustand store for file uploads
 export const useUploadStore = create(() => ({
+  updateImage: async (imageData: imageDataType) => {
+    try {
+      const response = await axios.put(`${Api_Url}/api/addImages`, imageData);
+      console.log(response.data);
+    } catch (error) {
+      console.error("Error adding images:", error);
+    }
+  },
+
   // Upload files and update component images
   uploadImage: async (files: FileList) => {
     if (!files) return;

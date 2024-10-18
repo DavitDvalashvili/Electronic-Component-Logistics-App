@@ -1,6 +1,7 @@
 import { imageReview } from "../../type";
 import { useEffect, useState } from "react";
 import { useComponentStore } from "../../store/componentStore";
+import { useUploadStore } from "../../store/upload";
 import { motion } from "framer-motion";
 import { useParams } from "react-router-dom";
 
@@ -12,7 +13,8 @@ const ImageReviewBox = ({
   // State to store processed image URLs
   const [urls, setUrls] = useState<string[]>([]);
   const { id } = useParams();
-  const { updateComponent, getComponent } = useComponentStore();
+  const { getComponent } = useComponentStore();
+  const { updateImage } = useUploadStore();
 
   useEffect(() => {
     console.log("imageUrls updated:", imageUrls);
@@ -28,13 +30,11 @@ const ImageReviewBox = ({
 
   const handleSubmit = async () => {
     try {
-      // Update component with new image URLs
-      if (component) {
-        await updateComponent({
-          ...component,
-          images_urls: imageUrls,
-        });
-      }
+      await updateImage({
+        images_urls: urls.toString(),
+        component_id: component.id,
+        device_id: null,
+      });
       await getComponent(`${id}`);
       setImageReview(false);
     } catch (error) {
