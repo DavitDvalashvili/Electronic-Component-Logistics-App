@@ -21,21 +21,24 @@ export const uploadPDF = (req, res) => {
 };
 
 export const addImages = async (req, res) => {
-  const { image_url, component_id, device_id } = req.body;
+  const { images_urls, component_id, device_id } = req.body;
 
   try {
+    const urlArr = images_urls.split(",");
     let insertQuery;
     let queryValues;
 
-    if (component_id) {
-      insertQuery = `INSERT INTO images (image_url, component_id) VALUE(?, ?)`;
-      queryValues = [image_url, component_id];
-    } else if (device_id) {
-      insertQuery = `INSERT INTO images (image_url, device_id) VALUE(?, ?)`;
-      queryValues = [image_url, device_id];
-    }
+    for (const image_url of urlArr) {
+      if (component_id) {
+        insertQuery = `INSERT INTO images (images_urls, component_id) VALUE(?, ?)`;
+        queryValues = [image_url, component_id];
+      } else if (device_id) {
+        insertQuery = `INSERT INTO images (images_urls, device_id) VALUE(?, ?)`;
+        queryValues = [image_url, device_id];
+      }
 
-    await pool.query(insertQuery, queryValues);
+      await pool.query(insertQuery, queryValues);
+    }
 
     res.status(201).json({ message: "Images added successfully" });
   } catch (error) {
