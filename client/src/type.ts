@@ -26,10 +26,21 @@ export type component = {
 
 export type image = {
   image_url: string;
+  image_id: string;
+};
+
+export type imageState = {
+  images: image[];
+  updateImage: (imageData: imageDataType) => Promise<void>;
+  uploadImage: (files: FileList) => Promise<string>;
+  deleteImage: (id: string) => Promise<void>;
+  uploadPDF: (file: File) => Promise<string>;
 };
 
 export type swiperWrapperProps = {
   images: image[];
+  id: string;
+  type: string;
 };
 
 export type initialStateComponent = {

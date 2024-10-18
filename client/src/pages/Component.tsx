@@ -31,7 +31,11 @@ const Component = () => {
           >
             <div className="flex justify-center items-center md:col-span-2 xl:col-span-1  ">
               <div className="flex flex-col gap-4 h-[500px] w-full">
-                <ImageBox images={component.images} />
+                <ImageBox
+                  images={component.images}
+                  id={component.id}
+                  type="component"
+                />
               </div>
             </div>
 

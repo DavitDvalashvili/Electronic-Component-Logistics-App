@@ -1,12 +1,15 @@
 import axios from "axios";
 import { create } from "zustand";
-import { imageDataType } from "../type";
+import { imageDataType, imageState } from "../type";
+import { showError, showSuccess } from "../toast/ToastUtils";
 
 // Base API URL from environment variables
 const Api_Url = import.meta.env.VITE_API_URL;
 
 // Zustand store for file uploads
-export const useUploadStore = create(() => ({
+export const useUploadStore = create<imageState>((set) => ({
+  images: [],
+
   updateImage: async (imageData: imageDataType) => {
     try {
       const response = await axios.put(`${Api_Url}/api/addImages`, imageData);
@@ -37,6 +40,19 @@ export const useUploadStore = create(() => ({
       }
     } catch (error) {
       console.error("Error uploading files:", error);
+    }
+  },
+
+  deleteImage: async (id: string) => {
+    try {
+      await axios.delete(`${Api_Url}/api/delete/${id}`);
+      set((state) => ({
+        images: state.images.filter((image) => image.image_id !== id),
+      }));
+      showSuccess("სურათი წარმატებით წაიშალა");
+    } catch (error) {
+      console.error("Error Deleting image", error);
+      showError("შეცდომა სურათის წაშლისას");
     }
   },
 

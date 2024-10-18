@@ -52,9 +52,9 @@ const SideBarComponent = ({ currentComponent }: buttonBoxProps) => {
   };
 
   // Delete component and navigate to components page
-  const handleDelete = () => {
+  const handleDelete = async () => {
     if (currentComponent) {
-      deleteComponent(currentComponent.id);
+      await deleteComponent(currentComponent.id);
       navigate("/components");
     }
   };

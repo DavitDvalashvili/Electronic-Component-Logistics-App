@@ -32,7 +32,7 @@ const Device = () => {
           >
             <div className="flex justify-center items-center md:col-span-2 xl:col-span-1 ">
               <div className="flex flex-col gap-4 h-[500px] w-full ">
-                <ImageBox images={device.images} />
+                <ImageBox images={device.images} id={device.id} type="device" />
               </div>
             </div>
             {/* Information Column 1 */}

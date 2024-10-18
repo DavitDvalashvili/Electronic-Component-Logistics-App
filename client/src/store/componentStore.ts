@@ -71,7 +71,7 @@ export const useComponentStore = create<componentState>((set) => ({
       set({ component: response.data, error: "" });
     } catch (error) {
       if (error instanceof Error) {
-        set({ component: null, error: error.message }); // Handle Error instance
+        set({ component: null, error: error.message });
       } else {
         set({ component: null, error: "Something went wrong" }); // Generic error message
       }

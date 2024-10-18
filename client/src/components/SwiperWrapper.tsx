@@ -1,11 +1,32 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import { swiperWrapperProps } from "../type";
+import { FaDeleteLeft } from "react-icons/fa6";
+import { useState } from "react";
 import "swiper/css";
 import "swiper/css/navigation";
+import DeleteBox from "./DeleteBox";
+import { useUploadStore } from "../store/upload";
+import { useDeviceStore } from "../store/deviceStore";
+import { useComponentStore } from "../store/componentStore";
+//import { useParams } from "react-router-dom";
 
-const SwiperWrapper = ({ images }: swiperWrapperProps) => {
-  console.log(images);
+const SwiperWrapper = ({ images, id, type }: swiperWrapperProps) => {
+  const [showDelete, setShowDelete] = useState<boolean>(false);
+  const [targetImageId, setTargetImageId] = useState<string>("");
+  const { deleteImage } = useUploadStore();
+  const { getDevice } = useDeviceStore();
+  const { getComponent } = useComponentStore();
+
+  const handleDelete = async () => {
+    console.log(targetImageId);
+    await deleteImage(targetImageId);
+    if (id && type === "component") {
+      getComponent(id);
+    } else if (id && type === "device") {
+      getDevice(id);
+    }
+  };
 
   return (
     <div className="w-full h-full ">
@@ -28,7 +49,17 @@ const SwiperWrapper = ({ images }: swiperWrapperProps) => {
                   backgroundPosition: "center",
                 }}
                 className="w-full h-full  "
-              ></div>
+              >
+                {image.image_url && (
+                  <FaDeleteLeft
+                    className=" text-2xl cursor-pointer"
+                    onClick={() => {
+                      setTargetImageId(image.image_id);
+                      setShowDelete(true);
+                    }}
+                  />
+                )}
+              </div>
             </SwiperSlide>
           ))
         ) : (
@@ -37,6 +68,15 @@ const SwiperWrapper = ({ images }: swiperWrapperProps) => {
           </div>
         )}
       </Swiper>
+      {showDelete && (
+        <div className="w-full h-full fixed top-0 left-0 bg-blackLight flex justify-center items-center z-20 ">
+          <DeleteBox
+            setShowDelete={setShowDelete}
+            handleDelete={handleDelete}
+            name="სურათი"
+          />
+        </div>
+      )}
     </div>
   );
 };
