@@ -17,7 +17,14 @@ export const getDevices = (req, res) => {
     paginationClause = " LIMIT ? OFFSET ?";
   }
 
-  let q = "SELECT * FROM devices";
+  let q = `SELECT d.*,
+    (
+      SELECT i.image_url
+      FROM images i
+      WHERE i.device_id = d.id
+      LIMIT 1
+    ) AS default_image
+    FROM components d`;
   let queryParams = [];
   let conditions = [];
 
@@ -62,36 +69,64 @@ export const getDevices = (req, res) => {
   });
 };
 
-// Get a single device by ID
-export const getDevice = (req, res) => {
+export const getDevice = async (req, res) => {
   const id = req.params.id;
-  const q = "SELECT * FROM devices WHERE id = ?";
 
-  pool.query(q, [id], (err, data) => {
-    if (err) {
-      return res.status(500).json({ message: "Server error" });
-    }
-    if (!data || data.length === 0) {
-      return res.status(404).json({ message: "Device not found!" });
-    }
-    return res.status(200).json(data[0]);
-  });
+  try {
+    const query = `
+      SELECT 
+        d.id,
+        d.name,
+        d.purpose,
+        d.electrical_supply,
+        d.size,
+        d.available_quantity,
+        d.unit_cost,
+        JSON_ARRAYAGG(
+          JSON_OBJECT(
+            'image_url', i.image_url
+          )
+        ) as images
+      FROM 
+        devices d
+      LEFT JOIN 
+        images i ON d.id = i.device_id
+      WHERE 
+        d.id = ?
+      GROUP BY 
+        d.id;
+    `;
+
+    const device = await pool.query(query, id, (err, data) => {
+      data[0] = {
+        ...data[0],
+        images: JSON.parse(data[0].images),
+      };
+
+      if (err) {
+        return res.status(500).json({ message: "Server error" });
+      }
+      if (!data || data.length === 0) {
+        return res.status(404).json({ message: "Device not found!" });
+      }
+      return res.status(200).json(data[0]);
+    });
+
+    console.log(device);
+  } catch (error) {
+    console.error("Error fetching device:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
 };
 
 // Add a new device
-export const addDevice = (req, res) => {
-  const {
-    name,
-    purpose,
-    electrical_supply,
-    size,
-    images_urls = ["../../public/image.png"],
-  } = req.body;
+export const addDevice = async (req, res) => {
+  const { name, purpose, electrical_supply, size } = req.body;
 
   // Query to check if a device with the same name already exists
   const checkQuery = `SELECT * FROM devices WHERE name = ?`;
 
-  pool.query(checkQuery, [name], (err, result) => {
+  await pool.query(checkQuery, [name], (err, result) => {
     if (err) {
       console.error("Error checking for existing device:", err);
       return res.status(500).json({ message: "Database error" });
@@ -107,10 +142,10 @@ export const addDevice = (req, res) => {
     // If no device with the same name, proceed to insert the new device
     const insertQuery = `
       INSERT INTO devices 
-      (name, purpose, electrical_supply, size, images_urls)
-      VALUES (?, ?, ?, ?, ?)`;
+      (name, purpose, electrical_supply, size)
+      VALUES (?, ?, ?, ?)`;
 
-    const values = [name, purpose, electrical_supply, size, images_urls];
+    const values = [name, purpose, electrical_supply, size];
 
     pool.query(insertQuery, values, (err, result) => {
       if (err) {
@@ -133,7 +168,6 @@ export const updateDevice = (req, res) => {
     size,
     available_quantity,
     unit_cost,
-    images_urls,
   } = req.body;
 
   // Query to check if another device with the same name already exists (excluding the current device by id)
@@ -161,8 +195,7 @@ export const updateDevice = (req, res) => {
         electrical_supply = ?, 
         size = ?,
         available_quantity = ?,
-        unit_cost = ?,
-        images_urls = ?
+        unit_cost = ?
       WHERE id = ?`;
 
     const values = [
@@ -172,7 +205,6 @@ export const updateDevice = (req, res) => {
       size,
       available_quantity,
       unit_cost,
-      images_urls,
       id,
     ];
 
