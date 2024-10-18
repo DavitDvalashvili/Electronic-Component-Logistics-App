@@ -20,7 +20,9 @@ const SwiperWrapper = ({ images }: swiperWrapperProps) => {
             <SwiperSlide key={index}>
               <div
                 style={{
-                  backgroundImage: `url(${image.image_url})`,
+                  backgroundImage: `url(${
+                    image.image_url || "../../public/image.png"
+                  })`,
                   backgroundSize: "contain",
                   backgroundRepeat: "no-repeat",
                   backgroundPosition: "center",

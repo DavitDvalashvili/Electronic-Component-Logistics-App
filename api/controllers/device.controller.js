@@ -83,8 +83,9 @@ export const getDevice = async (req, res) => {
         d.available_quantity,
         d.unit_cost,
         JSON_ARRAYAGG(
-          JSON_OBJECT(
-            'image_url', i.image_url
+         JSON_OBJECT(
+            'image_url', i.image_url,
+            'image_id', i.id
           )
         ) as images
       FROM 
@@ -224,12 +225,12 @@ export const updateDevice = (req, res) => {
 };
 
 // Delete a device by ID
-export const deleteDevice = (req, res) => {
+export const deleteDevice = async (req, res) => {
   const deviceId = req.params.id;
 
   const q = `DELETE FROM devices WHERE id = ?`;
 
-  pool.query(q, [deviceId], (err, result) => {
+  await pool.query(q, [deviceId], (err, result) => {
     if (err) {
       console.error(err);
       return res.status(500).json({ error: "Failed to delete device" });

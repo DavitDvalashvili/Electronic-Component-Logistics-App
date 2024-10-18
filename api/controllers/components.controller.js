@@ -131,7 +131,8 @@ export const getComponent = async (req, res) => {
        data_sheet,
         JSON_ARRAYAGG(
           JSON_OBJECT(
-            'image_url', i.image_url
+            'image_url', i.image_url,
+            'image_id', i.id
           )
         ) as images
       FROM 

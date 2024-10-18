@@ -67,7 +67,9 @@ const Components = () => {
                   <div
                     className="w-full h-full"
                     style={{
-                      backgroundImage: `url(${component.default_image})`,
+                      backgroundImage: `url(${
+                        component.default_image || "../../public/image.png"
+                      })`,
                       backgroundSize: "contain",
                       backgroundRepeat: "no-repeat",
                       backgroundPosition: "center",

@@ -11,8 +11,8 @@ const CameraCapture = ({
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const [image, setImage] = useState<string | null>(null);
   const streamRef = useRef<MediaStream | null>(null);
-  const { uploadImage } = useUploadStore();
-  const { updateDevice, getDevice } = useDeviceStore();
+  const { uploadImage, updateImage } = useUploadStore();
+  const { getDevice } = useDeviceStore();
 
   const startCamera = async () => {
     try {
@@ -46,9 +46,10 @@ const CameraCapture = ({
     try {
       // Update component with new image URLs
       if (device) {
-        await updateDevice({
-          ...device,
-          image_url: imageUrl,
+        await updateImage({
+          images_urls: imageUrl,
+          component_id: null,
+          device_id: device.id,
         });
         stopCamera();
         setShowCameraCapture(false);

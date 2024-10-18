@@ -62,7 +62,9 @@ const Devices = () => {
                   <div
                     className="w-full h-full"
                     style={{
-                      backgroundImage: `url(${device.default_image})`,
+                      backgroundImage: `url(${
+                        device.default_image || "../../public/image.png"
+                      })`,
                       backgroundSize: "contain",
                       backgroundRepeat: "no-repeat",
                       backgroundPosition: "center",

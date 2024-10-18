@@ -46,3 +46,22 @@ export const addImages = async (req, res) => {
     res.status(500).json({ message: "Server Error" });
   }
 };
+
+export const deleteImage = async (req, res) => {
+  const imageId = req.params.id;
+
+  const q = `DELETE FROM images WHERE id = ?`;
+
+  await pool.query(q, imageId, (error, result) => {
+    if (error) {
+      console.error(error);
+      return res.status(500).json({ error: "Failed to delete image" });
+    }
+
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ error: "Image not found" });
+    }
+
+    return res.status(200).json({ message: "Image deleted successfully" });
+  });
+};
