@@ -112,8 +112,6 @@ export const getDevice = async (req, res) => {
       }
       return res.status(200).json(data[0]);
     });
-
-    console.log(device);
   } catch (error) {
     console.error("Error fetching device:", error);
     res.status(500).json({ error: "Internal server error" });

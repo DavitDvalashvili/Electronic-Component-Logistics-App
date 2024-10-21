@@ -130,7 +130,7 @@ export const DeleteComponentDevice = async (req, res) => {
 
   pool.query(q, [id], (error, result) => {
     if (error) {
-      console.log(error);
+      console.error(error);
       return res
         .status(500)
         .json({ error: "Failed to delete device-component" });

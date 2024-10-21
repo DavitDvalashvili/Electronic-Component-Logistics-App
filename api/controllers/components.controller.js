@@ -95,8 +95,6 @@ export const getComponents = (req, res) => {
   }
 
   pool.query(q, queryParams, (err, data) => {
-    console.log(data);
-
     if (err) {
       console.error("Database query error:", err);
       return res.status(500).json({ message: "Server error" });
@@ -159,8 +157,6 @@ export const getComponent = async (req, res) => {
       }
       return res.status(200).json(data[0]);
     });
-
-    console.log(device);
   } catch (error) {
     console.error("Error fetching component:", error);
     res.status(500).json({ error: "Internal server error" });

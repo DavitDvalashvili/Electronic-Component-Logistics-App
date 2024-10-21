@@ -12,7 +12,10 @@ export const useUploadStore = create<imageState>((set) => ({
 
   updateImage: async (imageData: imageDataType) => {
     try {
-      const response = await axios.put(`${Api_Url}/api/addImages`, imageData);
+      const response = await axios.put(
+        `${Api_Url}/api/file/addImages`,
+        imageData
+      );
       console.log(response.data);
     } catch (error) {
       console.error("Error adding images:", error);
@@ -29,7 +32,10 @@ export const useUploadStore = create<imageState>((set) => ({
     }
 
     try {
-      const response = await axios.post(`${Api_Url}/api/uploadImage`, formData);
+      const response = await axios.post(
+        `${Api_Url}/api/file/uploadImage`,
+        formData
+      );
 
       if (response && response.status === 200) {
         const { filenames } = response.data;
@@ -45,7 +51,7 @@ export const useUploadStore = create<imageState>((set) => ({
 
   deleteImage: async (id: string) => {
     try {
-      await axios.delete(`${Api_Url}/api/delete/${id}`);
+      await axios.delete(`${Api_Url}/api/file/deleteImage/${id}`);
       set((state) => ({
         images: state.images.filter((image) => image.image_id !== id),
       }));
@@ -64,7 +70,10 @@ export const useUploadStore = create<imageState>((set) => ({
     formData.append("file", file);
 
     try {
-      const response = await axios.post(`${Api_Url}/api/uploadPDF`, formData);
+      const response = await axios.post(
+        `${Api_Url}/api/file/uploadPDF`,
+        formData
+      );
 
       if (response && response.status === 200) {
         const { filename } = response.data;

@@ -5,7 +5,7 @@ import {
   uploadPDF as uploadPDFController,
   addImages,
   deleteImage,
-} from "../controllers/upload.controller.js";
+} from "../controllers/file.controller.js";
 import {
   uploadImage as uploadImageMiddleware,
   uploadPDF as uploadPDFMiddleware,
@@ -13,9 +13,9 @@ import {
 
 const router = express.Router();
 
-router.post("/uploadImage", uploadImageMiddleware, uploadImagesController);
-router.post("/uploadPDF", uploadPDFMiddleware, uploadPDFController);
-router.put("/addImages", addImages);
-router.delete("/delete/:id", deleteImage);
+router.post("/file/uploadImage", uploadImageMiddleware, uploadImagesController);
+router.post("/file/uploadPDF", uploadPDFMiddleware, uploadPDFController);
+router.put("/file/addImages", addImages);
+router.delete("/file/deleteImage/:id", deleteImage);
 
 export default router;
