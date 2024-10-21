@@ -16,9 +16,11 @@ export const useUploadStore = create<imageState>((set) => ({
         `${Api_Url}/api/file/addImages`,
         imageData
       );
-      console.log(response.data);
+      showSuccess("სურათი წარმატებით აიტვირთა");
+      return response.data;
     } catch (error) {
       console.error("Error adding images:", error);
+      showError("შეცდომა სურათის ატვირთვისას");
     }
   },
 
@@ -39,7 +41,6 @@ export const useUploadStore = create<imageState>((set) => ({
 
       if (response && response.status === 200) {
         const { filenames } = response.data;
-        console.log(response.data);
         return filenames.toString();
       } else {
         console.error("Upload failed or response is missing data.");

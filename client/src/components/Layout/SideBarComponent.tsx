@@ -5,7 +5,7 @@ import Form from "../component/Form";
 import DeleteBox from "../DeleteBox";
 import { buttonBoxProps } from "../../type";
 import { useComponentStore } from "../../store/componentStore";
-import { useUploadStore } from "../../store/upload";
+import { useUploadStore } from "../../store/files";
 import ImageReviewBox from "../component/ImageReviewBox";
 import { MdAddAPhoto } from "react-icons/md";
 import { MdOutlineDelete } from "react-icons/md";

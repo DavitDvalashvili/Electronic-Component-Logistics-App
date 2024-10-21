@@ -6,7 +6,7 @@ import Calculator from "../device/Calculator";
 import DeleteBox from "../DeleteBox";
 import { buttonBox } from "../../type";
 import { useDeviceStore } from "../../store/deviceStore";
-import { useUploadStore } from "../../store/upload";
+import { useUploadStore } from "../../store/files";
 import ImageReviewBox from "../device/ImageReviewBox";
 import AddComponent from "../device/LinkComponent";
 import { MdOutlineDelete } from "react-icons/md";

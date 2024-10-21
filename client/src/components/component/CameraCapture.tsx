@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { imageCaptureComponent } from "../../type";
-import { useUploadStore } from "../../store/upload";
+import { useUploadStore } from "../../store/files";
 import { useComponentStore } from "../../store/componentStore";
 
 const CameraCapture = ({
@@ -54,7 +54,9 @@ const CameraCapture = ({
         stopCamera();
         setShowCameraCapture(false);
       }
-      await getComponent(`${component.id}`);
+      setTimeout(() => {
+        getComponent(`${component.id}`);
+      }, 200);
     } catch (error) {
       console.error("Error updating component:", error);
     }

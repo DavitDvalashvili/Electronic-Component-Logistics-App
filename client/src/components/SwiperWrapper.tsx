@@ -5,7 +5,7 @@ import { useState } from "react";
 import "swiper/css";
 import "swiper/css/navigation";
 import DeleteBox from "./DeleteBox";
-import { useUploadStore } from "../store/upload";
+import { useUploadStore } from "../store/files";
 import { useDeviceStore } from "../store/deviceStore";
 import { useComponentStore } from "../store/componentStore";
 //import { useParams } from "react-router-dom";

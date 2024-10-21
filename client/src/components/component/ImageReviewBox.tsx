@@ -1,7 +1,7 @@
 import { imageReview } from "../../type";
 import { useEffect, useState } from "react";
 import { useComponentStore } from "../../store/componentStore";
-import { useUploadStore } from "../../store/upload";
+import { useUploadStore } from "../../store/files";
 import { motion } from "framer-motion";
 import { useParams } from "react-router-dom";
 
@@ -17,7 +17,6 @@ const ImageReviewBox = ({
   const { updateImage } = useUploadStore();
 
   useEffect(() => {
-    console.log("imageUrls updated:", imageUrls);
     if (typeof imageUrls === "string" && imageUrls.trim() !== "") {
       // Split and trim image URLs from the string
       const newUrls = imageUrls.split(",").map((url) => url.trim());
@@ -35,7 +34,10 @@ const ImageReviewBox = ({
         component_id: component.id,
         device_id: null,
       });
-      await getComponent(`${id}`);
+      setTimeout(() => {
+        getComponent(`${id}`);
+      }, 200);
+
       setImageReview(false);
     } catch (error) {
       console.error("Error updating component:", error);

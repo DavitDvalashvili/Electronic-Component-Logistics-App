@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useDeviceStore } from "../../store/deviceStore";
 import { motion } from "framer-motion";
 import { useParams } from "react-router-dom";
-import { useUploadStore } from "../../store/upload";
+import { useUploadStore } from "../../store/files";
 
 const ImageReviewBox = ({
   imageUrls,
@@ -37,8 +37,10 @@ const ImageReviewBox = ({
         device_id: device.id,
         component_id: null,
       });
+      setTimeout(() => {
+        getDevice(`${id}`);
+      }, 200);
 
-      await getDevice(`${id}`);
       setImageReview(false);
     } catch (error) {
       console.error("Error updating component:", error);
