@@ -1,7 +1,6 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import { swiperWrapperProps } from "../type";
-import { FaDeleteLeft } from "react-icons/fa6";
 import { useState } from "react";
 import "swiper/css";
 import "swiper/css/navigation";
@@ -51,13 +50,15 @@ const SwiperWrapper = ({ images, id, type }: swiperWrapperProps) => {
                 className="w-full h-full  "
               >
                 {image.image_url && (
-                  <FaDeleteLeft
-                    className=" text-2xl cursor-pointer"
+                  <button
+                    className="px-4 py-2 bg-ChinChinCherry text-white rounded-md cursor-pointer text-sm"
                     onClick={() => {
                       setTargetImageId(image.image_id);
                       setShowDelete(true);
                     }}
-                  />
+                  >
+                    ფოტოს წაშლა
+                  </button>
                 )}
               </div>
             </SwiperSlide>

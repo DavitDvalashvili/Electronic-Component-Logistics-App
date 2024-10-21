@@ -53,8 +53,8 @@ const CameraCapture = ({
         });
         stopCamera();
         setShowCameraCapture(false);
+        await getDevice(`${device.id}`);
       }
-      await getDevice(`${device.id}`);
     } catch (error) {
       console.error("Error updating component:", error);
     }

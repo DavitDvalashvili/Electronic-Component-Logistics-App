@@ -17,7 +17,7 @@ const __dirname = path.dirname(__filename);
 
 app.use(
   cors({
-    origin: ["http://192.168.0.101:8000"],
+    origin: ["http://192.168.0.102:8000"],
     methods: ["GET", "POST", "UPDATE", "DELETE", "PUT"],
   })
 );
