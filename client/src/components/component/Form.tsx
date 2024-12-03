@@ -4,7 +4,7 @@ import { useComponentStore } from "../../store/componentStore";
 import { formProps } from "../../type";
 import { useEffect } from "react";
 import { motion } from "framer-motion";
-import GeorgianDatePicker from "./DatePicker";
+// import GeorgianDatePicker from "./DatePicker";
 import { useParams } from "react-router-dom";
 import { useComponentFilterStore } from "../../store/filterStore";
 
@@ -26,7 +26,7 @@ const Form = ({ setShowForm, status }: formProps) => {
   const {
     register,
     handleSubmit,
-    control,
+    // control,
     formState: { errors },
     setValue,
   } = useForm<component>();
@@ -335,7 +335,7 @@ const Form = ({ setShowForm, status }: formProps) => {
                 <span className="text-[10px] text-ChinChinCherry h-4">
                   {errors.receipt_date?.message}
                 </span>
-                <GeorgianDatePicker control={control} name="receipt_date" />
+                {/* <GeorgianDatePicker control={control} name="receipt_date" /> */}
               </div>
             </div>
             {/* 13 */}

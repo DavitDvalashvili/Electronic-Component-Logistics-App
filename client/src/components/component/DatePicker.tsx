@@ -1,15 +1,13 @@
 import DatePicker, { registerLocale } from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { Controller } from "react-hook-form";
+import { Controller, FieldValues } from "react-hook-form";
 import { Locale } from "date-fns";
 import ka from "date-fns/locale/ka";
 import { GeorgianDatePickerProps } from "../../type";
+import React from "react";
 registerLocale("ka", ka as Locale);
 
-const GeorgianDatePicker = ({
-  name,
-  control,
-}: GeorgianDatePickerProps): JSX.Element => {
+const GeorgianDatePicker:React.FC<GeorgianDatePickerProps<FieldValues>> = ({ name, control}): JSX.Element => {
   return (
     <Controller
       name={name}

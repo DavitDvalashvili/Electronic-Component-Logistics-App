@@ -103,41 +103,57 @@ const CameraCapture = ({
 
   return (
     <div className="bg-white text-AntarcticDeep p-10 rounded-md text-lg">
-      <video
-        ref={videoRef}
-        width="650"
-        height="500"
-        className={`${image ? "hidden" : "block"} border-[0.5px border-white`}
-      ></video>
-      <canvas
-        ref={canvasRef}
-        width="650"
-        height="487.5"
-        className={`${image ? "block" : "hidden"} border-[0.5px border-white `}
-      ></canvas>
+      {streamRef.current ? (
+        <>
+          <video
+            ref={videoRef}
+            width="650"
+            height="500"
+            className={`${
+              image ? "hidden" : "block"
+            } border-[0.5px border-white`}
+          ></video>
+          <canvas
+            ref={canvasRef}
+            width="650"
+            height="487.5"
+            className={`${
+              image ? "block" : "hidden"
+            } border-[0.5px border-white `}
+          ></canvas>
+        </>
+      ) : (
+        <div>კამერა არ არის დაკავშირებული</div>
+      )}
+
       <div className="mt-5 flex justify-center gap-5">
-        <button
-          className="px-2 py-2 text-white rounded-md cursor-pointer text-sm flex justify-start items-start gap-4
+        {streamRef.current && (
+          <>
+            <button
+              className="px-2 py-2 text-white rounded-md cursor-pointer text-sm flex justify-start items-start gap-4
            transition-transform duration-200 hover:shadow-lg hover:scale-110 bg-NorthAtlanticBreeze"
-          onClick={() => {
-            if (!image) {
-              takePicture();
-            } else {
-              setImage(null);
-            }
-          }}
-        >
-          {image ? "ხელახლა ცდა" : "ფოტოს გადაღება"}
-        </button>
-        <button
-          className="px-2 py-2 text-white rounded-md cursor-pointer text-sm flex justify-start items-start gap-4
+              onClick={() => {
+                if (!image) {
+                  takePicture();
+                } else {
+                  setImage(null);
+                }
+              }}
+            >
+              {image ? "ხელახლა ცდა" : "ფოტოს გადაღება"}
+            </button>
+            <button
+              className="px-2 py-2 text-white rounded-md cursor-pointer text-sm flex justify-start items-start gap-4
            transition-transform duration-200 hover:shadow-lg hover:scale-110 bg-green"
-          onClick={() => {
-            upload();
-          }}
-        >
-          შენახვა
-        </button>
+              onClick={() => {
+                upload();
+              }}
+            >
+              შენახვა
+            </button>
+          </>
+        )}
+
         <button
           onClick={() => {
             stopCamera();

@@ -7,6 +7,9 @@ import { scrollModePlugin } from "@react-pdf-viewer/scroll-mode";
 import { defaultLayoutPlugin } from "@react-pdf-viewer/default-layout";
 import { useComponentStore } from "../../store/componentStore";
 
+// Base API URL from environment variables
+const Api_Url = import.meta.env.VITE_API_URL;
+
 const PdfViewer = () => {
   // Initialize PDF viewer plugins
   const pageNavigationPluginInstance = pageNavigationPlugin();
@@ -21,7 +24,7 @@ const PdfViewer = () => {
   return (
     <div className="h-[780px] mx-auto max-w-6xl border border-gray-300 rounded-lg shadow-md">
       <Viewer
-        fileUrl={component?.data_sheet}
+        fileUrl={`${Api_Url}${component?.data_sheet}`}
         plugins={[
           pageNavigationPluginInstance,
           getFilePluginInstance,

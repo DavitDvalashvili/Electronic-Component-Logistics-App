@@ -104,6 +104,7 @@ type deviceComponentItem = {
   component_id: number;
   device_id: number;
   quantity_per_device: number;
+  device_component_id?: string;
 };
 
 export type componentFilterState = {
@@ -123,6 +124,11 @@ export type componentFilterState = {
 
 export type OptionItem = {
   [key: string]: string;
+};
+
+export type option = {
+  value: string;
+  label: string;
 };
 
 export type CustomSelectComponentProps = {

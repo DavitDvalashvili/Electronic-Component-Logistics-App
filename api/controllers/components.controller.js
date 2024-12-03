@@ -110,6 +110,7 @@ export const getComponent = async (req, res) => {
     const query = `
       SELECT 
         c.id,
+        c.name,
         c.family,
         c.purpose,
         c.package_type,
@@ -286,6 +287,7 @@ export const updateComponent = (req, res) => {
     receipt_date,
     data_sheet,
   } = req.body;
+
 
   // Query to check if another component with the same name exists
   const checkQuery = `SELECT * FROM components WHERE name = ? AND id != ?`;

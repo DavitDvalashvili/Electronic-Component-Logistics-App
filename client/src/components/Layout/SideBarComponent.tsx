@@ -41,6 +41,7 @@ const SideBarComponent = ({ currentComponent }: buttonBoxProps) => {
 
   // Update component quantity
   const handleClick = async () => {
+    console.log(`tets - ${currentComponent.name}`)
     if (currentComponent) {
       await updateComponent({
         ...currentComponent,

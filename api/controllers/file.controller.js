@@ -16,7 +16,7 @@ export const uploadImage = (req, res) => {
 export const uploadPDF = (req, res) => {
   const file = req.file;
   if (file) {
-    const fileName = `/dataSheet/${file.filename}`;
+    const fileName = `/files/dataSheet/${file.filename}`;
     res.status(200).json({ filename: fileName });
   } else {
     res.status(400).json({ error: "No file uploaded" });
@@ -93,11 +93,14 @@ export const deleteImage = (req, res) => {
       const __dirname = path.dirname(__filename);
 
       // Correctly join paths, ensuring no double slashes
+
       const fullImagePath = path.normalize(
-        path.join(__dirname, "..", "..", "client", "public", imagePath)
+        path.join(__dirname, "..", "files", imagePath)
       );
 
-      // Delete the file using fs.unlink
+      console.log(fullImagePath);
+
+      //Delete the file using fs.unlink
       fs.unlink(fullImagePath, (err) => {
         if (err) {
           console.error("File deletion error: ", err);

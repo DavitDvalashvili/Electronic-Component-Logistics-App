@@ -8,7 +8,11 @@ import DeleteBox from "./DeleteBox";
 import { useUploadStore } from "../store/files";
 import { useDeviceStore } from "../store/deviceStore";
 import { useComponentStore } from "../store/componentStore";
-//import { useParams } from "react-router-dom";
+
+
+
+// Base API URL from environment variables
+const Api_Url = import.meta.env.VITE_API_URL;
 
 const SwiperWrapper = ({ images, id, type }: swiperWrapperProps) => {
   const [showDelete, setShowDelete] = useState<boolean>(false);
@@ -40,9 +44,7 @@ const SwiperWrapper = ({ images, id, type }: swiperWrapperProps) => {
             <SwiperSlide key={index}>
               <div
                 style={{
-                  backgroundImage: `url(${
-                    image.image_url || "../../public/image.png"
-                  })`,
+                  backgroundImage: `url(${image.image_url ? Api_Url + "/files" + image.image_url : "/image.png"})`,
                   backgroundSize: "contain",
                   backgroundRepeat: "no-repeat",
                   backgroundPosition: "center",

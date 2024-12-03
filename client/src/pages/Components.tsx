@@ -8,6 +8,11 @@ import CustomLoader from "../components/CustomLoader";
 import NotFound from "../components/NotFound";
 import { useComponentFilterStore } from "../store/filterStore";
 
+
+// Base API URL from environment variables
+const Api_Url = import.meta.env.VITE_API_URL;
+
+
 const Components = () => {
   // Access state and actions from component store
   const { components, updateComponent, loading, error, getComponents } =
@@ -67,9 +72,7 @@ const Components = () => {
                   <div
                     className="w-full h-full"
                     style={{
-                      backgroundImage: `url(${
-                        component.default_image || "../../public/image.png"
-                      })`,
+                      backgroundImage: `url(${component.default_image ? Api_Url + "/files" + component.default_image : "/image.png"})`,
                       backgroundSize: "contain",
                       backgroundRepeat: "no-repeat",
                       backgroundPosition: "center",

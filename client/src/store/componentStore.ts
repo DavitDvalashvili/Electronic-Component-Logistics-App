@@ -68,12 +68,13 @@ export const useComponentStore = create<componentState>((set) => ({
     set({ loading: true });
     try {
       const response = await axios.get(`${Api_Url}/api/components/get/${id}`);
+      console.log(response.data)
       set({ component: response.data, error: "" });
     } catch (error) {
       if (error instanceof Error) {
         set({ component: null, error: error.message });
       } else {
-        set({ component: null, error: "Something went wrong" }); // Generic error message
+        set({ component: null, error: "Something went wrong" }); 
       }
     } finally {
       set({ loading: false });

@@ -8,6 +8,11 @@ import NotFound from "../components/NotFound";
 import CustomLoader from "../components/CustomLoader";
 import { useDeviceFilterStore } from "../store/filterStore";
 
+
+// Base API URL from environment variables
+const Api_Url = import.meta.env.VITE_API_URL;
+
+
 const Devices = () => {
   // Access devices data, update function, toggle function, and loading/error states from device store
   const { devices, updateDevice, getDevices, error, loading } =
@@ -62,9 +67,7 @@ const Devices = () => {
                   <div
                     className="w-full h-full"
                     style={{
-                      backgroundImage: `url(${
-                        device.default_image || "../../public/image.png"
-                      })`,
+                      backgroundImage: `url(${device.default_image ? Api_Url + "/files" + device.default_image : "/image.png"})`,
                       backgroundSize: "contain",
                       backgroundRepeat: "no-repeat",
                       backgroundPosition: "center",
