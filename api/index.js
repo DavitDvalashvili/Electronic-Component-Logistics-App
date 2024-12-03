@@ -17,7 +17,7 @@ const __dirname = path.dirname(__filename);
 
 app.use(
   cors({
-    origin: ["http://192.168.0.102:8000"],
+    // origin: ["http://192.168.0.105, http://localhost:5173"],
     methods: ["GET", "POST", "UPDATE", "DELETE", "PUT"],
   })
 );
@@ -34,7 +34,7 @@ app.listen(PORT, () => {
   console.log(`Server is listening on port ${PORT}`);
 });
 
-// express.static("/images", "images")
+app.use("/files", express.static("files"));
 app.use("/api/components/", component_router);
 app.use("/api/devices/", device_router);
 app.use("/api/filter-options/", filter_option_router);
